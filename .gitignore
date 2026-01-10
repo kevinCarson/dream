@@ -9,3 +9,5 @@ src/*.so
 src/*.dll
 .httr-oauth
 .quarto
+cran-comments.md
+
