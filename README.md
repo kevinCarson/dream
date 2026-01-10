@@ -12,6 +12,7 @@ status](https://github.com/kevinCarson/dream/workflows/R-CMD-check/badge.svg)](h
 [![CRAN
 checks](https://badges.cranchecks.info/summary/dream.svg)](https://cran.r-project.org/web/checks/check_results_dream.html)
 
+[![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of dream is to …
