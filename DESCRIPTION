@@ -21,3 +21,5 @@ Imports:
     doParallel,
     Rcpp
 LinkingTo: Rcpp
+URL: https://github.com/kevinCarson/dream
+BugReports: https://github.com/kevinCarson/dream/issues
