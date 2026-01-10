@@ -1,0 +1,23 @@
+* installing *source* package ‘redr’ ...
+** using staged installation
+** R
+** data
+** byte-compile and prepare package for lazy loading
+Warning: replacing previous import ‘collapse::fdroplevels’ by ‘data.table::fdroplevels’ when loading ‘redr’
+Warning: replacing previous import ‘collapse::fmatch’ by ‘fastmatch::fmatch’ when loading ‘redr’
+Note: next used in wrong context: no loop is visible at onemode_Constraint.R:128 
+Note: next used in wrong context: no loop is visible at onemode_Constraint.R:133 
+Note: next used in wrong context: no loop is visible at onemode_EffectiveSize.R:142 
+Note: next used in wrong context: no loop is visible at onemode_EffectiveSize.R:147 
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+Warning: replacing previous import ‘collapse::fdroplevels’ by ‘data.table::fdroplevels’ when loading ‘redr’
+Warning: replacing previous import ‘collapse::fmatch’ by ‘fastmatch::fmatch’ when loading ‘redr’
+** testing if installed package can be loaded from final location
+Warning: replacing previous import ‘collapse::fdroplevels’ by ‘data.table::fdroplevels’ when loading ‘redr’
+Warning: replacing previous import ‘collapse::fmatch’ by ‘fastmatch::fmatch’ when loading ‘redr’
+** testing if installed package keeps a record of temporary installation path
+* DONE (redr)

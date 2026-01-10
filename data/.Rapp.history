@@ -1,0 +1,7 @@
+load("/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/data/WikiEvent2018.rda")
+load("/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/data/WikiEvent2018.first100k.rda")
+ls()
+lappply(WikiEvent2018.first100k, typeof)
+lapply(WikiEvent2018.first100k, typeof)
+load("/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/data/southern.women.rda")
+load("/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/data/southern.women.rda")

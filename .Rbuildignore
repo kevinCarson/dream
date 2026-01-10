@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LargeRelationalStats\.Rproj$
+^README\.Rmd$
+^LICENSE\.md$
+^cran-comments\.md$

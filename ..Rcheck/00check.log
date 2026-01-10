@@ -1,0 +1,834 @@
+* using log directory ‘/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/..Rcheck’
+* using R version 4.4.1 (2024-06-14)
+* using platform: aarch64-apple-darwin20
+* R was compiled by
+    Apple clang version 14.0.0 (clang-1400.0.29.202)
+    GNU Fortran (GCC) 12.2.0
+* running under: macOS Sonoma 14.5
+* using session charset: UTF-8
+* checking for file ‘./DESCRIPTION’ ... OK
+* this is package ‘redr’ version ‘0.0.0.9000’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .DS_Store
+  .Rhistory
+  .gitignore
+  R/.DS_Store
+  R/.Rhistory
+  data/.Rapp.history
+  data/.Rhistory
+  docs/.DS_Store
+  docs/reference/.DS_Store
+  man/.DS_Store
+  ..Rcheck
+  .Rproj.user
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+* checking for portable file names ... NOTE
+Found the following non-portable file path:
+  redr/.Rproj.user/shared/notebooks/0C514911-Logistic_Regression_Linear_In_Logits_061025/1/s/chunks.json
+
+Tarballs are only required to store paths of up to 100 bytes and cannot
+store those of more than 256 bytes, with restrictions including to 100
+bytes for the final component.
+See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘redr’ can be installed ... WARNING
+Found the following significant warnings:
+  Note: next used in wrong context: no loop is visible at onemode_Constraint.R:128 
+  Note: next used in wrong context: no loop is visible at onemode_Constraint.R:133 
+  Note: next used in wrong context: no loop is visible at onemode_EffectiveSize.R:142 
+  Note: next used in wrong context: no loop is visible at onemode_EffectiveSize.R:147 
+  Warning: replacing previous import ‘collapse::fdroplevels’ by ‘data.table::fdroplevels’ when loading ‘redr’
+  Warning: replacing previous import ‘collapse::fmatch’ by ‘fastmatch::fmatch’ when loading ‘redr’
+See ‘/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/..Rcheck/00install.out’ for details.
+Information on the location(s) of code generating the ‘Note’s can be
+obtained by re-running with environment variable R_KEEP_PKG_SOURCE set
+to ‘yes’.
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Checking should be performed on sources prepared by ‘R CMD build’.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... WARNING
+Found the following directory with the name of a check directory:
+  ./..Rcheck
+Most likely, these were included erroneously.
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... NOTE
+There are ::: calls to the package's namespace in its code. A package
+  almost never needs to use ::: for its own objects:
+  ‘minimum_effective_time’ ‘weight’
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+rem.simulate: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_simulate.R:281)
+rem.simulate: no visible binding for global variable ‘target’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_simulate.R:281)
+rem.simulate: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_simulate.R:556)
+rem.simulate: no visible binding for global variable ‘target’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_simulate.R:556)
+rem.stat.ISP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:278)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:280)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:282)
+rem.stat.ISP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:284)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:284)
+rem.stat.ISP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:285)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:287)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:289)
+rem.stat.ISP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:291)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:291)
+rem.stat.ISP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:292)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:292)
+rem.stat.ISP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:294)
+rem.stat.ISP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:295)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:295)
+rem.stat.ISP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:297)
+rem.stat.ISP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:384)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:386)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:388)
+rem.stat.ISP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:390)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:390)
+rem.stat.ISP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:391)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:393)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:395)
+rem.stat.ISP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:397)
+rem.stat.ISP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:397)
+rem.stat.ISP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:398)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:398)
+rem.stat.ISP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:400)
+rem.stat.ISP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:401)
+rem.stat.ISP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:401)
+rem.stat.ISP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingsharedpartners.R:403)
+rem.stat.ITP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:278)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:280)
+rem.stat.ITP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:282)
+rem.stat.ITP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:284)
+rem.stat.ITP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:284)
+rem.stat.ITP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:285)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:287)
+rem.stat.ITP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:289)
+rem.stat.ITP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:291)
+rem.stat.ITP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:291)
+rem.stat.ITP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:292)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:292)
+rem.stat.ITP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:294)
+rem.stat.ITP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:295)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:295)
+rem.stat.ITP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:297)
+rem.stat.ITP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:384)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:386)
+rem.stat.ITP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:388)
+rem.stat.ITP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:390)
+rem.stat.ITP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:390)
+rem.stat.ITP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:391)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:393)
+rem.stat.ITP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:395)
+rem.stat.ITP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:397)
+rem.stat.ITP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:397)
+rem.stat.ITP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:398)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:398)
+rem.stat.ITP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:400)
+rem.stat.ITP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:401)
+rem.stat.ITP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:401)
+rem.stat.ITP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_incomingtwopaths.R:403)
+rem.stat.OSP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:276)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:278)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:280)
+rem.stat.OSP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:282)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:282)
+rem.stat.OSP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:283)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:285)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:287)
+rem.stat.OSP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:289)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:289)
+rem.stat.OSP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:290)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:290)
+rem.stat.OSP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:292)
+rem.stat.OSP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:293)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:293)
+rem.stat.OSP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:295)
+rem.stat.OSP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:383)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:385)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:387)
+rem.stat.OSP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:389)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:389)
+rem.stat.OSP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:390)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:392)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:394)
+rem.stat.OSP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:396)
+rem.stat.OSP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:396)
+rem.stat.OSP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:397)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:397)
+rem.stat.OSP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:399)
+rem.stat.OSP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:400)
+rem.stat.OSP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:400)
+rem.stat.OSP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingsharedpartners.R:402)
+rem.stat.OTP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:276)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:278)
+rem.stat.OTP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:280)
+rem.stat.OTP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:282)
+rem.stat.OTP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:282)
+rem.stat.OTP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:283)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:285)
+rem.stat.OTP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:287)
+rem.stat.OTP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:289)
+rem.stat.OTP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:289)
+rem.stat.OTP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:290)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:290)
+rem.stat.OTP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:292)
+rem.stat.OTP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:293)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:293)
+rem.stat.OTP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:295)
+rem.stat.OTP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:384)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:386)
+rem.stat.OTP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:388)
+rem.stat.OTP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:390)
+rem.stat.OTP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:390)
+rem.stat.OTP: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:391)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:393)
+rem.stat.OTP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:395)
+rem.stat.OTP: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:397)
+rem.stat.OTP: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:397)
+rem.stat.OTP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:398)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:398)
+rem.stat.OTP: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:400)
+rem.stat.OTP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:401)
+rem.stat.OTP: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:401)
+rem.stat.OTP: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_outgoingtwopaths.R:403)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:301)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:303)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:305)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:305)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:307)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:308)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:308)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:310)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:335)
+rem.stat.cycle4: no visible global function definition for ‘J’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:336)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:338)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:340)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:345)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:347)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:349)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:361)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:361)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:363)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:389)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:394)
+rem.stat.cycle4: no visible binding for global variable ‘product’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:398)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:422)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:424)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:426)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:426)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:428)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:429)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:429)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:431)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:456)
+rem.stat.cycle4: no visible global function definition for ‘J’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:457)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:459)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:461)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:466)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:468)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:470)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:482)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:482)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:484)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:509)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:514)
+rem.stat.cycle4: no visible binding for global variable ‘product’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:518)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:611)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:613)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:615)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:615)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:617)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:618)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:618)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:620)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:645)
+rem.stat.cycle4: no visible global function definition for ‘J’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:646)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:648)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:650)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:655)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:657)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:659)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:671)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:671)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:673)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:698)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:703)
+rem.stat.cycle4: no visible binding for global variable ‘product’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:707)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:735)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:737)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:739)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:739)
+rem.stat.cycle4: no visible binding for global variable ‘weightia’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:741)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:742)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:742)
+rem.stat.cycle4: no visible binding for global variable ‘weightbj’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:744)
+rem.stat.cycle4: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:769)
+rem.stat.cycle4: no visible global function definition for ‘J’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:770)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:772)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:774)
+rem.stat.cycle4: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:779)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:781)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:783)
+rem.stat.cycle4: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:795)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:795)
+rem.stat.cycle4: no visible binding for global variable ‘weightij’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:797)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:823)
+rem.stat.cycle4: no visible global function definition for
+  ‘complete.cases’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:828)
+rem.stat.cycle4: no visible binding for global variable ‘product’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_fourcyles.R:832)
+rem.stat.indegreeR: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetindegree.R:245)
+rem.stat.indegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetindegree.R:248)
+rem.stat.indegreeR: no visible binding for global variable
+  ‘minimum_event’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetindegree.R:288-291)
+rem.stat.indegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetindegree.R:288-291)
+rem.stat.indegreeR: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetindegree.R:355)
+rem.stat.indegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetindegree.R:358)
+rem.stat.indegreeS: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:262)
+rem.stat.indegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:265)
+rem.stat.indegreeS: no visible global function definition for ‘.’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:267)
+rem.stat.indegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:267)
+rem.stat.indegreeS: no visible binding for global variable
+  ‘minimum_event’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:301-304)
+rem.stat.indegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:301-304)
+rem.stat.indegreeS: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:368)
+rem.stat.indegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:371)
+rem.stat.indegreeS: no visible global function definition for ‘.’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:373)
+rem.stat.indegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderindegree.R:373)
+rem.stat.outdegreeR: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:266)
+rem.stat.outdegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:268)
+rem.stat.outdegreeR: no visible global function definition for ‘.’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:270)
+rem.stat.outdegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:270)
+rem.stat.outdegreeR: no visible binding for global variable
+  ‘minimum_event’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:303-306)
+rem.stat.outdegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:303-306)
+rem.stat.outdegreeR: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:367)
+rem.stat.outdegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:370)
+rem.stat.outdegreeR: no visible global function definition for ‘.’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:372)
+rem.stat.outdegreeR: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_targetoutdegree.R:372)
+rem.stat.outdegreeS: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderoutdegree.R:246)
+rem.stat.outdegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderoutdegree.R:249)
+rem.stat.outdegreeS: no visible binding for global variable
+  ‘minimum_event’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderoutdegree.R:288-291)
+rem.stat.outdegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderoutdegree.R:288-291)
+rem.stat.outdegreeS: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderoutdegree.R:355)
+rem.stat.outdegreeS: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_senderoutdegree.R:359)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:272)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:276)
+rem.stat.persistence: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:280)
+rem.stat.persistence: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:289)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:291)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:295)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:367)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:371)
+rem.stat.persistence: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:375)
+rem.stat.persistence: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:384)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:386)
+rem.stat.persistence: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_persistence.R:390)
+rem.stat.pref.attach: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:223)
+rem.stat.pref.attach: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:226)
+rem.stat.pref.attach: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:230-231)
+rem.stat.pref.attach: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:230-231)
+rem.stat.pref.attach: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:312)
+rem.stat.pref.attach: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:315)
+rem.stat.pref.attach: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:317-318)
+rem.stat.pref.attach: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_preferential_attachment.R:317-318)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:319)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:321)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:324-325)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:329)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:331-332)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:336)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:339)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:355)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:357)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:360-361)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:365)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:367-368)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:372)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:375)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:453)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:455)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:458-459)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:463)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:465-466)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:470)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:473)
+rem.stat.recency: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:489)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:491)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:494-495)
+rem.stat.recency: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:499)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:501-502)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:506)
+rem.stat.recency: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_stat_recency.R:509)
+rem.stat.recip: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:268)
+rem.stat.recip: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:268)
+rem.stat.recip: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:271)
+rem.stat.recip: no visible global function definition for ‘.’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:273)
+rem.stat.recip: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:273)
+rem.stat.recip: no visible binding for global variable ‘minimum_event’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:308-311)
+rem.stat.recip: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:308-311)
+rem.stat.recip: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:377)
+rem.stat.recip: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:377)
+rem.stat.recip: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:380)
+rem.stat.recip: no visible global function definition for ‘.’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:382)
+rem.stat.recip: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_reciprocity.R:382)
+rem.stat.repetition: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:242)
+rem.stat.repetition: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:242)
+rem.stat.repetition: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:244)
+rem.stat.repetition: no visible binding for global variable
+  ‘minimum_event’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:285-288)
+rem.stat.repetition: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:285-288)
+rem.stat.repetition: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:350)
+rem.stat.repetition: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:350)
+rem.stat.repetition: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_repetition.R:352)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:280)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:280)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:283)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:286)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:286)
+rem.stat.triad: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:289)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:289)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:289)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:293)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:293)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:296)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:299)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:299)
+rem.stat.triad: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:302)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:302)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:302)
+rem.stat.triad: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:304)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:304)
+rem.stat.triad: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:306)
+rem.stat.triad: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:307)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:307)
+rem.stat.triad: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:309)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:398)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:398)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:401)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:404)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:404)
+rem.stat.triad: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:407)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:407)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:407)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:411)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:411)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:414)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:417)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:417)
+rem.stat.triad: no visible binding for global variable ‘i_endpoint’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:420)
+rem.stat.triad: no visible binding for global variable ‘sender’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:420)
+rem.stat.triad: no visible binding for global variable ‘receiver’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:420)
+rem.stat.triad: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:422)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:422)
+rem.stat.triad: no visible binding for global variable ‘wai’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:424)
+rem.stat.triad: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:425)
+rem.stat.triad: no visible binding for global variable ‘time’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:425)
+rem.stat.triad: no visible binding for global variable ‘wib’
+  (/Users/kevincarson/Dropbox/Research_Projects/Leal_Carson_RA/R_Package/redr/R/rem_triadic.R:427)
+Undefined global functions or variables:
+  . J complete.cases i_endpoint minimum_event product receiver sender
+  target time wai weightbj weightia weightij wib
+Consider adding
+  importFrom("stats", "complete.cases", "time")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... NOTE
+  Note: found 2091 marked UTF-8 strings
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... OK
+* checking PDF version of manual ... OK
+* DONE
+Status: 2 WARNINGs, 6 NOTEs
