@@ -1,1 +1,11 @@
 .Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+..Rcheck
+src/*.o
+src/*.so
+src/*.dll
+.httr-oauth
+.quarto
