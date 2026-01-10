@@ -16,7 +16,16 @@ knitr::opts_chunk$set(
 # dream
 
 <!-- badges: start -->
-usethis::use_cran_badge()
+```{r, echo = FALSE, results='asis'}
+library(badger)
+cat(
+	badge_cran_release("dream", "blue"),
+	badge_cran_download("dream", "grand-total", "red"),
+	badge_github_actions(),
+  badge_cran_checks("dream")
+)
+```
+
 <!-- badges: end -->
 
 The goal of dream is to ...

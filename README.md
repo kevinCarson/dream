@@ -5,7 +5,14 @@
 
 <!-- badges: start -->
 
-usethis::use_cran_badge() <!-- badges: end -->
+[![](https://www.r-pkg.org/badges/version/dream?color=blue)](https://cran.r-project.org/package=dream)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/dream?color=red)](https://cran.r-project.org/package=dream)
+[![R build
+status](https://github.com/kevinCarson/dream/workflows/R-CMD-check/badge.svg)](https://github.com/kevinCarson/dream/actions)
+[![CRAN
+checks](https://badges.cranchecks.info/summary/dream.svg)](https://cran.r-project.org/web/checks/check_results_dream.html)
+
+<!-- badges: end -->
 
 The goal of dream is to …
 
