@@ -1,7 +1,7 @@
-## The Creation of  Dynamic Two-Mode Risk Sets
-## See Butts 2008; Lerner and Lomi 2020; REM R Package (Brandenberger 2018)
-## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
-## Last Updated: 07-15-24
+## The Creation of Dynamic Risk Sets
+## Code written by Kevin Carson (https://kevincarson.github.io/) and Deigo Leal (https://www.diegoleal.info/)
+## Last Updated: 01-09-2025
+
 #' @title Process and Create Risk Sets for a One- and Two-Mode Relational Event Sequences
 #' @name createriskset
 #' @param type "two-mode" indicates that this is a two-mode event sequence. "one-mode" indicates that the event sequence is one-mode.
