@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dream
+# dream: An R Package for Dynamic Relational Event Analysis and Modeling
 
 <!-- badges: start -->
 
@@ -15,16 +15,37 @@ checks](https://badges.cranchecks.info/summary/dream.svg)](https://cran.r-projec
 [![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of dream is to …
+The dream package provides users with helpful functions for relational
+event modeling/analysis. In particular, dream provides users with helper
+functions for large relational event analysis, such as recently proposed
+sampling procedures for creating relational risk sets. Alongside the set
+of functions for relational event analysis, this package includes
+functions for the structural analysis of one- and two-mode networks,
+such as network constraint and effective size measures.
+
+This package was developed with support from the National Science
+Foundation’s (NSF) Human Networks and Data Science Program (HNDS) under
+award number 2241536 (PI: Diego F. Leal). Any opinions, findings, and
+conclusions, or recommendations expressed in this material are those of
+the authors and do not necessarily reflect the views of the NSF.
+
+## Authors
 
 ## Installation
+
+You can install the stable verison of `dream` from
+[CRAN](https://cran.r-project.org/package=dream) via:
+
+``` r
+install.packages("dream")
+```
 
 You can install the development version of dream from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("kevinCarson/dream")
+# install.packages("devtools")
+devtools::install_github("kevinCarson/dream")
 ```
 
 ## Example
