@@ -1,7 +1,9 @@
-## The Creation of Reciporicity Scores for Relational Event Models
-## See Butts 2008; Lerner and Lomi 2020; REM R Package (Brandenberger 2018)
-## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
-## Last Updated: 07-15-24.
+## The Computation of Reciprocity Network Statistic for Relational Event Sequences
+## Code written by Kevin Carson (https://kevincarson.github.io/) and Deigo Leal (https://www.diegoleal.info/)
+## Last Updated: 01-09-2025
+
+
+
 #' @title Compute the Reciprocity Network Statistic for Event Dyads in a Relational Event Sequence
 #' @name reciprocity
 #' @param time The vector of event times from the post-processing event sequence.
