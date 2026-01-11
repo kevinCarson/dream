@@ -21,7 +21,6 @@ library(badger)
 cat(
 	badge_cran_release("dream", "blue"),
 	badge_cran_download("dream", "grand-total", "red"),
-	badge_github_actions(),
   badge_cran_checks("dream")
 )
 ```
@@ -29,12 +28,13 @@ cat(
 [![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The dream package provides users with helpful functions for relational event modeling/analysis. In particular, dream provides users with helper functions for large relational event analysis, such as recently proposed sampling procedures for creating relational risk sets. Alongside the set of functions for relational event analysis, this package includes functions for the structural analysis of one- and two-mode networks, such as network constraint and effective size measures. 
+The `dream` package provides users with helpful functions for relational event modeling/analysis. In particular, `dream` provides users with helper functions for large relational event analysis, such as recently proposed sampling procedures for creating relational risk sets. Alongside the set of functions for relational event analysis, this package includes functions for the structural analysis of one- and two-mode networks, such as network constraint and effective size measures. 
 
 This package was developed with support from the National Science Foundation’s (NSF) Human Networks and Data Science Program (HNDS) under award number 2241536 (PI: Diego F. Leal). Any opinions, findings, and conclusions, or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the NSF.
 
 ## Authors
 
+[Kevin A. Carson](https://kevincarson.github.io/) and [Diego F. Leal](https://www.diegoleal.info/index.html)
 
 
 ## Installation
@@ -44,34 +44,105 @@ You can install the stable verison of `dream` from [CRAN](https://cran.r-project
 install.packages("dream")
 ```
 
-You can install the development version of dream from [GitHub](https://github.com/) with:
+You can install the development version of `dream` from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("kevinCarson/dream")
 ```
 
-## Example
+## Estimating an (Ordinal) Relational Event Model in `dream`
 
-This is a basic example which shows you how to solve a common problem:
+### Sampling from the Observed Events and Case-Control Sampling
 
-```{r example}
+This is a basic example which shows you how to sample from the observed events
+and employ the case-control sampling technique for large relational event models (see Butts 2008)
+following Lerner and Lomi (2020) and Vu et al. (2015).
+
+```{r processevents}
 library(dream)
-## basic example code
+data("WikiEvent2018.first100k")
+WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
+### Creating the EventSet By Employing Case-Control Sampling With M = 10 and
+### Sampling from the Observed Event Sequence with P = 0.01
+EventSet <- createriskset(
+  type = "two-mode",
+  time = WikiEvent2018.first100k$time, # The Time Variable
+  eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
+  sender = WikiEvent2018.first100k$user, # The Sender Variable
+  receiver = WikiEvent2018.first100k$article, # The Receiver Variable
+  p_samplingobserved = 0.10, # The Probability of Selection
+  n_controls = 10, # The Number of Controls to Sample from the Full Risk Set
+  seed = 9999) # The Seed for Replication
+
+post.processing.riskset <- EventSet[EventSet$sampled == 1,] #only those sampled events! 
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+### A Miniature Replication of Lerner and Lomi (2020)
 
-```{r cars}
-summary(cars)
+```{r computestats}
+# computing the inertia statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$repetition <- repetition(
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# computing the sender outdegree statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$sender.outdegree <- degreestats(
+   formation = "sender-outdegree",
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# computing the receiver indegree statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$receiver.indegree <- degreestats(
+   formation = "receiver-indegree",
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# computing the four-cycles statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$fourcycles <- fourcycles(
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# Estimating the ordinal relational event model! 
+lerner.lomi.rem <- remlogit(observed ~ 
+                            repetition +
+                            sender.outdegree + 
+                            receiver.indegree + 
+                            receiver.indegree:sender.outdegree +
+                            fourcycles,
+                            event.cluster = post.processing.riskset$eventID,
+                            newton.rhapson=FALSE,
+                            data = post.processing.riskset)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r, echo=TRUE}
+summary(lerner.lomi.rem)
 ```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

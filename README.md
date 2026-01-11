@@ -7,21 +7,20 @@
 
 [![](https://www.r-pkg.org/badges/version/dream?color=blue)](https://cran.r-project.org/package=dream)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/dream?color=red)](https://cran.r-project.org/package=dream)
-[![R build
-status](https://github.com/kevinCarson/dream/workflows/R-CMD-check/badge.svg)](https://github.com/kevinCarson/dream/actions)
 [![CRAN
 checks](https://badges.cranchecks.info/summary/dream.svg)](https://cran.r-project.org/web/checks/check_results_dream.html)
 
 [![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The dream package provides users with helpful functions for relational
-event modeling/analysis. In particular, dream provides users with helper
-functions for large relational event analysis, such as recently proposed
-sampling procedures for creating relational risk sets. Alongside the set
-of functions for relational event analysis, this package includes
-functions for the structural analysis of one- and two-mode networks,
-such as network constraint and effective size measures.
+The `dream` package provides users with helpful functions for relational
+event modeling/analysis. In particular, `dream` provides users with
+helper functions for large relational event analysis, such as recently
+proposed sampling procedures for creating relational risk sets.
+Alongside the set of functions for relational event analysis, this
+package includes functions for the structural analysis of one- and
+two-mode networks, such as network constraint and effective size
+measures.
 
 This package was developed with support from the National Science
 Foundation’s (NSF) Human Networks and Data Science Program (HNDS) under
@@ -30,6 +29,9 @@ conclusions, or recommendations expressed in this material are those of
 the authors and do not necessarily reflect the views of the NSF.
 
 ## Authors
+
+[Kevin A. Carson](https://kevincarson.github.io/) and [Diego F.
+Leal](https://www.diegoleal.info/index.html)
 
 ## Installation
 
@@ -40,7 +42,7 @@ You can install the stable verison of `dream` from
 install.packages("dream")
 ```
 
-You can install the development version of dream from
+You can install the development version of `dream` from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -48,35 +50,127 @@ You can install the development version of dream from
 devtools::install_github("kevinCarson/dream")
 ```
 
-## Example
+## Estimating an (Ordinal) Relational Event Model in `dream`
 
-This is a basic example which shows you how to solve a common problem:
+### Sampling from the Observed Events and Case-Control Sampling
+
+This is a basic example which shows you how to sample from the observed
+events and employ the case-control sampling technique for large
+relational event models (see Butts 2008) following Lerner and Lomi
+(2020) and Vu et al. (2015).
 
 ``` r
 library(dream)
-## basic example code
+data("WikiEvent2018.first100k")
+WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
+### Creating the EventSet By Employing Case-Control Sampling With M = 10 and
+### Sampling from the Observed Event Sequence with P = 0.01
+EventSet <- createriskset(
+  type = "two-mode",
+  time = WikiEvent2018.first100k$time, # The Time Variable
+  eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
+  sender = WikiEvent2018.first100k$user, # The Sender Variable
+  receiver = WikiEvent2018.first100k$article, # The Receiver Variable
+  p_samplingobserved = 0.10, # The Probability of Selection
+  n_controls = 10, # The Number of Controls to Sample from the Full Risk Set
+  seed = 9999) # The Seed for Replication
+
+post.processing.riskset <- EventSet[EventSet$sampled == 1,] #only those sampled events! 
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+### A Miniature Replication of Lerner and Lomi (2020)
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+# computing the inertia statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$repetition <- repetition(
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# computing the sender outdegree statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$sender.outdegree <- degreestats(
+   formation = "sender-outdegree",
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# computing the receiver indegree statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$receiver.indegree <- degreestats(
+   formation = "receiver-indegree",
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# computing the four-cycles statistic with the exponential weights and a halflife
+# value of 30 days
+post.processing.riskset$fourcycles <- fourcycles(
+   time = EventSet$time,
+   sender = EventSet$sender,
+   receiver = EventSet$receiver,
+   sampled = EventSet$sampled,
+   observed = EventSet$observed,
+   halflife = 2.592e+09, 
+   dyadic_weight = 0,
+   Lerneretal_2013 = FALSE)
+
+# Estimating the ordinal relational event model! 
+lerner.lomi.rem <- remlogit(observed ~ 
+                            repetition +
+                            sender.outdegree + 
+                            receiver.indegree + 
+                            receiver.indegree:sender.outdegree +
+                            fourcycles,
+                            event.cluster = post.processing.riskset$eventID,
+                            newton.rhapson=FALSE,
+                            data = post.processing.riskset)
+#> Extracting user-provided data.
+#> Prepping data for numerical optimization.
+#> Starting optimzation for parameters.
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+``` r
+summary(lerner.lomi.rem)
+#> Ordinal Timing Relational Event Model
+#> 
+#> Call:
+#> remlogit(formula = observed ~ repetition + sender.outdegree + 
+#>     receiver.indegree + receiver.indegree:sender.outdegree + 
+#>     fourcycles, event.cluster = post.processing.riskset$eventID, 
+#>     data = post.processing.riskset, newton.rhapson = FALSE)
+#> 
+#>  n events: 10000 null events: 1e+05 
+#> 
+#> Coefficients:
+#>                                    Estimate Std. Error z value  Pr(>|z|)    
+#> repetition                           7.1365     0.3970  17.976 < 2.2e-16 ***
+#> sender.outdegree                     0.0219     0.0005  44.825 < 2.2e-16 ***
+#> receiver.indegree                    0.1580     0.0093  16.995 < 2.2e-16 ***
+#> fourcycles                           1.3161     0.0465  28.334 < 2.2e-16 ***
+#> sender.outdegree:receiver.indegree  -0.0009     0.0001 -10.218 < 2.2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Null Likelihood: -23978.95 Model Likelihood: -7558.12 
+#> 
+#> Likelihood Ratio Test: 32841.67  with df: 5 p-value: 0 
+#> 
+#> AIC 15126.24 BIC 15162.29
+```
