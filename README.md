@@ -31,15 +31,16 @@ the authors and do not necessarily reflect the views of the NSF.
 ## Authors
 
 **Kevin A. Carson**  
-Author & Maintainer  
-PhD Candidate at the University of Arizona School of Sociology Email:
-<kacarson@arizona.edu>  
-Website: <https://kevincarson.github.io/>
+- Author & Maintainer  
+- PhD Candidate at the University of Arizona School of Sociology  
+- Email: <kacarson@arizona.edu>  
+- Website: <https://kevincarson.github.io/>
 
 **Diego F. Leal**  
-Author & Maintainer Associate Professor at the University of Arizona
-School of Sociology Email: <dflc@arizona.edu>  
-Website: <https://www.diegoleal.info/index.html>
+- Author & Maintainer  
+- Associate Professor at the University of Arizona School of Sociology  
+- Email: <dflc@arizona.edu>  
+- Website: <https://www.diegoleal.info/index.html>
 
 ## Installation
 
