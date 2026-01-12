@@ -34,8 +34,17 @@ This package was developed with support from the National Science Foundation’s
 
 ## Authors
 
-[Kevin A. Carson](https://kevincarson.github.io/) and [Diego F. Leal](https://www.diegoleal.info/index.html)
+**Kevin A. Carson**  
+Author & Maintainer  
+PhD Candidate at the University of Arizona School of Sociology
+Email: kacarson@arizona.edu  
+Website: https://kevincarson.github.io/
 
+**Diego F. Leal**  
+Author & Maintainer
+Associate Professor at the University of Arizona School of Sociology
+Email: dflc@arizona.edu  
+Website: https://www.diegoleal.info/index.html
 
 ## Installation
 
@@ -55,9 +64,8 @@ devtools::install_github("kevinCarson/dream")
 
 ### Sampling from the Observed Events and Case-Control Sampling
 
-This is a basic example which shows you how to sample from the observed events
-and employ the case-control sampling technique for large relational event models (see Butts 2008)
-following Lerner and Lomi (2020) and Vu et al. (2015).
+This is a basic example which shows how to sample from the observed events
+and employ the case-control sampling technique for large relational event models (see [Butts 2008](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x)) following [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897) and [Vu et al. (2015)](https://www.sciencedirect.com/science/article/abs/pii/S0378873315000477). Then based upon the post-processing event sequence, the example computes a set of standard network statistics for two-mode relational event models. Lastly, the examples estimates an ordinal timing relational event model. The event sequence included in this example is based a subset (i.e., the first 100,000 events) of the 2018 Wikipedia article-edit event sequence used in [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897).
 
 ```{r processevents}
 library(dream)
