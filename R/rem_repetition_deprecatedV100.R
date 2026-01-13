@@ -6,6 +6,7 @@
 #' @title Compute Butts' (2008) Repetition Network Statistic for Event Dyads in a Relational Event Sequence
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeRepetition()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_repetition()`and see the `NEWS.md`.
 #'
 #' This function computes the repetition network sufficient statistic for a relational event
