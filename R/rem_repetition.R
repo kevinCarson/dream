@@ -4,7 +4,10 @@
 ## Last Updated: 01-06-2024
 
 #' @title Compute Butts' (2008) Repetition Network Statistic for Event Dyads in a Relational Event Sequence
-#' @description This function computes the repetition network sufficient statistic for a relational event
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes the repetition network sufficient statistic for a relational event
 #' sequence (see Lerner and Lomi 2020; Butts 2008). Repetition measures the increased tendency
 #' for events between S and R to occur given that S and R have interacted
 #' in the past. Furthermore, this measure allows for repetition scores to be only
@@ -12,7 +15,7 @@
 #' sequence (see Lerner and Lomi 2020; Vu et al. 2015). The function allows users to use two different weighting functions and
 #' specify a dyadic cutoff for relational relevancy.
 
-#' @name repetition
+#' @name remstats_repetition
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
 #' @param receiver The vector of event receivers from the post-processing event sequence
@@ -21,7 +24,7 @@
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
 #' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
 #' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
-#' @param Lerneretal_2013 TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
+#' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of repetition statistics for the relational event sequence.
 #' @export
@@ -52,7 +55,7 @@
 #'Mood, Dunn, and Falzone 2022; Lerner and Lomi 2020) can specify the dyadic
 #'weight cutoff, that is, the minimum value for which the weight is considered
 #'relationally relevant. Users who do not know the specific dyadic cutoff value to use, can use the
-#'\code{\link{remdyadcut}} function.
+#'\code{\link{remstats_dyadcut}} function.
 #'
 #'Following Butts (2008), if the counts of the past events are requested, the formula for repetition for
 #'event \eqn{e_i} is:
@@ -69,7 +72,7 @@
 #'WikiEvent2018$time <- as.numeric(WikiEvent2018$time) #making the variable numeric
 #'### Creating the EventSet By Employing Case-Control Sampling With M = 5 and
 #'### Sampling from the Observed Event Sequence with P = 0.01
-#'EventSet <- createriskset(type = "two-mode",
+#'EventSet <- create_riskset(type = "two-mode",
 #'  time = WikiEvent2018$time, # The Time Variable
 #'  eventID = WikiEvent2018$eventID, # The Event Sequence Variable
 #'  sender = WikiEvent2018$user, # The Sender Variable
@@ -80,7 +83,7 @@
 #'  seed = 9999) # The Seed for Replication
 #'
 #'
-#'rep_weights <- repetition(
+#'rep_weights <- remstats_repetition(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,
 #'    receiver = EventSet$receiver,
@@ -88,11 +91,11 @@
 #'    observed = EventSet$observed,
 #'    halflife = 2.592e+09, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'
 #'#### Estimating Repetition Scores with the Counts of Events Returned
-#'rep_counts <- repetition(
+#'rep_counts <- remstats_repetition(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,
 #'    receiver = EventSet$receiver,
@@ -100,7 +103,7 @@
 #'    observed = EventSet$observed,
 #'    halflife = 2.592e+09, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'cbind(rep_weights, rep_counts)
 #'
@@ -129,7 +132,7 @@
 #'
 #'
 #'
-repetition <-    function( time,# variable (column) name that contains the time variable
+remstats_repetition <-    function( time,# variable (column) name that contains the time variable
                                   sender,# variable (column) name that contains the sender variable
                                   receiver,# variable (column) name that contains the target variable
                                   observed,# variable (column) name that contains the observed variable
@@ -137,7 +140,7 @@ repetition <-    function( time,# variable (column) name that contains the time 
                                   halflife=2, # the half life value for the weighting function
                                   counts = FALSE, #Logical indicating if the raw counts of events should be returned or the exponential weighting function should be used (TRUE = counts; FALSE = exponential weighting)
                                   dyadic_weight= 0.00, # dyadic cutoff weight for events that no longer matter
-                                  Lerneretal_2013 = FALSE # Do we want to use the weighting function of Lerner et al. 2013 (alsoused in the rem R package)?
+                                  exp_weight_form = FALSE # Do we want to use the weighting function of Lerner et al. 2013 (alsoused in the rem R package)?
 ) {
 
   #base::cat("Checking Data Structure and User Inputs.......") # outputting status to user
@@ -165,6 +168,7 @@ repetition <-    function( time,# variable (column) name that contains the time 
   #   Prepping the data to be sent to c++ for speedy computation
   #
   ########################################################
+  Lerneretal_2013 <- exp_weight_form
   appender <- "__NIKOACAR2020__" # a (hopefully) unique joiner for the string!
   dyad.idR <- (base::paste0(sender,appender,receiver)) #this is arguably very inefficent at scale
   weightSchemeR <- ifelse(Lerneretal_2013, 0, 1) #setting this argument up for c++ computation

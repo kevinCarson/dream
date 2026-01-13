@@ -3,7 +3,7 @@
 ## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 07-15-24.
 #' @title Compute Degree Network Statistics for Event Senders and Receivers in a Relational Event Sequence
-#' @name degreestats
+#' @name remstats_degree
 #' @param formation The degree statistic to be computed. "sender-indegree" computes the indegree statistic for the event senders. "receiver-indegree" computes the
 #' indegree statistic for the event receivers. "sender-outdegree" computes the outdegree statistic for the event senders. "receiver-outdegree" computes the
 #' outdegree statistic for the event receivers.
@@ -15,13 +15,16 @@
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
 #' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
 #' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
-#' @param Lerneretal_2013 TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
+#' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of degree statistics for the relational event sequence.
 #' @export
 
 
-#' @description The function computes the indegree network sufficient statistic for event senders
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' The function computes the indegree network sufficient statistic for event senders
 #' in a relational event sequence (see Lerner and Lomi 2020; Butts 2008).
 #' This measure allows for indegree scores to be only  computed for the sampled
 #' events, while creating the weights based on the full event sequence (see
@@ -101,7 +104,7 @@
 #'Mood, Dunn, and Falzone 2022; Lerner and Lomi 2020) can specify the dyadic
 #'weight cutoff, that is, the minimum value for which the weight is considered
 #'relationally relevant. Users who do not know the specific dyadic cutoff value to use, can use the
-#'\code{\link{remdyadcut}} function.
+#'\code{\link{remstats_dyadcut}} function.
 #'
 
 #' @author Kevin A. Carson <kacarson@arizona.edu>, Diego F. Leal <dflc@arizona.edu>
@@ -139,7 +142,7 @@
 #'                                           "H", "J", "A",
 #'                                           "F", "C", "B"))
 #'
-#'eventSet <- createriskset(type = "one-mode",
+#'eventSet <- create_riskset(type = "one-mode",
 #'                       time = events$time,
 #'                       eventID = events$eventID,
 #'                       sender = events$sender,
@@ -149,7 +152,7 @@
 #'                       seed = 9999)
 #'
 #'# Computing Sender Indegree Statistic
-#'eventSet$senderind <- degreestats(
+#'eventSet$senderind <- remstats_degree(
 #'    formation = "sender-indegree",
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -158,10 +161,10 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'# Computing Sender Outdegree Statistic
-#'eventSet$senderout <- degreestats(
+#'eventSet$senderout <- remstats_degree(
 #'    formation = "sender-outdegree",
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -170,11 +173,11 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'
 #'# Computing Receiver Outdegree Statistic
-#'eventSet$recieverout <- degreestats(
+#'eventSet$recieverout <- remstats_degree(
 #'    formation = "receiver-outdegree",
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -183,11 +186,11 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'
 #'# Computing Receiver Indegree Statistic
-#'eventSet$recieverind <- degreestats(
+#'eventSet$recieverind <- remstats_degree(
 #'    formation = "receiver-indegree",
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -196,7 +199,7 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 
 ########################################################################################################
 #  Events = the full event sequence
@@ -214,7 +217,7 @@
 #  note: that the mef can still be used if we only want the counts
 ########################################################################################################
 
-degreestats <- function(formation = c("sender-indegree", "receiver-indegree",
+remstats_degree <- function(formation = c("sender-indegree", "receiver-indegree",
                                       "sender-outdegree", "receiver-outdegree"),
                                   time,# variable (column) name that contains the time variable
                                   sender,# variable (column) name that contains the sender variable
@@ -224,7 +227,7 @@ degreestats <- function(formation = c("sender-indegree", "receiver-indegree",
                                   halflife=2, # the half life value for the weighting function
                                   counts = FALSE, #Logical indicating if the raw counts of events should be returned or the exponential weighting function should be used (TRUE = counts; FALSE = exponential weighting)
                                   dyadic_weight= 0.00, # dyadic cutoff weight for events that no longer matter
-                                  Lerneretal_2013 = FALSE # Do we want to use the weighting function of Lerner et al. 2013 (alsoused in the rem R package)?
+                                  exp_weight_form = FALSE # Do we want to use the weighting function of Lerner et al. 2013 (alsoused in the rem R package)?
 ) {
 
   ########################################################
@@ -257,6 +260,7 @@ degreestats <- function(formation = c("sender-indegree", "receiver-indegree",
   #   Computing the weights in c++
   #
   ########################################################
+  Lerneretal_2013 <- exp_weight_form
   if(formation == "sender-indegree"){ #the degree formation for event sender indegree
     #computing the weights
     ########################################################

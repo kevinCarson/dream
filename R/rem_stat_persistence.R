@@ -4,14 +4,17 @@
 ## Last Updated: 07-15-24
 
 #' @title Compute Butts' (2008) Persistence Network Statistic for Event Dyads in a Relational Event Sequence
-#' @description This function computes the persistence network sufficient statistic for
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes the persistence network sufficient statistic for
 #' a relational event sequence (see Butts 2008). Persistence measures the proportion of past ties sent from the event sender that went to the current event receiver.
 #' Furthermore, this measure allows for persistence scores to be only
 #' computed for the sampled events, while creating the weights based on the full event
 #' sequence. Moreover, the function allows users to specify relational relevancy for the statistic and
 #' employ a sliding windows framework for large relational sequences.
 
-#' @name persistence
+#' @name remstats_persistence
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
 #' @param target The vector of event targets from the post-processing event sequence
@@ -70,7 +73,7 @@
 #'                                            "F", "C", "B"))
 #'
 #'# Creating the Post-Processing Event Dataset with Null Events
-#'eventSet <- createriskset(type = "one-mode",
+#'eventSet <- create_riskset(type = "one-mode",
 #'                           time = events$time,
 #'                           eventID = events$eventID,
 #'                           sender = events$sender,
@@ -79,7 +82,7 @@
 #'                           n_controls = 6,
 #'                           seed = 9999)
 #'
-#'eventSet$persistence <- persistence(
+#'eventSet$remstats_persistence <- remstats_persistence(
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
 #'    sampled = rep(1,nrow(eventSet)),
@@ -89,7 +92,7 @@
 #'
 
 
-persistence <-   function(time, # variable (column) name that contains the time variable
+remstats_persistence <-   function(time, # variable (column) name that contains the time variable
                                  sender,
                                  target,
                                  sampled, # variable (column) name that contains the sender variable

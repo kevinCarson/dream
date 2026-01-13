@@ -2,7 +2,7 @@
 ## Last Updated: 01-09-2025
 
 #' @title Compute Butts' (2008) Triadic Formation Statistics for Relational Event Sequences
-#' @name triadicstats
+#' @name remstats_triads
 #' @param formation The specific triadic formation to based the statistic on (see the details). "ISP" = incoming shared partners. "OSP" = outgoing shared partners. "OTP" = outgoing two-paths. "ITP" = incoming two-paths.
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
@@ -12,12 +12,15 @@
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
 #' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
 #' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
-#' @param Lerneretal_2013 TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
+#' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of triadic formation statistics for the relational event sequence.
 #' @export
 
-#' @description The function computes the set of triadic formation statistics discussed in Butts (2008) for a one-mode relational
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' The function computes the set of triadic formation statistics discussed in Butts (2008) for a one-mode relational
 #' event sequence (see also Lerner and Lomi 2020). The function can compute the following triadic formations: 1) incoming shared partners (ISP),
 #' 2) outgoing shared partners (OSP), 3) incoming two-paths (ITP), and 4) outgoing two-paths. Importantly, this measure allows for the triadic formation
 #' statistics to be computed only for the sampled events, while creating the weights based on the full event sequence (see
@@ -121,7 +124,7 @@
 #'Mood, Dunn, and Falzone 2022; Lerner and Lomi 2020) can specify the dyadic
 #'weight cutoff, that is, the minimum value for which the weight is considered
 #'relationally relevant. Users who do not know the specific dyadic cutoff value to use, can use the
-#'\code{\link{remdyadcut}} function.
+#'\code{\link{remstats_dyadcut}} function.
 #'
 #'
 #' @author Kevin A. Carson <kacarson@arizona.edu>, Diego F. Leal <dflc@arizona.edu>
@@ -161,7 +164,7 @@
 #'                                           "H", "J", "A",
 #'                                           "F", "C", "B"))
 #'
-#'eventSet <-createriskset(type = "one-mode",
+#'eventSet <-create_riskset(type = "one-mode",
 #'                       time = events$time,
 #'                       eventID = events$eventID,
 #'                       sender = events$sender,
@@ -171,7 +174,7 @@
 #'                       seed = 9999)
 #'
 #'#compute the triadic statistic for the outgoing shared partners formation
-#'eventSet$OSP <- triadicstats(
+#'eventSet$OSP <- remstats_triads(
 #'    formation = "OSP", #outgoing shared partners argument
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -180,10 +183,10 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'#compute the triadic statistic for the incoming shared partners formation
-#'eventSet$ISP <- triadicstats(
+#'eventSet$ISP <- remstats_triads(
 #'    formation = "ISP", #incoming shared partners argument
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -192,10 +195,10 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'#compute the triadic statistic for the outgoing two-paths formation
-#'eventSet$OTP <- triadicstats(
+#'eventSet$OTP <- remstats_triads(
 #'    formation = "OTP", #outgoing two-paths argument
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -204,10 +207,10 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'#compute the triadic statistic for the incoming two-paths formation
-#'eventSet$ITP <- triadicstats(
+#'eventSet$ITP <- remstats_triads(
 #'    formation = "ITP", #incoming two-paths argument
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -216,7 +219,7 @@
 #'    receiver = eventSet$receiver,
 #'    halflife = 2, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 
 
 ########################################################################################################
@@ -236,7 +239,7 @@
 #  note: that the mef can still be used if we only want the counts
 ########################################################################################################
 
-triadicstats <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type of traidic formations
+remstats_triads <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type of traidic formations
                         time,# variable (column) name that contains the time variable
                         sender,# variable (column) name that contains the sender variable
                         receiver,# variable (column) name that contains the target variable
@@ -245,7 +248,7 @@ triadicstats <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type of
                         halflife=2, # the half life value for the weighting function
                         counts = FALSE, #Logical indicating if the raw counts of events should be returned or the exponential weighting function should be used (TRUE = counts; FALSE = exponential weighting)
                         dyadic_weight= 0.00, # dyadic cutoff weight for events that no longer matter
-                        Lerneretal_2013 = FALSE # Do we want to use the weighting function of Lerner et al. 2013 (alsoused in the rem R package)?
+                        exp_weight_form = FALSE # Do we want to use the weighting function of Lerner et al. 2013 (alsoused in the rem R package)?
 ) {
 
   ########################################################
@@ -277,6 +280,7 @@ triadicstats <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type of
   #   Prepping the data to be sent to c++ for speedy computation
   #
   ########################################################
+  Lerneretal_2013 <- exp_weight_form
   appender <- "__NIKOACAR2020__" # a (hopefully) unique joiner for the string!
   dyad.idR <- (base::paste0(sender,appender,receiver)) #this is arguably very inefficent at scale
   weightSchemeR <- ifelse(Lerneretal_2013, 0, 1) #setting this argument up for c++ computation

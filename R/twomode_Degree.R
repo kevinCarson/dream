@@ -4,7 +4,7 @@
 ## Last Updated: 09-07-24
 
 #' @title Compute Degree Centrality Values for Two-Mode Networks
-#' @name tmdegreecent
+#' @name netstats_tm_degreecent
 #' @param net A two-mode adjacency matrix
 #' @param level1 TRUE/FALSE. TRUE indicates that the degree centrality will be computed for level 1 nodes. FALSE indicates that the degree centrality will be computed for level 2 nodes. Set to TRUE by default.
 #' @import Rcpp
@@ -12,7 +12,10 @@
 #' @export
 #'
 #'
-#' @description This function computes the degree centrality values for two-mode
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes the degree centrality values for two-mode
 #' networks following Knoke and Yang (2020). The computed degree centrality is
 #' based on the specified level. That is, in an affiliation matrix, the density
 #' can be computed on the symmetric *g x g* co-membership matrix of
@@ -46,10 +49,10 @@
 #'                           nrow = 5, ncol = 4)
 #'colnames(knoke_yang_PC) <- c("Rubio-R","McConnell-R", "Reid-D", "Sanders-D")
 #'rownames(knoke_yang_PC) <- c("UPS", "MS", "HD", "SEU", "ANA")
-#'tmdegreecent(knoke_yang_PC, level1 = TRUE) #this value matches the book
-#'tmdegreecent(knoke_yang_PC, level1 = FALSE) #this value matches the book
+#'netstats_tm_degreecent(knoke_yang_PC, level1 = TRUE) #this value matches the book
+#'netstats_tm_degreecent(knoke_yang_PC, level1 = FALSE) #this value matches the book
 
-tmdegreecent <- function(net,#a two-mode network adjancency matrix
+netstats_tm_degreecent <- function(net,#a two-mode network adjancency matrix
                       level1 = TRUE){#Boolean: TRUE indicating if the density should be
   #computed on level 1 nodes, FALSE computes graph density for the level 2 nodes
 

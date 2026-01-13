@@ -8,7 +8,7 @@
 ## Last Updated: 09-21-24
 
 #' @title Compute Potential for Cultural Brokerage (PIB) Based on Leal (2025)
-#' @name lealpib
+#' @name netstats_om_pib
 #' @param net The one-mode adjacency matrix.
 #' @param g.mem The vector of membership values that the brokerage scores will be based on.
 #' @param symmetric TRUE/FALSE. TRUE indicates that network matrix will be treated as symmetric. FALSE indicates that the network matrix will be treated as asymmetric. Set to TRUE by default.
@@ -23,7 +23,10 @@
 #'
 #'
 #'
-#' @description Following Leal (2025), this function calculates node’s Potential
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' Following Leal (2025), this function calculates node’s Potential
 #' for Intercultural Brokerage (PIB) in a one-mode network. For example, users can
 #' examine PIB across gender. The option count determines what is returned by the
 #' function. If count is true, then the count of culturally dissimilar pairs
@@ -79,13 +82,13 @@
 #'                                            "E", "F", "G")
 #' categorical_variable <- c(0,0,1,0,0,0,0)
 #' #These values are exactly the same as reported by Leal (2025)
-#' lealpib(LealNet,
+#' netstats_om_pib(LealNet,
 #'    symmetric = TRUE,
 #'    g.mem = categorical_variable)
 #'
 #'
 #'
-lealpib <- function(net,
+netstats_om_pib <- function(net,
                  g.mem,
                  symmetric = TRUE,
                  triad.type = NULL, #can be of c("ANY", "OTS", "ITS", "MTS")

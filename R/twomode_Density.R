@@ -4,7 +4,7 @@
 ## Last Updated: 09-07-24
 
 #' @title Compute Level-Specific Graph Density for Two-Mode Networks
-#' @name tmdensity
+#' @name netstats_tm_density
 #' @param net A two-mode adjacency matrix.
 #' @param binary TRUE/FALSE. TRUE indicates that the transposed matrices will be binarized (see Wasserman and Faust 1995: 316). FALSE indicates that the transposed matrices will not be binarized. Set to FALSE by default.
 #' @param level1 TRUE/FALSE. TRUE indicates that the graph density will be computed for level 1 nodes. FALSE indicates that the graph density will be computed for level 2 nodes. Set to FALSE by default.
@@ -12,7 +12,10 @@
 #' @export
 #'
 #'
-#' @description This function computes the density of a two-mode network following
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes the density of a two-mode network following
 #' Wasserman and Faust (1994) and Knoke and Yang (2020). The density is computed
 #' based on the specified level. That is, in an affiliation matrix, density
 #' can be computed on the symmetric *g x g* matrix of co-membership for the
@@ -56,13 +59,13 @@
 #'#note: this value does not match that of Knoke and Yang (which we believe
 #'#is a typo in that book), but does match that of Wasserman and
 #'#Faust (1995: 317) for the ceo dataset.
-#'tmdensity(knoke_yang_PC, level1 = TRUE)
+#'netstats_tm_density(knoke_yang_PC, level1 = TRUE)
 #'#compute two-mode density for level 2.
 #'#note: this value matches that of the book
-#'tmdensity(knoke_yang_PC, level1 = FALSE)
+#'netstats_tm_density(knoke_yang_PC, level1 = FALSE)
 #'
 
-tmdensity <- function(net,#a two-mode network adjancency matrix
+netstats_tm_density <- function(net,#a two-mode network adjancency matrix
                     binary = FALSE, #Boolean: TRUE indicating if the tranposed matrices
                                     #should be binarized (see Wasserman and Faust 199*: 316)
                     level1 = TRUE){ #Boolean: TRUE indicating if the density should be

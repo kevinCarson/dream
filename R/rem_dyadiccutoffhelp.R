@@ -3,18 +3,22 @@
 ## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 07-15-24
 #' @title A Helper Function to Assist Researchers in Finding Dyadic Weight Cutoff Values
-#' @name remdyadcut
+#' @name remstats_dyadcut
 #' @param halflife The user specified halflife value for the weighting function.
 #' @param relationalWidth The numerical value that corresponds to the time range for which the user specifies for temporal relevancy.
-#' @param Lerneretal_2013 TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
+#' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @return The dyadic weight cutoff based on user specified values.
 #' @export
 #'
 #
-#' @description A user-helper function to assist researchers in finding the dyadic
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' A user-helper function to assist researchers in finding the dyadic
 #' cutoff value to compute sufficient statistics for relational event models based upon temporal dependency.
 #'
-#'@details This function is specifically designed as a user-helper function to assist
+#'@details
+#' This function is specifically designed as a user-helper function to assist
 #' researchers in finding the dyadic cutoff value for creating sufficient statistics
 #' based upon temporal dependency. In other words, this function estimates a dyadic
 #' cutoff value for relational relevance, that is, the minimum dyadic weight for past
@@ -63,19 +67,19 @@
 #'@examples
 #' #To replicate the example in the details section:
 #' # with the Lerner et al. 2013 weighting function
-#' remdyadcut(halflife = 15,
+#' remstats_dyadcut(halflife = 15,
 #'                  relationalWidth = 30,
-#'                  Lerneretal_2013 = TRUE)
+#'                  exp_weight_form = TRUE)
 #'
 #' # without the Lerner et al. 2013 weighting function
-#' remdyadcut(halflife = 15,
+#' remstats_dyadcut(halflife = 15,
 #'                  relationalWidth = 30,
-#'                  Lerneretal_2013 = FALSE)
+#'                  exp_weight_form = FALSE)
 #'
 #'# A result to test the function (should come out to 0.50)
-#' remdyadcut(halflife = 30,
+#' remstats_dyadcut(halflife = 30,
 #'                  relationalWidth = 30,
-#'                  Lerneretal_2013 = FALSE)
+#'                  exp_weight_form = FALSE)
 #'
 #'
 #'# Replicating Lerner and Lomi (2020):
@@ -88,21 +92,21 @@
 #'# Based upon Lerner and Lomi (2020: 104), the result should be around 0.01. Since the
 #'# time values in Lerner and Lomi (2020) are in milliseconds, we have to change
 #'# all measurements into milliseconds
-#'remdyadcut(halflife = (30*24*60*60*1000), #30 days in milliseconds
+#'remstats_dyadcut(halflife = (30*24*60*60*1000), #30 days in milliseconds
 #'                 relationalWidth = (6.64*30*24*60*60*1000), #Based upon the paper
 #'                 #using the Lerner and Lomi (2020) weighting function
-#'                 Lerneretal_2013 = FALSE)
+#'                 exp_weight_form = FALSE)
 #'
 #'
-remdyadcut <- function(halflife,  #the user specificed halflife
+remstats_dyadcut <- function(halflife,  #the user specificed halflife
                              relationalWidth, #this is a value that measures how long the time span is
-                             Lerneretal_2013 = FALSE){ #should the Lerner et al. 2013 weighting function be used
+                             exp_weight_form = FALSE){ #should the Lerner et al. 2013 weighting function be used
   message("You are employing this function to find the corresponding dyadic cutoff value
           for temporal relevancy. The eventTime, relationalWidth, and halflife parameters must
           all be in the same measurement unit (e.g., hours, days).
 
           We hope you are providing the correct values...")
-
+  Lerneretal_2013 <- exp_weight_form
   if(Lerneretal_2013 == FALSE){ #originally, 1 was an arugment, however, the function is not dependent upon this
     X <- 1 - relationalWidth #a corresponding time difference
     dyadCutoff <- exp((-(1 - X) * log(2)/(halflife))) #the weighting function

@@ -5,13 +5,16 @@
 ## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 09-07-24
 #' @title Compute Fujimoto, Snijders, and Valente's (2018) Homophilous Four-Cycles for Two-Mode Networks
-#' @name homfourcycles
+#' @name netstats_tm_homfourcycles
 #' @param net The two-mode adjacency matrix.
 #' @param mem The vector of membership values that the homophilous four-cycles will be based on.
 #' @return The vector of counts of homophilous four-cycles for the two-mode network.
 #' @export
 #'
-#' @description This function computes the number of homophilous four-cycles in
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes the number of homophilous four-cycles in
 #' a two-mode network as proposed by Fujimoto, Snijders, and Valente (2018: 380).
 #' See Fujimoto, Snijders, and Valente (2018) for more details about this
 #' measure.
@@ -39,7 +42,7 @@
 #' set.seed(9999)
 #' membership <- sample(0:1, nrow(southern.women), replace = TRUE)
 #' #the homophilous four-cycle values
-#' homfourcycles(southern.women, mem = membership)
+#' netstats_tm_homfourcycles(southern.women, mem = membership)
 
 
 #### Formula for Calculating Two-Mode Four-Cycle Homophily Effect
@@ -51,7 +54,7 @@
 ##     matrix, and V represents a vector of categorical membership values.
 ##
 ####
-homfourcycles <- function(net, # affilation matrix
+netstats_tm_homfourcycles <- function(net, # affilation matrix
                             mem # membership homophily
                             ) {
 

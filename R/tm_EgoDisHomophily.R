@@ -5,7 +5,7 @@
 ## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 09-07-24
 #' @title Compute Fujimoto, Snijders, and Valente's (2018) Ego Homophily Distance for Two-Mode Networks
-#' @name tmegodistance
+#' @name netstats_tm_egodistance
 #' @param net The two-mode adjacency matrix.
 #' @param mem The vector of membership values that the homophilous four cycles will be based on.
 #' @param standardize TRUE/FALSE. TRUE indicates that the sores will be standardized by the number of level 2 nodes the level 1 node is connected to. FALSE indicates that the scores will not be standardized. Set to FALSE by default.
@@ -13,7 +13,10 @@
 #' @return The vector of two-mode ego homophily distance.
 #' @export
 #'
-#' @description This function computes the ego homophily distance in two-mode
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes the ego homophily distance in two-mode
 #' networks as  proposed by Fujimoto, Snijders, and Valente (2018: 380).
 #' See Fujimoto, Snijders, and Valente (2018) for more details about this
 #' measure.
@@ -56,11 +59,11 @@
 #' set.seed(9999)
 #' membership <- sample(0:1, nrow(southern.women), replace = TRUE)
 #'#the ego 2 mode distance non-standardized
-#'tmegodistance(southern.women, mem = membership)
+#'netstats_tm_egodistance(southern.women, mem = membership)
 #'#the ego 2 mode distance standardized
-#'tmegodistance(southern.women, mem = membership, standardize = TRUE)
+#'netstats_tm_egodistance(southern.women, mem = membership, standardize = TRUE)
 #'
-tmegodistance <- function(net, #the two-mode adjacency matrix
+netstats_tm_egodistance <- function(net, #the two-mode adjacency matrix
                       mem,#the vector of membership scores
                       standardize = FALSE){ #to standardize the scores for all non_pendant groups
 

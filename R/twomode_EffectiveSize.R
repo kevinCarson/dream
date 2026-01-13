@@ -4,7 +4,7 @@
 ## Last Updated: 10-28-24
 
 #' @title Compute Burchard and Cornwell's (2018) Two-Mode Effective Size
-#' @name bctmeffective
+#' @name netstats_tm_effective
 #' @param net A two-mode adjacency matrix or affiliation matrix
 #' @param isolates What value should isolates be given? Preset to be NA.
 #' @param weighted TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.
@@ -16,7 +16,10 @@
 #' @import parallel
 #' @export
 
-#' @description This function calculates the values for two-mode effective size for
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function calculates the values for two-mode effective size for
 #' weighted and unweighted two-mode networks based on Burchard and Cornwell (2018).
 #' @details The formula for two-mode effective size is:
 #' \deqn{ES_{i} = |\sigma(i)| - \sum_{j \in \sigma(i)} r_{ij}}
@@ -54,7 +57,7 @@
 #'#library(sna) #To plot the two mode network, we use the sna R package
 #'#gplot(BCNet, usearrows = FALSE,
 #'#      gmode = "twomode", displaylabels = TRUE)
-#'bctmeffective(BCNet)
+#'netstats_tm_effective(BCNet)
 #'
 #'#In this example, we recreate Figure 9 in Burchard and Cornwell (2018:18)
 #'#for weighted two mode networks.
@@ -63,12 +66,12 @@
 #'                       nrow = 4, ncol = 3,
 #'                       byrow = TRUE)
 #'rownames(BCweighted) <- c("i", "j", "k", "l")
-#'bctmeffective(BCweighted, weighted = TRUE)
+#'netstats_tm_effective(BCweighted, weighted = TRUE)
 #'
 
 
 
-bctmeffective <- function(net, # the two mode network
+netstats_tm_effective <- function(net, # the two mode network
                       inParallel = FALSE, # should this be computed in parallel?
                       nCores = NULL, # the number of cores for computing in parallel?
                       isolates = NA,# what value should isolates get?

@@ -3,7 +3,7 @@
 ## Last Updated: 01-09-2025
 
 #' @title Process and Create Risk Sets for a One- and Two-Mode Relational Event Sequences
-#' @name createriskset
+#' @name create_riskset
 #' @param type "two-mode" indicates that this is a two-mode event sequence. "one-mode" indicates that the event sequence is one-mode.
 #' @param time The vector of event time values from the observed event sequence.
 #' @param sender The vector of event senders from the observed event sequence.
@@ -27,7 +27,11 @@
 #' }
 #' @export
 #'
-#' @description This function creates one- and two-mode post-sampling eventset with options for case-control
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#'
+#' This function creates one- and two-mode post-sampling eventset with options for case-control
 #' sampling (Vu et al. 2015), sampling from the observed event sequence (Lerner and Lomi 2020), and time- or event-dependent
 #' risk sets. Case-control sampling samples an arbitrary *m* number of controls from the risk set for any event
 #' (Vu et al. 2015). Lerner and Lomi (2020) proposed sampling from the observed event sequence
@@ -88,7 +92,7 @@
 #' WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
 #' ### Creating the EventSet By Employing Case-Control Sampling With M = 10 and
 #' ### Sampling from the Observed Event Sequence with P = 0.01
-#' EventSet <- createriskset(
+#' EventSet <- create_riskset(
 #'   type = "two-mode",
 #'   time = WikiEvent2018.first100k$time, # The Time Variable
 #'   eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
@@ -102,7 +106,7 @@
 #' ### Creating A New EventSet with more observed events and less control events
 #' ### Sampling from the Observed Event Sequence with P = 0.02
 #' ### Employing Case-Control Sampling With M = 2
-#' EventSet1 <- createriskset(
+#' EventSet1 <- create_riskset(
 #'   type = "two-mode",
 #'   time = WikiEvent2018.first100k$time, # The Time Variable
 #'   eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
@@ -113,7 +117,7 @@
 #'   seed = 9999) # The Seed for Replication
 #'
 
-createriskset <-  function(type = c("two-mode", "one-mode"), #the type of risk set to be created
+create_riskset <-  function(type = c("two-mode", "one-mode"), #the type of risk set to be created
                            time, # variable (column) name that contains the time variable
                            eventID, # variable (column) name that contains event Sequence ID
                            sender, # variable (column) name that contains the sender variable

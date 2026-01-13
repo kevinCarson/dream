@@ -2,14 +2,17 @@
 ## Last Updated: 07-15-24
 
 #' @title Compute Butts' (2008) Recency Network Statistic for Event Dyads in a Relational Event Sequence
-#' @description This function computes the recency network sufficient statistic for
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes the recency network sufficient statistic for
 #' a relational event sequence (see Butts 2008; Vu et al. 2015; Meijerink-Bosman et al. 2022). The recency statistic
 #' captures the tendency in which more recent events (i.e., an exchange between two medical doctors) are more
 #' likely to reoccur in comparison to events that happened in the distant past (see Butts 2008 for a discussion). This measure allows for recency scores to be only
 #' computed for the sampled events, while creating the statistics based on the full event
 #' sequence. Moreover, the function allows users to specify relational relevancy for the statistic and
 #' employ a sliding windows framework for large relational sequences.
-#' @name recency
+#' @name remstats_recency
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
 #' @param receiver The vector of event receivers from the post-processing event sequence
@@ -107,7 +110,7 @@
 #'                                            "F", "C", "B"))
 #'
 #'# Creating the Post-Processing Event Dataset with Null Events
-#'eventSet <- createriskset(type = "one-mode",
+#'eventSet <- create_riskset(type = "one-mode",
 #'                           time = events$time,
 #'                           eventID = events$eventID,
 #'                           sender = events$sender,
@@ -118,7 +121,7 @@
 #'
 #'# Compute Recency Statistic without Sliding Windows Framework and
 #'# No Temporal Dependency
-#'eventSet$recency_rawdiff <- recency(
+#'eventSet$recency_rawdiff <- remstats_recency(
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
 #'    sampled = rep(1,nrow(eventSet)),
@@ -127,7 +130,7 @@
 #'    type = "raw.diff")
 #'
 
-recency <-   function(   time,
+remstats_recency <-   function(   time,
                                 sender,
                                 receiver,
                                 sampled,

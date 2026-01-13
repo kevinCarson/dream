@@ -4,7 +4,7 @@
 
 
 #' @title Compute the Number of Walks of Length K in a One-Mode Network
-#' @name nwalks
+#' @name netstats_om_nwalks
 #' @param net An unweighted one-mode network adjacency matrix.
 #' @param k A numerical value that corresponds to the length of the paths to be computed.
 #' @return An *n* x *n* matrix of counts of paths.
@@ -12,7 +12,10 @@
 #'
 #'
 #'
-#' @description This function calculates the number of walks of length *k*
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function calculates the number of walks of length *k*
 #' between any two vertices in an unweighted one-mode network.
 #'
 #' @details
@@ -34,11 +37,11 @@
 #'                nrow = 10, ncol = 10, byrow = TRUE)
 #' diag(rnet) <- 0 #setting self ties to 0
 #' #counting the walks of length 2
-#' nwalks(rnet, k = 2)
+#' netstats_om_nwalks(rnet, k = 2)
 #' #counting the walks of length 5
-#' nwalks(rnet, k = 5)
+#' netstats_om_nwalks(rnet, k = 5)
 
-nwalks <- function(net, # the network adjacency matrix
+netstats_om_nwalks <- function(net, # the network adjacency matrix
                    k){ #the requested path length
   diag(net) <- 0 #ensuring there are no self-loops encase the user misspecificed
   net1 <- net  #making a copy of the original matrix

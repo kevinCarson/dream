@@ -2,7 +2,6 @@
 % Please edit documentation in R/dream.R
 \docType{package}
 \name{dream}
-\alias{dream-package}
 \alias{dream}
 \title{dream: A Package for Dynamic Relational Event Analysis and Modeling}
 \description{
@@ -20,29 +19,43 @@ of the authors and do not necessarily reflect the views of the NSF.
 }
 \section{dream functions}{
 
-The functions in dream can be grouped into four useful categories:
+
+The dream package 'API' is structured into six categories, where the prefix identifies what category the specific function corresponds to (see below):
 \itemize{
-\item Create Dynamic Risk Sets for (Large) Relational Event Models with \code{\link{createriskset}}.
-\item Compute Network Statistics for (Large) Relational Event Models
-\itemize{
-\item Functions: \code{\link{degreestats}}, \code{\link{triadicstats}}, \code{\link{fourcycles}},
-\code{\link{persistence}}, \code{\link{prefattachment}}, \code{\link{recency}},
-\code{\link{reciprocity}}, \code{\link{remdyadcut}}, and \code{\link{repetition}}.
-}
-\item Estimate and Simulate (Large) Relational Event Models
-\itemize{
-\item Functions: \code{\link{remlogit}} and \code{\link{remsimulate}}.
-}
-\item Compute One- and Two-Mode Network Structural Measures
-\itemize{
-\item Functions: \code{\link{bctmconstraint}}, \code{\link{bctmeffective}}, \code{\link{bctmredundancy}},
-\code{\link{burtsconstraint}}, \code{\link{burtseffective}}, \code{\link{homfourcycles}},
-\code{\link{lealpib}}, \code{\link{nwalks}}, \code{\link{tmdegreecent}},
-\code{\link{tmdensity}}, and \code{\link{tmegodistance}}.
-}
-}
+\item \code{remstats_}
+\item \code{netstats_om_}
+\item \code{netstats_tm_}
+\item \code{estimate_}
+\item \code{simulate_}
+\item \code{create_}
 }
 
+The \code{remstats_} functions compute relational/network statistics for relational event sequences.
+For instance, \code{remstats_fourcycles} computes the four-cycles network statistic for a two-mode
+relational event sequence. The \code{create_} function creates a risk-set for one- and two-mode
+relational event sequences based on a set of sampling procedures. The \code{netstats_om_} series of functions compute
+static network statics for one-mode networks
+(i.e., \code{netstats_om_pib} computes \href{https://journals.sagepub.com/doi/10.1177/00491241251322517}{Leal (2025)} measure for
+potential for intercultural brokerage). The \code{netstats_om_} set of functions compute static network
+statics for two-mode networks (i.e., \code{netstats_om_effective}
+computes \href{https://www.sciencedirect.com/science/article/abs/pii/S0378873317302241}{Burchard and Cornwell (2018)} measure for two-mode
+ego effective size). The \code{estimate_} functions estimate relational event models for relational event sequences. Currently,
+the only function in this set is \code{estimate_rem_logit}, which estimates the ordinal timing relational event model and,
+under certain conditions, can estimate a Cox-proportional hazard model for exact timing relational event
+models (see \href{https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-040722-060248}{Bianchi et al. (2024)}
+and \href{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x}{Butts (2008)} for more information on
+these models). Finally, the \code{simulate_} functions simulate one-mode relational event sequences based upon
+results of a relational event model.
+}
+
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/kevinCarson/dream}
+  \item Report bugs at \url{https://github.com/kevinCarson/dream/issues}
+}
+
+}
 \author{
 Kevin A. Carson \href{mailto:kacarson@arizona.edu}{kacarson@arizona.edu}, Diego F. Leal \href{mailto:dflc@arizona.edu}{dflc@arizona.edu}
 }

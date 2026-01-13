@@ -4,7 +4,7 @@
 ## Last Updated: 10-29-24
 
 #' @title Compute Burchard and Cornwell's (2018) Two-Mode Redundancy
-#' @name bctmredundancy
+#' @name netstats_tm_redundancy
 #' @param net A two-mode adjacency matrix or affiliation matrix.
 #' @param isolates What value should isolates be given? Preset to be NA.
 #' @param weighted TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.
@@ -17,7 +17,10 @@
 #' @export
 
 
-#' @description This function calculates the values for two mode redundancy
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function calculates the values for two mode redundancy
 #' for weighted and unweighted two-mode networks based on Burchard and Cornwell (2018).
 #' @details The formula for two-mode redundancy is:
 #' \deqn{r_{ij} = \frac{|\sigma(j) \cap \sigma(i)|}{|\sigma(i)|}}
@@ -51,11 +54,8 @@
 #'  nrow = 4, ncol = 4, byrow = TRUE)
 #'colnames(BCNet) <- c("1", "2", "3", "4")
 #'rownames(BCNet) <- c("i", "j", "k", "m")
-#'#library(sna) #To plot the two mode network, we use the sna R package
-#'#gplot(BCNet, usearrows = FALSE,
-#'#      gmode = "twomode", displaylabels = TRUE)
 #'#this values replicate those reported by Burchard and Cornwell (2018: 14)
-#'bctmredundancy(BCNet)
+#'netstats_tm_redundancy(BCNet)
 #'
 #'
 #'#For this example, we recreate Figure 9 in Burchard and Cornwell (2018:18)
@@ -65,7 +65,7 @@
 #'                       nrow = 4, ncol = 3,
 #'                       byrow = TRUE)
 #'rownames(BCweighted) <- c("i", "j", "k", "l")
-#'bctmredundancy(BCweighted, weighted = TRUE)
+#'netstats_tm_redundancy(BCweighted, weighted = TRUE)
 #'
 #'
 
@@ -77,7 +77,7 @@
 #
 ###
 
-bctmredundancy <- function(net, # the two mode network
+netstats_tm_redundancy <- function(net, # the two mode network
                        inParallel = FALSE, # should this be computed in parallel?
                        nCores = NULL, # the number of cores for computing in parallel?
                        isolates = NA,

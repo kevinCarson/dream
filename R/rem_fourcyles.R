@@ -4,7 +4,7 @@
 ## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 07-31-24
 #' @title Compute the Four-Cycles Network Statistic for Event Dyads in a Relational Event Sequence
-#' @name  fourcycles
+#' @name  remstats_fourcycles
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
 #' @param receiver The vector of event receivers from the post-processing event sequence
@@ -13,12 +13,15 @@
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
 #' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
 #' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
-#' @param Lerneretal_2013 TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
+#' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of four-cycle statistics for the two-mode relational event sequence.
 #' @export
 #'
-#' @description The function computes the four-cycles network sufficient statistic for a two-mode relational
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' The function computes the four-cycles network sufficient statistic for a two-mode relational
 #' sequence with the exponential weighting function (Lerner and Lomi 2020). In essence, the
 #' four-cycles measure captures the tendency for clustering to occur in the network of past
 #' events, whereby an event is more likely to occur between a sender node *a* and receiver
@@ -66,7 +69,7 @@
 #'Mood, Dunn, and Falzone 2022; Lerner and Lomi 2020) can specify the dyadic
 #'weight cutoff, that is, the minimum value for which the weight is considered
 #'relationally relevant. Users who do not know the specific dyadic cutoff value to use, can use the
-#'\code{\link{remdyadcut}} function.
+#'\code{\link{remstats_dyadcut}} function.
 #'
 #'
 #'Following Lerner and Lomi (2020), if the counts of the past events are requested, the formula for four-cycles formation for
@@ -87,7 +90,7 @@
 #'WikiEvent2018$time <- as.numeric(WikiEvent2018$time) #making the variable numeric
 #'### Creating the EventSet By Employing Case-Control Sampling With M = 5 and
 #'### Sampling from the Observed Event Sequence with P = 0.01
-#'EventSet <-createriskset(type = "two-mode",
+#'EventSet <-create_riskset(type = "two-mode",
 #'  time = WikiEvent2018$time, # The Time Variable
 #'  eventID = WikiEvent2018$eventID, # The Event Sequence Variable
 #'  sender = WikiEvent2018$user, # The Sender Variable
@@ -97,7 +100,7 @@
 #'  combine = TRUE,
 #'  seed = 9999) # The Seed for Replication
 #'
-#'cycle4_weights <- fourcycles(
+#'cycle4_weights <- remstats_fourcycles(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,
 #'    receiver = EventSet$receiver,
@@ -105,12 +108,12 @@
 #'    observed = EventSet$observed,
 #'    halflife = 2.592e+09, #halflife parameter
 #'    dyadic_weight = 0,
-#'    Lerneretal_2013 = FALSE)
+#'    exp_weight_form = FALSE)
 #'
 #'
 #'
 #'#### Estimating Repetition Scores with the Counts of Events Returned
-#'cycle4_counts <- fourcycles(
+#'cycle4_counts <- remstats_fourcycles(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,
 #'    receiver = EventSet$receiver,
@@ -163,7 +166,7 @@
 #  Prior Computations: did they already compute indegree or outdegree?
 ########################################################################################################
 
-fourcycles <- function( time,# variable (column) name that contains the time variable
+remstats_fourcycles <- function( time,# variable (column) name that contains the time variable
                                sender,# variable (column) name that contains the sender variable
                                receiver,# variable (column) name that contains the target variable
                                observed,# variable (column) name that contains the observed variable
@@ -171,7 +174,7 @@ fourcycles <- function( time,# variable (column) name that contains the time var
                                halflife=2, # the half life value for the weighting function
                                counts = FALSE, #Logical indicating if the raw counts of events should be returned or the exponential weighting function should be used (TRUE = counts; FALSE = exponential weighting)
                                dyadic_weight= 0.00, # dyadic cutoff weight for events that no longer matter
-                               Lerneretal_2013 = FALSE
+                               exp_weight_form = FALSE
 ) {
   ################################################################################
   #       Note: Four Cycle in Relational Event Model is a very expensive statistic
@@ -201,7 +204,6 @@ fourcycles <- function( time,# variable (column) name that contains the time var
   if(typeof(time) != "double"){
     base::stop("Error: The 'time' argument is not a numeric value. Stopping computation! Please update this argument.") # stop computation and tell the user
   }
-
   ########################################################
   #
   #   Prepping the data to be sent to c++ for speedy computation
@@ -209,6 +211,7 @@ fourcycles <- function( time,# variable (column) name that contains the time var
   ########################################################
   appender <- "__NIKOACAR2020__" # a (hopefully) unique joiner for the string!
   dyad.idR <- (base::paste0(sender,appender,receiver)) #this is arguably very inefficent at scale
+  Lerneretal_2013 <- exp_weight_form
   weightSchemeR <- ifelse(Lerneretal_2013, 0, 1) #setting this argument up for c++ computation
   countsR <- ifelse(counts, 1, 0) #setting this argument up for c++ computation
   controlR <- 1 - observed #making it such that dummy events have a 1 and real events have a value of 0

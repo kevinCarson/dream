@@ -2,7 +2,7 @@
 ## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 11-22-24
 #' @title Simulate a Random One-Mode Relational Event Sequence
-#' @name remsimulate
+#' @name simulate_rem_seq
 #' @param n_actors The number of potential actors in the event sequence.
 #' @param n_events The number of simulated events for the relational event sequence.
 #' @param inertia TRUE/FALSE. True indicates the effect will be included (see the details section). FALSE indicates the effect will not be included.
@@ -32,6 +32,8 @@
 
 
 #' @description
+#' `r lifecycle::badge("stable")`
+#'
 #' The function allows users to simulate a random one-mode relational event sequence
 #' between *n* actors for *k* events. Importantly, this function follows the methods
 #' discussed in Butts (2008), Amati, Lomi, and Snijders (2024), and Scheter and
@@ -104,7 +106,7 @@
 #'
 #' @examples
 #'#Creating a random relational sequence with 5 actors and 25 events
-#'rem1<- remsimulate(n_actors = 25,
+#'rem1<- simulate_rem_seq(n_actors = 25,
 #'                      n_events = 1000,
 #'                      inertia = TRUE,
 #'                      inertia_p = 0.12,
@@ -126,7 +128,7 @@
 #'
 #' #Creating a random relational sequence with 100 actors and 1000 events with
 #' #only inertia and reciprocity
-#'rem2 <- remsimulate(n_actors = 100,
+#'rem2 <- simulate_rem_seq(n_actors = 100,
 #'                      n_events = 1000,
 #'                      inertia = TRUE,
 #'                      inertia_p = 0.12,
@@ -137,7 +139,7 @@
 #'
 #'#Creating a random relational sequence based on the starting sequence with
 #'#only inertia and reciprocity
-#'rem3 <- remsimulate(n_actors = 100, #does not matter can be any value, this is
+#'rem3 <- simulate_rem_seq(n_actors = 100, #does not matter can be any value, this is
 #'                                     #overridden by the starting event sequence
 #'                     n_events = 100,
 #'                     inertia = TRUE,
@@ -151,7 +153,7 @@
 #'rem3
 
 
-remsimulate <- function(n_actors,
+simulate_rem_seq <- function(n_actors,
                          n_events,
                          inertia = FALSE,
                          inertia_p = 0,

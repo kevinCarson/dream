@@ -3,7 +3,7 @@
 ##### Last Updated: 09-09-24
 
 #' @title Compute Burt's (1992) Constraint for Ego Networks from a Sociomatrix
-#' @name burtsconstraint
+#' @name netstats_om_constraint
 #' @param net A one-mode sociomatrix with network ties.
 #' @param isolates What value should isolates be given? Set to NA by default.
 #' @param pendants What value should be given to pendant vertices? Set to 1 by default.
@@ -16,7 +16,10 @@
 #' @import Rcpp
 #' @export
 
-#' @description This function computes Burt's (1992) one-mode ego constraint based upon a sociomatrix.
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes Burt's (1992) one-mode ego constraint based upon a sociomatrix.
 #' @details The formula for Burt's (1992) one-mode ego constraint is:
 #' \deqn{c_{ij} = \left(p_{ij} + \sum_{q} p_{iq} p_{qj}\right)^2 \quad ; \; q \neq i \neq j}
 #' where:
@@ -52,7 +55,7 @@
 #' colnames(BurtEgoNet) <- rownames(BurtEgoNet) <- c("A", "B", "C", "D", "E",
 #'                                                  "F", "ego")
 #' #the constraint value for the ego replicates that provided in Burt (1992: 56)
-#' burtsconstraint(BurtEgoNet)
+#' netstats_om_constraint(BurtEgoNet)
 #'
 #'
 
@@ -60,7 +63,7 @@
 ###     Burt's Constraint Measure for Ego Networks
 #################################################################################
 
-burtsconstraint <- function(net, # the full sociomatrix
+netstats_om_constraint <- function(net, # the full sociomatrix
                   inParallel = FALSE, # should this be computed in parallel?
                   nCores = NULL, # the number of cores for computing in parallel?
                   isolates = NA, # what value should isolates get?

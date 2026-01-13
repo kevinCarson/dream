@@ -3,7 +3,7 @@
 ##### Last Updated: 04-18-24
 
 #' @title Compute Burt's (1992) Effective Size for Ego Networks from a Sociomatrix
-#' @name burtseffective
+#' @name netstats_om_effective
 #' @param net The one-mode sociomatrix with network ties.
 #' @param isolates The numerical value that represents what value will isolates be given. Set to NA by default.
 #' @param pendants The numerical value that represents what value will pendant vertices be given. Set to 1 by default.
@@ -16,7 +16,10 @@
 #' @import Rcpp
 #' @export
 #'
-#' @description This function computes Burt's (1992) one-mode ego effective size based upon a sociomatrix (see details).
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' This function computes Burt's (1992) one-mode ego effective size based upon a sociomatrix (see details).
 #' @details The formula for Burt's (1992; see also Borgatti 1997) one-mode ego effective size is:
 #' \deqn{ E_{i} = \sum_{j} 1 - \sum_{q}p_{iq}m_{jq} ; q \neq i \neq j}
 #' where \eqn{E_{i}} is the ego effective size for an ego *i*.
@@ -54,7 +57,7 @@
 #'                                                          "D", "E", "F",
 #'                                                         "G", "H", "ego")
 #'#the effective size value for the ego replicates that provided in Borgatti (1997)
-#'burtseffective(BorgattiEgoNet)
+#'netstats_om_effective(BorgattiEgoNet)
 #'
 #' # For this example, we recreate the ego network provided in Burt (1992: 56):
 #'BurtEgoNet <- matrix(c(
@@ -69,14 +72,14 @@
 #' colnames(BurtEgoNet) <- rownames(BurtEgoNet) <- c("A", "B", "C", "D", "E",
 #'                                                  "F", "ego")
 #'#the effective size value for the ego replicates that provided in Burt (1992: 56)
-#'burtseffective(BurtEgoNet)
+#'netstats_om_effective(BurtEgoNet)
 
 
 #################################################################################
 ###     Burt's Effective Size Measure for Ego Networks
 #################################################################################
 
-burtseffective <- function(net, # the full sociomatrix
+netstats_om_effective <- function(net, # the full sociomatrix
                   inParallel = FALSE, # should this be computed in parallel?
                   nCores = NULL, # the number of cores for computing in parallel?
                   isolates = NA, # what value should isolates get?

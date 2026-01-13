@@ -2,7 +2,11 @@
 ## Last Updated: 07-15-24
 
 #' @title Compute Butts' (2008) Preferential Attachment Network Statistic for Event Dyads in a Relational Event Sequence
-#' @description The function computes the preferential attachment network sufficient statistic for
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#'
+#' The function computes the preferential attachment network sufficient statistic for
 #' a relational event sequence (see Butts 2008). Preferential attachment measures the tendency towards a
 #' positive feedback loop in which actors involved in more past events are more likely to be involved
 #' in future events (see Butts 2008 for an empirical example and discussion).This measure allows
@@ -10,7 +14,7 @@
 #' sequence. Moreover, the function allows users to specify relational relevancy for the statistic and
 #' employ a sliding windows framework for large relational sequences.
 
-#' @name prefattachment
+#' @name remstats_prefattachment
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
 #' @param receiver The vector of event receivers from the post-processing event sequence
@@ -65,7 +69,7 @@
 #'                                            "F", "C", "B"))
 #'
 #'# Creating the Post-Processing Event Dataset with Null Events
-#'eventSet <- createriskset( type = "one-mode",
+#'eventSet <- create_riskset( type = "one-mode",
 #'                           time = events$time,
 #'                           eventID = events$eventID,
 #'                           sender = events$sender,
@@ -76,7 +80,7 @@
 #'
 #'# Compute Preferential Attachment Statistic without Sliding Windows Framework and
 #'# No Temporal Dependency
-#'eventSet$pref <- prefattachment(
+#'eventSet$pref <- remstats_prefattachment(
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
 #'    sampled = rep(1,nrow(eventSet)),
@@ -85,7 +89,7 @@
 #'
 
 
-prefattachment <-   function(time,
+remstats_prefattachment <-   function(time,
                                 sampled,
                                 observed,
                                 sender,
