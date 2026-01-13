@@ -13,6 +13,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeTMDegree()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_tm_degreecent()`and see the `NEWS.md`.
 #'
 #'
