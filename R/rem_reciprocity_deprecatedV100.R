@@ -37,6 +37,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeReciprocity()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_reciprocity()`and see the `NEWS.md`.
 #'
 #'
