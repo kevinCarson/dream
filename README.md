@@ -126,7 +126,7 @@ data("WikiEvent2018.first100k")
 WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
 ### Creating the EventSet By Employing Case-Control Sampling With M = 10 and
 ### Sampling from the Observed Event Sequence with P = 0.01
-EventSet <- createriskset(
+EventSet <- create_riskset(
   type = "two-mode",
   time = WikiEvent2018.first100k$time, # The Time Variable
   eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
@@ -144,7 +144,7 @@ post.processing.riskset <- EventSet[EventSet$sampled == 1,] #only those sampled 
 ``` r
 # computing the inertia statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$repetition <- repetition(
+post.processing.riskset$repetition <- remstats_repetition(
    time = EventSet$time,
    sender = EventSet$sender,
    receiver = EventSet$receiver,
@@ -152,11 +152,11 @@ post.processing.riskset$repetition <- repetition(
    observed = EventSet$observed,
    halflife = 2.592e+09, 
    dyadic_weight = 0,
-   Lerneretal_2013 = FALSE)
+   exp_weight_form = FALSE)
 
 # computing the sender outdegree statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$sender.outdegree <- degreestats(
+post.processing.riskset$sender.outdegree <- remstats_degree(
    formation = "sender-outdegree",
    time = EventSet$time,
    sender = EventSet$sender,
@@ -165,11 +165,11 @@ post.processing.riskset$sender.outdegree <- degreestats(
    observed = EventSet$observed,
    halflife = 2.592e+09, 
    dyadic_weight = 0,
-   Lerneretal_2013 = FALSE)
+   exp_weight_form = FALSE)
 
 # computing the receiver indegree statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$receiver.indegree <- degreestats(
+post.processing.riskset$receiver.indegree <- remstats_degree(
    formation = "receiver-indegree",
    time = EventSet$time,
    sender = EventSet$sender,
@@ -178,11 +178,11 @@ post.processing.riskset$receiver.indegree <- degreestats(
    observed = EventSet$observed,
    halflife = 2.592e+09, 
    dyadic_weight = 0,
-   Lerneretal_2013 = FALSE)
+   exp_weight_form = FALSE)
 
 # computing the four-cycles statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$fourcycles <- fourcycles(
+post.processing.riskset$fourcycles <- remstats_fourcycles(
    time = EventSet$time,
    sender = EventSet$sender,
    receiver = EventSet$receiver,
@@ -190,10 +190,10 @@ post.processing.riskset$fourcycles <- fourcycles(
    observed = EventSet$observed,
    halflife = 2.592e+09, 
    dyadic_weight = 0,
-   Lerneretal_2013 = FALSE)
+   exp_weight_form = FALSE)
 
 # Estimating the ordinal relational event model! 
-lerner.lomi.rem <- remlogit(observed ~ 
+lerner.lomi.rem <- estimate_rem_logit(observed ~ 
                             repetition +
                             sender.outdegree + 
                             receiver.indegree + 
@@ -212,7 +212,7 @@ summary(lerner.lomi.rem)
 #> Ordinal Timing Relational Event Model
 #> 
 #> Call:
-#> remlogit(formula = observed ~ repetition + sender.outdegree + 
+#> estimate_rem_logit(formula = observed ~ repetition + sender.outdegree + 
 #>     receiver.indegree + receiver.indegree:sender.outdegree + 
 #>     fourcycles, event.cluster = post.processing.riskset$eventID, 
 #>     data = post.processing.riskset, newton.rhapson = FALSE)
