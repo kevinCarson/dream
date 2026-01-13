@@ -13,6 +13,7 @@
 #
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#' 
 #' `computeRemDyadCut()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_dyadcut()`and see the `NEWS.md`.
 #'
 #' A user-helper function to assist researchers in finding the dyadic
