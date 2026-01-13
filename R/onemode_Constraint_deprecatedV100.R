@@ -17,6 +17,7 @@
 
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeBurtsConstraint()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_om_constraint()`and see the `NEWS.md`.
 #'
 #'
