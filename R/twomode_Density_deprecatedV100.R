@@ -14,6 +14,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeTMDens()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_tm_density()`and see the `NEWS.md`.
 #'
 #'
