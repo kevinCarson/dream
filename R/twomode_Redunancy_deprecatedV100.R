@@ -19,6 +19,7 @@
 
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeBCRedund()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_tm_redundancy()`and see the `NEWS.md`.
 #'
 #' This function calculates the values for two mode redundancy
