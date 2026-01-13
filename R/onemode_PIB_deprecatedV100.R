@@ -24,6 +24,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeLealBrokerage()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_om_pib()`and see the `NEWS.md`.
 #'
 #'
