@@ -17,6 +17,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeBurtsES()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_om_effective()`and see the `NEWS.md`.
 #'
 #' This function computes Burt's (1992) one-mode ego effective size based upon a sociomatrix (see details).
