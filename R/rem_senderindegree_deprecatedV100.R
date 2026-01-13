@@ -37,6 +37,7 @@
 
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeSenderIndegree()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_degree()`and see the `NEWS.md`.
 #'
 #'
