@@ -36,6 +36,7 @@
 
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `processOMEventSeq()` has been deprecated in the newest update to the `dream` package. Please use the `create_riskset()`and see the `NEWS.md`.
 #'
 #'
