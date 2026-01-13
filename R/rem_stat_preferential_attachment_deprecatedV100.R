@@ -4,6 +4,7 @@
 #' @title Compute Butts' (2008) Preferential Attachment Network Statistic for Event Dyads in a Relational Event Sequence
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computePrefAttach()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_prefattachment()`and see the `NEWS.md`.
 #'
 #'
