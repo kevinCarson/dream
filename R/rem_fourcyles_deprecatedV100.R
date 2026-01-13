@@ -43,6 +43,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeFourCycles()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_fourcycles()`and see the `NEWS.md`.
 #'
 #'
