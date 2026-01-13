@@ -38,6 +38,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeISP()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_triads()`and see the `NEWS.md`.
 #'
 #'
