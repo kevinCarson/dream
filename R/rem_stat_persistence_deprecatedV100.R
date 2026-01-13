@@ -6,6 +6,7 @@
 #' @title Compute Butts' (2008) Persistence Network Statistic for Event Dyads in a Relational Event Sequence
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computePersistence()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_persistence()`and see the `NEWS.md`.
 #'
 #'
