@@ -13,6 +13,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
+#'
 #' `computeHomFourCycles()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_tm_homfourcycles()`and see the `NEWS.md`.
 #'
 #'
