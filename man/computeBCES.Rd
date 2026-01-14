@@ -28,6 +28,7 @@ The vector of two-mode effective size values for level 1 actors in a two-mode ne
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeBCES()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_effective()}and see the \code{NEWS.md}.
 
 This function calculates the values for two-mode effective size for

@@ -111,7 +111,6 @@ List processREMseqTM(std::vector<double> time,
             good = 1; // if this is the first sample, we are good, store the results
             samsenders[j] = ssender; //store the result
             samtargets[j] = starget; //store the result
-            predyads.push_back(ssender + "__NIKOACAR__" + starget);
           }
         } // the end of the intial if statement
         } // the end of the while loop
@@ -122,7 +121,7 @@ List processREMseqTM(std::vector<double> time,
       curseqid[j + 1] = seqid[curevent]; // the current event sequence
       curfullsender[j + 1] = samsenders[j]; // the current event sender
       curfulltarget[j + 1] = samtargets[j]; // the current event target
-
+      predyads.push_back(samsenders[j] + "__NIKOACAR__" + samtargets[j]);
 
 
     } // the end of the for loop for searching and sampling controls

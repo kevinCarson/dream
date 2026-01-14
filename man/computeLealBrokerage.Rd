@@ -31,6 +31,7 @@ The vector of interpersonal cultural brokerage values for the one-mode network.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeLealBrokerage()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_pib()}and see the \code{NEWS.md}.
 
 Following Leal (2025), this function calculates node’s Potential

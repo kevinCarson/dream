@@ -20,6 +20,7 @@ The vector of two-mode constraint scores for level 1 actors in a two-mode networ
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeBCConstraint()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_constraint()}and see the \code{NEWS.md}.
 
 This function calculates the values for two-mode network constraint

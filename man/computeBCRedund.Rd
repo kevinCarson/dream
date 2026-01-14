@@ -28,6 +28,7 @@ An \emph{n x n} matrix with level 1 redundancy scores for actors in a two-mode n
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeBCRedund()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_redundancy()}and see the \code{NEWS.md}.
 
 This function calculates the values for two mode redundancy

@@ -28,6 +28,7 @@ The vector of ego network constraint values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeBurtsConstraint()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_constraint()}and see the \code{NEWS.md}.
 
 This function computes Burt's (1992) one-mode ego constraint based upon a sociomatrix.

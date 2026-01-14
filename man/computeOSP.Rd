@@ -65,6 +65,7 @@ The vector of outgoing shared partner statistics for the relational event sequen
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeOSP()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_triads()}and see the \code{NEWS.md}.
 
 The function computes the outgoing shared partners (OSP) network sufficient statistic for

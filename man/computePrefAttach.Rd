@@ -60,6 +60,7 @@ The vector of event preferential attachment statistics for the relational event 
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computePrefAttach()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_prefattachment()}and see the \code{NEWS.md}.
 
 The function computes the preferential attachment network sufficient statistic for

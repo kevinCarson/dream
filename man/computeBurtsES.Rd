@@ -28,6 +28,7 @@ The vector of ego network effective size values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeBurtsES()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_effective()}and see the \code{NEWS.md}.
 
 This function computes Burt's (1992) one-mode ego effective size based upon a sociomatrix (see details).

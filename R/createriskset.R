@@ -143,6 +143,8 @@ create_riskset <-  function(type = c("two-mode", "one-mode"), #the type of risk 
   if(!(type %in% c("two-mode", "one-mode"))){
     base::stop("Error: The type argument is not valid. Please see the help page and retry! Happy computing!") # stop computation and tell the user
   }
+  sender <- as.character(sender)
+  receiver <- as.character(receiver)
   ########################################################
   #
   #   Creating the dataset in c++
@@ -152,16 +154,16 @@ create_riskset <-  function(type = c("two-mode", "one-mode"), #the type of risk 
       #then create a two-mode event sequence!
       bigeventlist <- processREMseqTM(time = time,
                                       seqid = eventID,
-                                      sender = sender,
-                                      target = receiver,
+                                      sender = (sender),
+                                      target = (receiver),
                                       pobserved = p_samplingobserved,
                                       ncontrols = n_controls,
                                       rseed = seed)
   }else{#then create a one-mode event sequence!
       bigeventlist <- processREMseqOM(time = time,
                                       seqid = eventID,
-                                      sender = sender,
-                                      target = receiver,
+                                      sender = (sender),
+                                      target = (receiver),
                                       pobserved = p_samplingobserved,
                                       ncontrols = n_controls,
                                       rseed = seed)

@@ -59,6 +59,7 @@ The vector of receiver indegree statistics for the relational event sequence.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeReceiverIndegree()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_degree()}and see the \code{NEWS.md}.
 
 The function computes the indegree network sufficient statistic for event receivers

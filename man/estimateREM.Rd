@@ -86,6 +86,7 @@ An object of class "dream" as a list containing the following components:
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{estimateREM()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{estimate_rem_logit()}and see the \code{NEWS.md}.
 
 This function estimates the ordinal timing relational event model by maximizing the

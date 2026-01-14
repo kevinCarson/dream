@@ -59,6 +59,7 @@ The vector of sender outdegree statistics for the relational event sequence.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeSenderOutdegree()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_degree()}and see the \code{NEWS.md}.
 
 The function computes the sender outdegree network sufficient statistic for

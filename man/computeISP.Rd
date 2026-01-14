@@ -65,6 +65,7 @@ The vector of incoming shared partner statistics for the relational event sequen
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeISP()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_triads()}and see the \code{NEWS.md}.
 
 This function calculates the incoming shared partners (ISP) network sufficient statistic for

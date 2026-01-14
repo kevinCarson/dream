@@ -18,6 +18,7 @@ The level-specific network density for the two-mode graph.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeTMDens()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_density()}and see the \code{NEWS.md}.
 
 This function computes the density of a two-mode network following

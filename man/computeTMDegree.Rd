@@ -16,6 +16,7 @@ The vector of two-mode level-specific degree centrality values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeTMDegree()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_degreecent()}and see the \code{NEWS.md}.
 
 This function computes the degree centrality values for two-mode

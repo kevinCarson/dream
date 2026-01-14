@@ -18,6 +18,7 @@ The dyadic weight cutoff based on user specified values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeRemDyadCut()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_dyadcut()}and see the \code{NEWS.md}.
 
 A user-helper function to assist researchers in finding the dyadic

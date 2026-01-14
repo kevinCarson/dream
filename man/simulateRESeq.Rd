@@ -79,6 +79,7 @@ A data frame that contains the simulated relational event sequence with the suff
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{simulateRESeq()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{simulate_rem_seq()}and see the \code{NEWS.md}.
 
 The function allows users to simulate a random one-mode relational event sequence

@@ -18,6 +18,7 @@ The vector of two-mode ego homophily distance.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeTMEgoDis()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_egodistance()}and see the \code{NEWS.md}.
 
 This function computes the ego homophily distance in two-mode

@@ -65,6 +65,7 @@ The vector of persistence network statistics for the relational event sequence.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computePersistence()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_persistence()}and see the \code{NEWS.md}.
 
 This function computes the persistence network sufficient statistic for

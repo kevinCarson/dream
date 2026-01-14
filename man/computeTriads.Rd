@@ -65,6 +65,7 @@ The vector of triadic closure network statistics for the relational event sequen
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeTriads()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_triads()} and see the \code{NEWS.md}.
 
 This function computes the triadic closure network sufficient statistic for

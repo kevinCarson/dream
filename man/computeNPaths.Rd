@@ -16,6 +16,7 @@ An \emph{n} x \emph{n} matrix of counts of paths.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
 \code{computeNPaths()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_nwalks()}and see the \code{NEWS.md}.
 
 This function calculates the number of paths of length \emph{k}
