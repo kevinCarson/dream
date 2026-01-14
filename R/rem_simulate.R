@@ -25,6 +25,7 @@
 #' @param three_cycles_p If *three_cycles* = TRUE, the numerical value that corresponds to the parameter weight for the three cycles statistic.
 #' @param starting_events A *n* x 2 dataframe with *n* starting events and 2 columns. The first column should be the sender and the second should be the target.
 #' @param returnStats TRUE/FALSE. TRUE indicates that the requested network statistics will be returned alongside the simulated relational event sequence. FALSE indicates that only the simulated relational event sequence will be returned. Set to FALSE by default.
+#' @param rseed A value for the starting seed for the random number generator. Set to 9999 by default.
 #' @return A data frame that contains the simulated relational event sequence with the sufficient statistics (if requested).
 #' @importFrom collapse whichv
 #' @import data.table
@@ -174,7 +175,8 @@ simulate_rem_seq <- function(n_actors,
                          three_cycles = FALSE,
                          three_cycles_p = 0,
                          starting_events = NULL,
-                         returnStats = FALSE){
+                         returnStats = FALSE,
+                         rseed = 9999){
 
   ##################################################################################
   #
@@ -273,7 +275,7 @@ simulate_rem_seq <- function(n_actors,
     }
 
   }
-
+  set.seed(rseed) #based upon the users input for the random seed
   if(is.null(starting_events)){
 
     #intializing the risk set, namely, the relational events that could occur

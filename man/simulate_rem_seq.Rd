@@ -26,7 +26,8 @@ simulate_rem_seq(
   three_cycles = FALSE,
   three_cycles_p = 0,
   starting_events = NULL,
-  returnStats = FALSE
+  returnStats = FALSE,
+  rseed = 9999
 )
 }
 \arguments{
@@ -73,6 +74,8 @@ simulate_rem_seq(
 \item{starting_events}{A \emph{n} x 2 dataframe with \emph{n} starting events and 2 columns. The first column should be the sender and the second should be the target.}
 
 \item{returnStats}{TRUE/FALSE. TRUE indicates that the requested network statistics will be returned alongside the simulated relational event sequence. FALSE indicates that only the simulated relational event sequence will be returned. Set to FALSE by default.}
+
+\item{rseed}{A value for the starting seed for the random number generator. Set to 9999 by default.}
 }
 \value{
 A data frame that contains the simulated relational event sequence with the sufficient statistics (if requested).
