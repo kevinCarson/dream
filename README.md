@@ -15,7 +15,7 @@ checks](https://badges.cranchecks.info/summary/dream.svg)](https://cran.r-projec
 
 The `dream` package provides users with helpful functions for relational
 event modeling/analysis. In particular, `dream` provides users with
-helper functions for large relational event analysis, such as recently
+helper functions for large (i.e., big) relational event analysis, such as recently
 proposed sampling procedures for creating relational risk sets.
 Alongside the set of functions for relational event analysis, this
 package includes functions for the structural analysis of one- and
