@@ -13,10 +13,23 @@ checks](https://badges.cranchecks.info/summary/dream.svg)](https://cran.r-projec
 [![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The `dream` package provides users with helpful functions for relational
-event modeling/analysis. In particular, `dream` provides users with
-helper functions for large relational event analysis, such as recently
-proposed sampling procedures for creating relational risk sets.
+The `dream` package provides users with helpful functions for (large)
+relational event modeling/analysis. For an introduction to relational
+events analysis/modeling, see [Butts
+(2008)](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x),
+[Butts et
+al. (2023)](https://www.cambridge.org/core/journals/network-science/article/relational-event-models-in-network-science/D3C9C3D18FC9C3FCC8561CCC4FEE747A),
+[Duxbury
+(2023)](https://methods.sagepub.com/book/mono/longitudinal-network-models/toc#_),
+and [Bianchi et
+al. (2024)](https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-040722-060248).
+In particular, `dream` provides users with helper functions for large
+relational event analysis, such as recently proposed sampling procedures
+for creating relational risk sets (i.e., sampling from the observed
+event sequence [(Lerner and Lomi
+2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897),
+case-control sampling [(Vu et
+al. 2015)](https://www.sciencedirect.com/science/article/abs/pii/S0378873315000477)).
 Alongside the set of functions for relational event analysis, this
 package includes functions for the structural analysis of one- and
 two-mode networks, such as network constraint and effective size
@@ -83,12 +96,12 @@ procedures. The `netstats_om_` series of functions compute static
 network statics for one-mode networks (i.e., `netstats_om_pib` computes
 [Leal
 (2025)](https://journals.sagepub.com/doi/10.1177/00491241251322517)
-measure for potential for intercultural brokerage). The `netstats_om_`
-set of functions compute static network statics for two-mode networks
-(i.e., `netstats_om_effective` computes [Burchard and Cornwell
+measure for potential for intercultural brokerage). The `netstats_tm_`
+set of functions compute static network statistics for two-mode networks
+(i.e., `netstats_tm_effective` computes [Burchard and Cornwell
 (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0378873317302241)
-measure for two-mode ego effective size). The `estimate_` functions
-estimate relational event models for relational event sequences.
+measure for two-mode ego effective size). The `estimate_` function
+estimates a relational event models for relational event sequences.
 Currently, the only function in this set is `estimate_rem_logit`, which
 estimates the ordinal timing relational event model and, under certain
 conditions, can estimate a Cox-proportional hazard model for exact
@@ -119,6 +132,8 @@ event model. The event sequence included in this example is based a
 subset (i.e., the first 100,000 events) of the 2018 Wikipedia
 article-edit event sequence used in [Lerner and Lomi
 (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897).
+Across five replications, the average execution time for the example
+below on a standard MacBook Air was 46.392 seconds.
 
 ``` r
 library(dream)
@@ -138,6 +153,19 @@ EventSet <- create_riskset(
 
 post.processing.riskset <- EventSet[EventSet$sampled == 1,] #only those sampled events! 
 ```
+
+``` r
+nrow(post.processing.riskset) #the total number of post-processing events
+#> [1] 110000
+table(post.processing.riskset$observed) # 0 = null events; 1 = observed events
+#> 
+#>      0      1 
+#> 100000  10000
+```
+
+Based on the above results, the post-processing event sequence contains
+110,000 post-processing events, that is, 10,000 observed events and 10
+control events per observed events (i.e., 100,000 null events).
 
 ### A Miniature Replication of Lerner and Lomi (2020)
 
@@ -235,3 +263,8 @@ summary(lerner.lomi.rem)
 #> 
 #> AIC 15126.24 BIC 15162.29
 ```
+
+## Questions, Comments, or Suggestions!
+
+If you have any questions, comments, or suggestions please feel free to
+open an issue!

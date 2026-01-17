@@ -28,7 +28,7 @@ cat(
 [![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The `dream` package provides users with helpful functions for relational event modeling/analysis. In particular, `dream` provides users with helper functions for large relational event analysis, such as recently proposed sampling procedures for creating relational risk sets. Alongside the set of functions for relational event analysis, this package includes functions for the structural analysis of one- and two-mode networks, such as network constraint and effective size measures. 
+The `dream` package provides users with helpful functions for (large) relational event modeling/analysis. For an introduction to relational events analysis/modeling, see [Butts (2008)](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x), [Butts et al. (2023)](https://www.cambridge.org/core/journals/network-science/article/relational-event-models-in-network-science/D3C9C3D18FC9C3FCC8561CCC4FEE747A), [Duxbury (2023)](https://methods.sagepub.com/book/mono/longitudinal-network-models/toc#_), and [Bianchi et al. (2024)](https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-040722-060248). In particular, `dream` provides users with helper functions for large relational event analysis, such as recently proposed sampling procedures for creating relational risk sets (i.e., sampling from the observed event sequence [(Lerner and Lomi 2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897), case-control sampling [(Vu et al. 2015)](https://www.sciencedirect.com/science/article/abs/pii/S0378873315000477)). Alongside the set of functions for relational event analysis, this package includes functions for the structural analysis of one- and two-mode networks, such as network constraint and effective size measures. 
 
 This package was developed with support from the National Science Foundation’s (NSF) Human Networks and Data Science Program (HNDS) under award number 2241536 (PI: Diego F. Leal). Any opinions, findings, and conclusions, or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the NSF.
 
@@ -71,7 +71,7 @@ The dream package 'API' is structured into six categories, where the prefix iden
 - `simulate_`
 - `create_` 
 
-The `remstats_` functions compute relational/network statistics for relational event sequences. For instance, `remstats_fourcycles` computes the four-cycles network statistic for a two-mode relational event sequence. The `create_` function creates a risk-set for one- and two-mode relational event sequences based on a set of sampling procedures. The `netstats_om_` series of functions compute static network statics for one-mode networks (i.e., `netstats_om_pib` computes [Leal (2025)](https://journals.sagepub.com/doi/10.1177/00491241251322517) measure for potential for intercultural brokerage). The `netstats_om_` set of functions compute static network statics for two-mode networks (i.e., `netstats_om_effective` computes [Burchard and Cornwell (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0378873317302241) measure for two-mode ego effective size). The `estimate_` functions estimate relational event models for relational event sequences. Currently, the only function in this set is `estimate_rem_logit`, which estimates the ordinal timing relational event model and, under certain conditions, can estimate a Cox-proportional hazard model for exact timing relational event models (see [Bianchi et al. (2024)](https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-040722-060248) and [Butts (2008)](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x) for more information on these models). Finally, the `simulate_` functions simulate one-mode relational event sequences based upon results of a relational event model. 
+The `remstats_` functions compute relational/network statistics for relational event sequences. For instance, `remstats_fourcycles` computes the four-cycles network statistic for a two-mode relational event sequence. The `create_` function creates a risk-set for one- and two-mode relational event sequences based on a set of sampling procedures. The `netstats_om_` series of functions compute static network statics for one-mode networks (i.e., `netstats_om_pib` computes [Leal (2025)](https://journals.sagepub.com/doi/10.1177/00491241251322517) measure for potential for intercultural brokerage). The `netstats_tm_` set of functions compute static network statistics for two-mode networks (i.e., `netstats_tm_effective` computes [Burchard and Cornwell (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0378873317302241) measure for two-mode ego effective size). The `estimate_` function estimates a relational event models for relational event sequences. Currently, the only function in this set is `estimate_rem_logit`, which estimates the ordinal timing relational event model and, under certain conditions, can estimate a Cox-proportional hazard model for exact timing relational event models (see [Bianchi et al. (2024)](https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-040722-060248) and [Butts (2008)](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x) for more information on these models). Finally, the `simulate_` functions simulate one-mode relational event sequences based upon results of a relational event model. 
 
 
 ## Estimating an (Ordinal) Relational Event Model in `dream`
@@ -79,7 +79,7 @@ The `remstats_` functions compute relational/network statistics for relational e
 ### Sampling from the Observed Events and Case-Control Sampling
 
 This is a basic example which shows how to sample from the observed events
-and employ the case-control sampling technique for large relational event models (see [Butts 2008](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x)) following [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897) and [Vu et al. (2015)](https://www.sciencedirect.com/science/article/abs/pii/S0378873315000477). Then based upon the post-processing event sequence, the example computes a set of standard network statistics for two-mode relational event models. Lastly, the examples estimates an ordinal timing relational event model. The event sequence included in this example is based a subset (i.e., the first 100,000 events) of the 2018 Wikipedia article-edit event sequence used in [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897).
+and employ the case-control sampling technique for large relational event models (see [Butts 2008](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x)) following [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897) and [Vu et al. (2015)](https://www.sciencedirect.com/science/article/abs/pii/S0378873315000477). Then based upon the post-processing event sequence, the example computes a set of standard network statistics for two-mode relational event models. Lastly, the examples estimates an ordinal timing relational event model. The event sequence included in this example is based a subset (i.e., the first 100,000 events) of the 2018 Wikipedia article-edit event sequence used in [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897). Across five replications, the average execution time for the example below on a standard MacBook Air was 46.392 seconds. 
 
 ```{r processevents}
 library(dream)
@@ -99,6 +99,13 @@ EventSet <- create_riskset(
 
 post.processing.riskset <- EventSet[EventSet$sampled == 1,] #only those sampled events! 
 ```
+
+```{r print, echo=TRUE}
+nrow(post.processing.riskset) #the total number of post-processing events
+table(post.processing.riskset$observed) # 0 = null events; 1 = observed events
+```
+
+Based on the above results, the post-processing event sequence contains 110,000 post-processing events, that is, 10,000 observed events and 10 control events per observed events (i.e., 100,000 null events).
 
 ### A Miniature Replication of Lerner and Lomi (2020)
 
@@ -168,3 +175,9 @@ lerner.lomi.rem <- estimate_rem_logit(observed ~
 ```{r, echo=TRUE}
 summary(lerner.lomi.rem)
 ```
+
+## Questions, Comments, or Suggestions!
+
+If you have any questions, comments, or suggestions please feel free to open an issue! 
+
+
