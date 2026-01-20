@@ -2,7 +2,7 @@
 % Please edit documentation in R/onemode_PIB_deprecatedV100.R
 \name{computeLealBrokerage}
 \alias{computeLealBrokerage}
-\title{Compute Potential for Cultural Brokerage (PIB) Based on Leal (2025)}
+\title{Compute Potential for Intercultural Brokerage (PIB) Based on Leal (2025)}
 \usage{
 computeLealBrokerage(
   net,

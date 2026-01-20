@@ -2,7 +2,7 @@
 % Please edit documentation in R/onemode_PIB.R
 \name{netstats_om_pib}
 \alias{netstats_om_pib}
-\title{Compute Potential for Cultural Brokerage (PIB) Based on Leal (2025)}
+\title{Compute Potential for Intercultural Brokerage (PIB) Based on Leal (2025)}
 \usage{
 netstats_om_pib(
   net,

@@ -7,7 +7,7 @@
 ## Code written by Kevin Carson (kacarson@arizona.edu) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 09-21-24
 
-#' @title Compute Potential for Cultural Brokerage (PIB) Based on Leal (2025)
+#' @title Compute Potential for Intercultural Brokerage (PIB) Based on Leal (2025)
 #' @name computeLealBrokerage
 #' @param net The one-mode adjacency matrix.
 #' @param g.mem The vector of membership values that the brokerage scores will be based on.
