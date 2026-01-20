@@ -15,7 +15,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `computeTMDens()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_tm_density()`and see the `NEWS.md`.
+#' `computeTMDens()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `netstats_tm_density()` file and see the `NEWS.md` for more details.
 #'
 #'
 #' This function computes the density of a two-mode network following

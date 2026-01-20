@@ -4,7 +4,7 @@
 ## Last Updated: 07-15-24
 #' @title A Helper Function to Assist Researchers in Finding Dyadic Weight Cutoff Values
 #' @name computeRemDyadCut
-#' @param halflife The user specified halflife value for the weighting function.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
 #' @param relationalWidth The numerical value that corresponds to the time range for which the user specifies for temporal relevancy.
 #' @param Lerneretal_2013 TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @return The dyadic weight cutoff based on user specified values.
@@ -13,8 +13,8 @@
 #
 #' @description
 #' `r lifecycle::badge("deprecated")`
-#' 
-#' `computeRemDyadCut()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_dyadcut()`and see the `NEWS.md`.
+#'
+#' `computeRemDyadCut()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `remstats_dyadcut()` function and see the `NEWS.md` file for more details.
 #'
 #' A user-helper function to assist researchers in finding the dyadic
 #' cutoff value to compute sufficient statistics for relational event models based upon temporal dependency.
@@ -99,7 +99,7 @@
 #'                 Lerneretal_2013 = FALSE)
 #'
 #'
-computeRemDyadCut <- function(halflife,  #the user specificed halflife
+computeRemDyadCut <- function(halflife = 2,  #the user specificed halflife
                              relationalWidth, #this is a value that measures how long the time span is
                              Lerneretal_2013 = FALSE){ #should the Lerner et al. 2013 weighting function be used
   lifecycle::deprecate_warn("1.0.0", "computeRemDyadCut()", "remstats_dyadcut()")

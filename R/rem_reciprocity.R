@@ -12,8 +12,8 @@
 #' @param observed A vector for the post-processing event sequence where i is equal to 1 if the dyadic event is observed and 0 if not.
 #' @param sampled A vector for the post-processing event sequence where i is equal to 1 if the observed dyadic event is sampled and 0 if not.
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
-#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
-#' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
+#' @param dyadic_weight A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
 #' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of reciprocity statistics for the relational event sequence.
@@ -23,12 +23,16 @@
 #' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' This function calculates the reciprocity network sufficient statistic for
-#' a relational event sequence (see Lerner and Lomi 2020; Butts 2008). The reciprocity statistic captures the tendency in which a sender *a* sends a tie to receiver *b* given that *b* sent a tie to *a* in the past (i.e., an exchange between two medical doctors). This measure allows for reciprocity scores to be only
-#' computed for the sampled events, while creating the weights based on the full event
-#' sequence (see Lerner and Lomi 2020; Vu et al. 2015). The function allows users to use two different weighting functions,
-#' reduce computational runtime, employ a sliding windows framework for large relational sequences, and
-#' specify a dyadic cutoff for relational relevancy.
+#'This function calculates the reciprocity network sufficient statistic for a
+#'relational event sequence (see Lerner and Lomi 2020; Butts 2008). The reciprocity
+#'statistic captures the tendency for a sender a to ‘send a tie’ to (e.g., initiate
+#'a communication event with) receiver b given that b sent a tie to a in the
+#'past (i.e., an exchange between two medical doctors). This function allows
+#'for reciprocity scores to be only computed for the sampled events, while
+#'creating the weights based on the full event sequence (see Lerner and
+#'Lomi 2020; Vu et al. 2015). The function also allows users to use two
+#'different weighting functions, return the counts of past events, reduce computational runtime, and specify
+#'a dyadic cutoff for relational relevancy.
 #'
 #'
 #'@details This function calculates reciprocity scores for relational event models
@@ -113,7 +117,7 @@
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
-#'# Computing Reciprocity Statistics without the sliding windows framework
+#'#Computing the reciprocity statistics for the relational event sequence
 #'eventSet$recip <- remstats_reciprocity(
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,

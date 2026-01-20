@@ -34,7 +34,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `simulateRESeq()` has been deprecated in the newest update to the `dream` package. Please use the `simulate_rem_seq()`and see the `NEWS.md`.
+#' `simulateRESeq()` has been deprecated starting on version 1.0.0 of the `dream` package. Instead, please use the `simulate_rem_seq()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #'

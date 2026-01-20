@@ -4,10 +4,10 @@
 \alias{computeRemDyadCut}
 \title{A Helper Function to Assist Researchers in Finding Dyadic Weight Cutoff Values}
 \usage{
-computeRemDyadCut(halflife, relationalWidth, Lerneretal_2013 = FALSE)
+computeRemDyadCut(halflife = 2, relationalWidth, Lerneretal_2013 = FALSE)
 }
 \arguments{
-\item{halflife}{The user specified halflife value for the weighting function.}
+\item{halflife}{A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).}
 
 \item{relationalWidth}{The numerical value that corresponds to the time range for which the user specifies for temporal relevancy.}
 
@@ -19,7 +19,7 @@ The dyadic weight cutoff based on user specified values.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeRemDyadCut()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_dyadcut()}and see the \code{NEWS.md}.
+\code{computeRemDyadCut()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{remstats_dyadcut()} function and see the \code{NEWS.md} file for more details.
 
 A user-helper function to assist researchers in finding the dyadic
 cutoff value to compute sufficient statistics for relational event models based upon temporal dependency.

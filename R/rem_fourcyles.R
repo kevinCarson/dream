@@ -11,8 +11,8 @@
 #' @param observed A vector for the post-processing event sequence where i is equal to 1 if the dyadic event is observed and 0 if not.
 #' @param sampled A vector for the post-processing event sequence where i is equal to 1 if the observed dyadic event is sampled and 0 if not.
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
-#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
-#' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
+#' @param dyadic_weight A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
 #' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of four-cycle statistics for the two-mode relational event sequence.
@@ -27,8 +27,9 @@
 #' events, whereby an event is more likely to occur between a sender node *a* and receiver
 #' node *b* given that *a* has interacted with other receivers in past events who have
 #' received events from other senders that interacted with *b* (e.g., Duxbury and Haynie 2021, Lerner and Lomi 2020). The function
-#' allows users to use two different weighting functions, reduce computational runtime, employ a
-#' sliding windows framework for large relational sequences, and specify a dyadic cutoff for relational relevancy.
+#' also allows users to use two different weighting functions, return the counts of past events, reduce
+#' computational runtime, and specify a dyadic cutoff for relational relevancy.
+#'
 #'
 #'@details The function calculates the four-cycles network statistic for two-mode relational event models
 #'based on the exponential weighting function used in either Lerner and Lomi
@@ -77,7 +78,7 @@
 #'\deqn{four cycles_{e_{i}} = \sum_{i=1}^{|S'|} \sum_{j=1}^{|R'|} \min\left[d(s'_{i}, r, t),\ d(s, r'_{j}, t),\ d(s'_{i}, r'_{j}, t)\right]}
 #'where, \eqn{d()} is the number of past events that meet the specific set operations, \eqn{d(s'_{i},r,t)} is the number
 #'of past events where the current event receiver received a tie from another sender \eqn{s'_{i}}, \eqn{d(s,r'_{j},t)} is the number
-#'of past events where the current event sender sent a tie to a another receiver \eqn{r'_{j}}, and \eqn{d(s'_{i},r'_{j},t)} is the
+#'of past events where the current event sender sent a tie to another receiver \eqn{r'_{j}}, and \eqn{d(s'_{i},r'_{j},t)} is the
 #'number of past events where the sender \eqn{s'_{i}} sent a tie to the receiver \eqn{r'_{j}}. Moreover, the counting
 #'equation can leverage relational relevancy, by specifying the halflife parameter, exponential
 #'weighting function, and the dyadic cut off weight values (see the above sections for help with this). If the user is not interested in modeling
@@ -100,6 +101,8 @@
 #'  combine = TRUE,
 #'  seed = 9999) # The Seed for Replication
 #'
+#'#Computing the four-cycles statistics for the relational event sequence with
+#'#the exponential weights of past events returned
 #'cycle4_weights <- remstats_fourcycles(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,
@@ -112,7 +115,8 @@
 #'
 #'
 #'
-#'#### Estimating Repetition Scores with the Counts of Events Returned
+#'#Computing the four-cycles statistics for the relational event sequence with
+#'#the counts of past events returned
 #'cycle4_counts <- remstats_fourcycles(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,

@@ -6,7 +6,7 @@
 #' @name netstats_om_effective
 #' @param net The one-mode sociomatrix with network ties.
 #' @param isolates The numerical value that represents what value will isolates be given. Set to NA by default.
-#' @param pendants The numerical value that represents what value will pendant vertices be given. Set to 1 by default.
+#' @param pendants The numerical value that represents what value will pendant vertices be given. Set to 1 by default. Pendant vertices are those nodes who have one outgoing tie.
 #' @param inParallel TRUE/FALSE. TRUE indicates that parallel processing will be used to compute the statistic with the *foreach* package. FALSE indicates that parallel processing will not be used. Set to FALSE by default.
 #' @param nCores If inParallel = TRUE, the number of computing cores for parallel processing. If this value is not specified, then the function internally provides it by dividing the number of available cores in half.
 #' @return The vector of ego network effective size values.
@@ -31,7 +31,7 @@
 #' While this function internally locates isolates (i.e., nodes
 #' who have no ties) and pendants (i.e., nodes who only have
 #' one tie), the user should specify what values for constraint are returned for them via the *isolates* and
-#' *pendants* options.
+#' *pendants* options. In particular, pendant vertices are those nodes who have one outgoing tie.
 #'
 #' @author Kevin A. Carson <kacarson@arizona.edu>, Diego F. Leal <dflc@arizona.edu>
 #' @references

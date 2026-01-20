@@ -50,15 +50,16 @@ A post-processing data.table object with the following columns:
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function creates one- and two-mode post-sampling eventset with options for case-control
-sampling (Vu et al. 2015), sampling from the observed event sequence (Lerner and Lomi 2020), and time- or event-dependent
-risk sets. Case-control sampling samples an arbitrary \emph{m} number of controls from the risk set for any event
+sampling (Vu et al. 2015) and sampling from the observed event sequence (Lerner and Lomi 2020). Case-control
+sampling samples an arbitrary \emph{m} number of controls from the risk set for any event
 (Vu et al. 2015). Lerner and Lomi (2020) proposed sampling from the observed event sequence
-where observed events are sampled with probability \emph{p}. The time- and event-dependent risk sets generate risk sets where the
-potential null events are based upon a specified past relational time window, such as events that have occurred in the past month.
-Users interested in generating risk sets that assume all actors active at any time point within the event
-sequence are in the risk set at every time point should consult the \code{\link[rem]{createRemDataset}}
-and \code{\link[remify]{remify}} functions. Future versions of this package will
-incorporate this option into the function.
+where observed events are sampled with probability \emph{p}. Importantly, this function generates risk sets
+that assume that the risk set for each event is fixed across all time points, that is, all actors active
+at any time point across the event sequence are in the set of potential events. Users interested in
+generating time-/event-varying risks sets should consult the \code{\link[dream]{processOMEventSeq}} function
+for one-mode event sequences and the \code{\link[dream]{processTMEventSeq}} function for two-mode event
+sequences. Future versions of the \code{dream} package will incorporate this option into this function in a
+principled manner.
 }
 \details{
 This function processes observed events from the set \eqn{E}, where each event \eqn{e_i} is
@@ -76,20 +77,22 @@ Following Butts (2008) and Butts and Marcum (2017), for one-mode event sequences
 set is defined as all possible  events at time \eqn{t}, \eqn{A_t}, as the full Cartesian
 product of prior senders and receivers in the set \eqn{G[E;t]} that could have
 occurred at time \eqn{t}. Formally:
-\deqn{A_t = \{ (s, r) \mid s \in G[E;t] \text{ X } r \in G[E;t] \}}
-where \eqn{G[E;t]} is the set of events up to time \eqn{t}.
+\deqn{A_t = \{ (s, r) \mid s \in S \times r \in R\}}
+where \eqn{S} is the set of potential event senders and \eqn{R} is the set of potential event receivers. In this function,
+the full risk set is considered fixed across all time points.
 
 For two-mode event sequences, the risk (support) set is defined as all possible
 events at time \eqn{t}, \eqn{A_t}, as the cross product of two disjoint sets, namely, prior senders and receivers,
 in the set \eqn{G[E;t]} that could have occurred at time \eqn{t}. Formally:
-\deqn{A_t = \{ (s, r) \mid s \in G[E;t] \text{ X } r \in G[E;t] \}}
-where \eqn{G[E;t]} is the set of events up to time \eqn{t}.
+\deqn{A_t = \{ (s, r) \mid s \in S \times r \in R\}}
+where \eqn{S} is the set of potential event senders and \eqn{R} is the set of potential event receivers. In this function,
+the full risk set is considered fixed across all time points.
 
 Case-control sampling maintains the full set of observed events, that is, all events in \eqn{E}, and
 samples an arbitrary number \eqn{m} of non-events from the support set \eqn{A_t} (Vu et al. 2015; Lerner
 and Lomi 2020). This process generates a new support set, \eqn{SA_t}, for any relational event
 \eqn{e_i} contained in \eqn{E} given a network of past events \eqn{G[E;t]}. \eqn{SA_t} is formally defined as:
-\deqn{SA_t \subseteq \{ (s, r) \mid s \in G[E;t] \text{ X } r \in G[E;t] \}}
+\deqn{SA_t \subseteq \{ (s, r) \mid s \in S \times r \in R \}}
 and in the process of sampling from the observed events, \eqn{n} number of observed events are
 sampled from the set \eqn{E} with known probability \eqn{0 < p \le 1}. More formally, sampling from
 the observed set generates a new set \eqn{SE \subseteq E}.

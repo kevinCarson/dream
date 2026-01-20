@@ -21,7 +21,7 @@ netstats_tm_effective(
 
 \item{isolates}{What value should isolates be given? Preset to be NA.}
 
-\item{weighted}{TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
+\item{weighted}{TRUE/FALSE. TRUE indicates the resulting statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
 }
 \value{
 The vector of two-mode effective size values for level 1 actors in a two-mode network.

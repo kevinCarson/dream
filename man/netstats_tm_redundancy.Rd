@@ -21,7 +21,7 @@ netstats_tm_redundancy(
 
 \item{isolates}{What value should isolates be given? Preset to be NA.}
 
-\item{weighted}{TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
+\item{weighted}{TRUE/FALSE. TRUE indicates the resulting statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
 }
 \value{
 An \emph{n x n} matrix with level 1 redundancy scores for actors in a two-mode network.

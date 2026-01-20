@@ -3,11 +3,11 @@
 
 
 
-#' @title Compute the Number of Paths of Length K in a One-Mode Network
+#' @title Compute the Number of Walks of Length K in a One-Mode Network
 #' @name computeNPaths
 #' @param net An unweighted one-mode network adjacency matrix.
 #' @param k A numerical value that corresponds to the length of the paths to be computed.
-#' @return An *n* x *n* matrix of counts of paths.
+#' @return An *n* x *n* matrix of counts of walks.
 #' @export
 #'
 #'
@@ -15,19 +15,19 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `computeNPaths()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_om_nwalks()`and see the `NEWS.md`.
+#' `computeNPaths()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `netstats_om_nwalks()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #'
-#' This function calculates the number of paths of length *k*
+#' This function calculates the number of walks of length *k*
 #' between any two vertices in an unweighted one-mode network.
 #'
 #' @details
-#' A nice result from graph theory is that the number of paths of length *k* between
+#' A nice result from graph theory is that the number of walks of length *k* between
 #' vertices *i* and *j* can be found by:
 #' \deqn{ A_{ij}^k }
 #'
-#' This function is similar to the functions provided in *igraph* that provide the path between
+#' This function is similar to the functions provided in *igraph* that provide the walks between
 #' two vertices. The main difference is that this function provides the counts
 #' of paths between all vertices in the network. In addition, this function assumes that
 #' there are no self-loops (i.e., the diagonal of the matrix is 0).

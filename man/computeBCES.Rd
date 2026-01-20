@@ -21,7 +21,7 @@ computeBCES(
 
 \item{isolates}{What value should isolates be given? Preset to be NA.}
 
-\item{weighted}{TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
+\item{weighted}{TRUE/FALSE. TRUE indicates the resulting statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
 }
 \value{
 The vector of two-mode effective size values for level 1 actors in a two-mode network.
@@ -29,7 +29,7 @@ The vector of two-mode effective size values for level 1 actors in a two-mode ne
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeBCES()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_effective()}and see the \code{NEWS.md}.
+\code{computeBCES()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_tm_effective()} function and see the \code{NEWS.md} file for more details.
 
 This function calculates the values for two-mode effective size for
 weighted and unweighted two-mode networks based on Burchard and Cornwell (2018).

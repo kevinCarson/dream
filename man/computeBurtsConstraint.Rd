@@ -21,7 +21,7 @@ computeBurtsConstraint(
 
 \item{isolates}{What value should isolates be given? Set to NA by default.}
 
-\item{pendants}{What value should be given to pendant vertices? Set to 1 by default.}
+\item{pendants}{What value should be given to pendant vertices? Pendant vertices are those nodes who have one outgoing tie. Set to 1 by default.}
 }
 \value{
 The vector of ego network constraint values.
@@ -29,7 +29,7 @@ The vector of ego network constraint values.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeBurtsConstraint()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_constraint()}and see the \code{NEWS.md}.
+\code{computeBurtsConstraint()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_om_constraint()} function and see the \code{NEWS.md} file for more details.
 
 This function computes Burt's (1992) one-mode ego constraint based upon a sociomatrix.
 }
@@ -43,8 +43,8 @@ where:
 Finally, the aggregate constraint of an ego \emph{i} is:
 \deqn{C_{i} = \sum_{j} c_{ij}}
 While this function internally locates isolates (i.e., nodes
-who have no ties) and pendants (i.e., nodes who only have
-one tie), the user should specify what values for constraint are returned for them via the \emph{isolates} and
+who have no ties) and pendants, that is, nodes who only have
+one outgoing tie, the user should specify what values for constraint are returned for them via the \emph{isolates} and
 \emph{pendants} options.
 
 Lastly, this function allows users to compute the values in parallel via the

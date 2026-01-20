@@ -21,7 +21,7 @@ computeBurtsES(
 
 \item{isolates}{The numerical value that represents what value will isolates be given. Set to NA by default.}
 
-\item{pendants}{The numerical value that represents what value will pendant vertices be given. Set to 1 by default.}
+\item{pendants}{The numerical value that represents what value will pendant vertices be given. Set to 1 by default. Pendant vertices are those nodes who have one outgoing tie.}
 }
 \value{
 The vector of ego network effective size values.
@@ -29,7 +29,7 @@ The vector of ego network effective size values.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeBurtsES()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_effective()}and see the \code{NEWS.md}.
+\code{computeBurtsES()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_om_effective()} function and see the \code{NEWS.md} file for more details.
 
 This function computes Burt's (1992) one-mode ego effective size based upon a sociomatrix (see details).
 }
@@ -45,7 +45,7 @@ and \eqn{m_{jq}} is:
 While this function internally locates isolates (i.e., nodes
 who have no ties) and pendants (i.e., nodes who only have
 one tie), the user should specify what values for constraint are returned for them via the \emph{isolates} and
-\emph{pendants} options.
+\emph{pendants} options. Pendant vertices are those nodes who have one outgoing tie.
 }
 \examples{
 # For this example, we recreate the ego network provided in Borgatti (1997):

@@ -13,8 +13,8 @@
 #' @param observed A vector for the post-processing event sequence where i is equal to 1 if the dyadic event is observed and 0 if not.
 #' @param sampled A vector for the post-processing event sequence where i is equal to 1 if the observed dyadic event is sampled and 0 if not.
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
-#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
-#' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
+#' @param dyadic_weight A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
 #' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of degree statistics for the relational event sequence.
@@ -28,9 +28,9 @@
 #' in a relational event sequence (see Lerner and Lomi 2020; Butts 2008).
 #' This measure allows for indegree scores to be only  computed for the sampled
 #' events, while creating the weights based on the full event sequence (see
-#' Lerner and Lomi 2020; Vu et al. 2015). The function allows users to use two different weighting functions,
-#' reduce computational runtime, employ a sliding windows framework for large relational sequences, and
-#' specify a dyadic cutoff for relational relevancy.
+#' Lerner and Lomi 2020; Vu et al. 2015). The function also allows users to use two
+#' different weighting functions, return the counts of past events, reduce computational
+#' runtime, and specify a dyadic cutoff for relational relevancy.
 #'
 #'
 #'
@@ -95,7 +95,7 @@
 #'That is, all past events in which the event receiver is the current receiver.
 #'Following Butts (2008), if the counts of the past events are requested, the formula for receiver indegree for
 #'event \eqn{e_i} is:
-#'\deqn{repetition_{e_{i}} = d(r' = r, t') }
+#'\deqn{reciever indegree_{e_{i}} = d(r' = r, t') }
 #'where, \eqn{d()} is the number of past events where the past event receiver, *r'*, is the
 #'current event receiver (target).
 #'
@@ -151,7 +151,7 @@
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
-#'# Computing Sender Indegree Statistic
+#'#Computing the sender indegree statistic for the relational event sequence
 #'eventSet$senderind <- remstats_degree(
 #'    formation = "sender-indegree",
 #'    time = as.numeric(eventSet$time),
@@ -163,7 +163,7 @@
 #'    dyadic_weight = 0,
 #'    exp_weight_form = FALSE)
 #'
-#'# Computing Sender Outdegree Statistic
+#'#Computing the sender outdegree statistic for the relational event sequence
 #'eventSet$senderout <- remstats_degree(
 #'    formation = "sender-outdegree",
 #'    time = as.numeric(eventSet$time),
@@ -176,7 +176,7 @@
 #'    exp_weight_form = FALSE)
 #'
 #'
-#'# Computing Receiver Outdegree Statistic
+#'#Computing the receiver outdegree statistic for the relational event sequence
 #'eventSet$recieverout <- remstats_degree(
 #'    formation = "receiver-outdegree",
 #'    time = as.numeric(eventSet$time),
@@ -189,7 +189,7 @@
 #'    exp_weight_form = FALSE)
 #'
 #'
-#'# Computing Receiver Indegree Statistic
+#'#Computing the receiver indegree statistic for the relational event sequence
 #'eventSet$recieverind <- remstats_degree(
 #'    formation = "receiver-indegree",
 #'    time = as.numeric(eventSet$time),

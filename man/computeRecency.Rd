@@ -45,7 +45,7 @@ computeRecency(
 \item{nopastEvents}{The numerical value that specifies what value should be given to events in which the sender has sent not past ties (i's neighborhood when i_neighborhood = TRUE) or has not received any past ties (j's neighborhood when i_neighborhood = FALSE). Set to NA by default.}
 
 \item{sliding_windows}{TRUE/FALSE. TRUE indicates that the sliding windows computational approach will
-be used to compute the network statistic, while FALSE indicates the ap- proach will not be used. Set
+be used to compute the resulting network statistic, while FALSE indicates the approach will not be used. Set
 to FALSE by default. It’s important to note that the sliding windows framework should only be used
 when the pre-processed event sequence is ‘big’, such as the 360 million pre-processed event sequence
 used in Lerner and Lomi (2020), as it aims to reduce the computational burden of sorting ‘big’ datasets. In general,
@@ -69,7 +69,7 @@ The vector of recency network statistics for the relational event sequence.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeRecency()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_recency()}and see the \code{NEWS.md}.
+\code{computeRecency()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{remstats_recency()} function and see the \code{NEWS.md} file for more details.
 
 This function computes the recency network sufficient statistic for
 a relational event sequence (see Butts 2008; Vu et al. 2015; Meijerink-Bosman et al. 2022). The recency statistic

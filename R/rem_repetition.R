@@ -10,10 +10,11 @@
 #' This function computes the repetition network sufficient statistic for a relational event
 #' sequence (see Lerner and Lomi 2020; Butts 2008). Repetition measures the increased tendency
 #' for events between S and R to occur given that S and R have interacted
-#' in the past. Furthermore, this measure allows for repetition scores to be only
+#' in the past. Furthermore, this function allows for repetition scores to be only
 #' computed for the sampled events, while creating the weights based on the full event
-#' sequence (see Lerner and Lomi 2020; Vu et al. 2015). The function allows users to use two different weighting functions and
-#' specify a dyadic cutoff for relational relevancy.
+#' sequence (see Lerner and Lomi 2020; Vu et al. 2015). The function also allows
+#' users to use two different weighting functions, return the counts of past events,
+#' reduce computational runtime, and specify a dyadic cutoff for relational relevancy.
 
 #' @name remstats_repetition
 #' @param time The vector of event times from the post-processing event sequence.
@@ -22,8 +23,8 @@
 #' @param observed A vector for the post-processing event sequence where i is equal to 1 if the dyadic event is observed and 0 if not.
 #' @param sampled A vector for the post-processing event sequence where i is equal to 1 if the observed dyadic event is sampled and 0 if not.
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
-#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
-#' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
+#' @param dyadic_weight A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
 #' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of repetition statistics for the relational event sequence.
@@ -82,7 +83,8 @@
 #'  combine = TRUE,
 #'  seed = 9999) # The Seed for Replication
 #'
-#'
+#'#Computing the repetition statistics for the relational event sequence with the
+#'#weights of past events returned
 #'rep_weights <- remstats_repetition(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,
@@ -94,7 +96,8 @@
 #'    exp_weight_form = FALSE)
 #'
 #'
-#'#### Estimating Repetition Scores with the Counts of Events Returned
+#'#Computing the repetition statistics for the relational event sequence with the
+#'#counts of events returned
 #'rep_counts <- remstats_repetition(
 #'    time = EventSet$time,
 #'    sender = EventSet$sender,
@@ -132,7 +135,7 @@
 #'
 #'
 #'
-remstats_repetition <-    function( time,# variable (column) name that contains the time variable
+remstats_repetition <-    function(time,# variable (column) name that contains the time variable
                                   sender,# variable (column) name that contains the sender variable
                                   receiver,# variable (column) name that contains the target variable
                                   observed,# variable (column) name that contains the observed variable

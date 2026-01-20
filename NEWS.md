@@ -1,44 +1,44 @@
-# dream 1.0.0 (2026-01-09)
+# dream 1.0.0 (2026-01-19)
 
 ## Major Changes
 
 * Added a `NEWS.md` file to track changes to the package.
-* Superseded the following functions in the prior version: computeISP(), 
-computeITP(), computeOSP(), and computeOTP(). The new function that compute 
-triadic formation statistics is now triadicstats(). Please see the help package for the
-new function. 
-* Superseded the following functions in the prior version: computeSenderIndegree(), 
-computeSenderOutdegree(), computeReceiverOutdegree(), and computeReceiverIndegree(). The new function that compute 
-triadic formation statistics is now degreestats(). Please see the help package for the
-new function. 
-* estimateREM() is now named remlogit().
-* simulateREseq() is now named remsimulate().
-* computeFourCycles() is now named fourcycles().
-* computeRemDyadCut() is now named remdyadcut().
-* computePersistence() is now named persistence().
-* Superseded the following functions in the prior version: processOMEventSeq(), 
-and processTMEventSeq(). The new function that creates risk sets is now createriskset(). Please see the help package for the
-new function. 
-* computePrefAttach() is now named prefattachment().
-* computeRepetition() is now named repetition().
-* computeTMDegree() is now named tmdegreecent().
-* computeTMEgoDis() is now named tmegodistance().
-* computeTriads() was removed as it returned the same values as computeOTP(). 
-* remExpWeights() was removed as it is now longer required. 
-* computeBCConstraint() is now named bctmconstraint().
-* computeBCES() is now named bctmeffective().
-* computeBCRedund() is now named bctmredundancy().
-* computeBurtsConstraint() is now named burtsconstraint().
-* computeBurtsES() is now named burtseffective().
-* computeHomFourCycles() is now named homfourcycles().
-* computeLealBrokerage() is now named lealpib().
-* computeNPaths() is now named nwalks().
-* computeTMDens() is now named tmdensity().
-* computeTMEgoDis() is now named tmegodistance().
-
-* A key change to the new version of **dream** is that most functions now use c++ functions
-via the *Rccp* package to improve computational speed. For instance, the new version of 
-repetition() that sources to c++ is around 90 times faster than the original coding of 
-computeRepetition() in **dream** version 0.0.1. 
+* Two key changes occured in the new version of `dream` package. First, the majority 
+of functions now depend upon c++ routines via the `Rccp` package to improve 
+computational runtime. For instance, the new function to compute the repetition
+network statistic, `remstats_repetition()`, is around 90 times faster than the previous 
+function, `computeRepetition()`, in **dream** version 0.0.1. Secondly, the `dream` package
+has an updated API to allow better categorization for the functions. Please run `?dream` for 
+more details on the new API. Based upon this transition, the original functions are now 
+deprecated starting on version 1.0.0, but remain available in this update. 
+* The following functions were deprecated for `remstats_triads()`: `computeISP()`, 
+`computeITP()`, `computeOSP()`, `computeTriads`, and `computeOTP()`. 
+* The following functions were deprecated for `remstats_degree()`: `computeSenderOutdegree()`, 
+`computeReceiverOutdegree()`, `computeSenderIndegree()`, and `computeReceiverIndegree()`. 
+* `estimateREM()` was deprecated for `estimate_rem_logit()`.
+* `simulateREseq()` was deprecated for `simulate_rem_seq()`.
+* `computeFourCycles()` was deprecated for `remstats_fourcycles()`.
+* `computeRemDyadCut()` was deprecated for `remstats_dyadcut()`.
+* `computePersistence()` was deprecated for `remstats_persistence()`.
+* `computePersistence()` was deprecated for `remstats_persistence()`.
+* `processOMEventSeq()` and `processTMEventSeq()` were deprecated for `createriskset()`.
+* `computePrefAttach()` was deprecated for `remstats_prefattachment()`.
+* `computeRepetition()` was deprecated for `remstats_repetition()`.
+* `computeRepetition()` was deprecated for `remstats_repetition()`.
+* `remExpWeights()` was deprecated and will not be replaced in the current version as the 
+updated functions do not require it. 
+* `remExpWeights()` was deprecated and will not be replaced in the current version as the 
+updated functions do not require it. 
+* `computeTMDegree()` was deprecated for `netstats_tm_degreecent()`.
+* `computeTMEgoDis()` was deprecated for `netstats_tm_egodistance()`.
+* `computeBCConstraint()` was deprecated for `netstats_tm_constraint()`.
+* `computeBCES()` was deprecated for `netstats_tm_effective()`.
+* `computeBCRedund()` was deprecated for `netstats_tm_redundancy()`.
+* `computeBurtsConstraint()` was deprecated for `netstats_om_constraint()`.
+* `computeBurtsES()` was deprecated for `netstats_om_effective()`.
+* `computeHomFourCycles()` was deprecated for `netstats_tm_homfourcycles()`.
+* `computeLealBrokerage()` was deprecated for `netstats_om_pib()`.
+* `computeNPaths()` was deprecated for `netstats_om_nwalks()`.
+* `computeTMDens()` was deprecated for `netstats_tm_density()`.
 
 

@@ -8,14 +8,14 @@
 #' @param net A two-mode adjacency matrix or affiliation matrix.
 #' @param isolates What value should isolates be given? Preset to be NA.
 #' @param returnCIJmat TRUE/FALSE. TRUE indicates that the full constraint matrix, that is, the network constraint from an alter j on node i, will be returned to the user. FALSE indicates that the total constraint will be returned. Set to FALSE by default.
-#' @param weighted TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.
+#' @param weighted TRUE/FALSE. TRUE indicates the resulting statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.
 #' @return The vector of two-mode constraint scores for level 1 actors in a two-mode network.
 #' @export
 #'
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `computeBCConstraint()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_tm_constraint()`and see the `NEWS.md`.
+#' `computeBCConstraint()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `netstats_tm_constraint()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #' This function calculates the values for two-mode network constraint
@@ -26,7 +26,7 @@
 #' \itemize{
 #'   \item \eqn{c_{ij}} is the constraint of ego *i* with respect to actor *j*.
 #'   \item \eqn{|\zeta(j) \cap \zeta(i)|} is the number of opposite-class contacts that *i* and *j* both share.
-#'   \item The denominator, \eqn{|\zeta^{(i*)}|}, represents the total number of opposite-class contacts of ego *i* excluding pendants (level 2 groups that only have one member).
+#'   \item The denominator, \eqn{|\zeta^{(i*)}|}, represents the total number of opposite-class contacts of ego *i* excluding pendants, that is, level 2 groups that only have one member.
 #' }
 #' The total constraint for ego *i* is given by:
 #' \deqn{C_{i} = \sum_{j \in \sigma(i)} c_{ij}}

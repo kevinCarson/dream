@@ -21,7 +21,7 @@ computeBCRedund(
 
 \item{isolates}{What value should isolates be given? Preset to be NA.}
 
-\item{weighted}{TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
+\item{weighted}{TRUE/FALSE. TRUE indicates the resulting statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
 }
 \value{
 An \emph{n x n} matrix with level 1 redundancy scores for actors in a two-mode network.
@@ -29,7 +29,7 @@ An \emph{n x n} matrix with level 1 redundancy scores for actors in a two-mode n
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeBCRedund()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_redundancy()}and see the \code{NEWS.md}.
+\code{computeBCRedund()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_tm_redundancy()} function and see the \code{NEWS.md} file for more details.
 
 This function calculates the values for two mode redundancy
 for weighted and unweighted two-mode networks based on Burchard and Cornwell (2018).

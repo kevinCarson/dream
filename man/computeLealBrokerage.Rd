@@ -32,19 +32,20 @@ The vector of interpersonal cultural brokerage values for the one-mode network.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeLealBrokerage()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_pib()}and see the \code{NEWS.md}.
+\code{computeLealBrokerage()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_om_pib()} function and see the \code{NEWS.md} file for more details.
 
 Following Leal (2025), this function calculates node’s Potential
-for Intercultural Brokerage (PIB) in a one-mode network. For example, users can
-examine PIB across gender. The option count determines what is returned by the
-function. If count is true, then the count of culturally dissimilar pairs
+for Intercultural Brokerage (PIB) in a one-mode network, that is, brokerage
+based on nodes’ distinct group memberships. For example, users can examine PIB
+based on actors’ gender. The option count determines what is returned by
+the function. If count is TRUE, then the count of ‘culturally’ dissimilar pairs
 brokered by ego is included (i.e., ego’s total count of brokered open triangles
-where the alters at the two endpoints of said open triangles are culturally
-dissimilar from one another). If count is false, the proportion of ego’s
-brokered open triangles where the endpoints are culturally dissimilar out of
-all of ego’s brokered open triangles (regardless of the cultural identity of
-the alters) is returned. The formula for computing interpersonal brokerage is
-presented in the details section.
+where the alters at the two endpoints of said open triangles are ‘culturally’
+dissimilar from one another). If count is FALSE, the proportion of ego’s brokered
+open triangles where the endpoints are ‘culturally’ dissimilar out of all of ego’s
+brokered open triangles (regardless of the cultural identity of the alters) is
+returned. The formula for computing interpersonal brokerage is presented in
+the details section.
 }
 \details{
 Following Leal (2025), the formula for interpersonal brokerage is:

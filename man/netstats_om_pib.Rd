@@ -32,17 +32,18 @@ The vector of interpersonal cultural brokerage values for the one-mode network.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-Following Leal (2025), this function calculates node’s Potential
-for Intercultural Brokerage (PIB) in a one-mode network. For example, users can
-examine PIB across gender. The option count determines what is returned by the
-function. If count is true, then the count of culturally dissimilar pairs
-brokered by ego is included (i.e., ego’s total count of brokered open triangles
-where the alters at the two endpoints of said open triangles are culturally
-dissimilar from one another). If count is false, the proportion of ego’s
-brokered open triangles where the endpoints are culturally dissimilar out of
-all of ego’s brokered open triangles (regardless of the cultural identity of
-the alters) is returned. The formula for computing interpersonal brokerage is
-presented in the details section.
+Following Leal (2025), this function calculates node’s Potential for
+Intercultural Brokerage (PIB) in a one-mode network, that is, brokerage
+based on nodes’ distinct group memberships. For example, users can examine
+PIB based on actors’ gender. The option count determines what is returned
+by the function. If count is TRUE, then the count of ‘culturally’ dissimilar
+pairs brokered by ego is included (i.e., ego’s total count of brokered open
+triangles where the alters at the two endpoints of said open triangles
+are ‘culturally’ dissimilar from one another). If count is FALSE, the
+proportion of ego’s brokered open triangles where the endpoints
+are ‘culturally’ dissimilar out of all of ego’s brokered open
+triangles (regardless of the cultural identity of the alters) is returned. The
+formula for computing interpersonal brokerage is presented in the details section.
 }
 \details{
 Following Leal (2025), the formula for interpersonal brokerage is:
@@ -60,7 +61,7 @@ the function can compute the cultural brokerage scores for different star struct
 values are: "ANY", which computes the scores for all structures, where a tie exists
 between \emph{i} and \emph{j}, \emph{j} and \emph{k}, and one does not exist between \emph{i} and \emph{k}. "OTS" computes the
 values for outgoing two-stars (i<-j->k or the 021D triad according to the M.A.N. notation; see Wasserman and Faust 1994), where j is the broker. "ITS" computes the
-values for incoming two-stars (i->j<-k or the 021U triad according to the M.A.N. notation; see Wasserman and Faust 1994 ), where j is the broker. "MTS" computes PIB for
+values for incoming two-stars (i->j<-k or the 021U triad according to the M.A.N. notation; see Wasserman and Faust 1994), where j is the broker. "MTS" computes PIB for
 mixed triadic structures (i<-j<-k or i->j->k or the 021C triad according to the M.A.N. notation; see Wasserman and Faust 1994). If not specified, the function defaults to the
 "ANY" category. This function can also compute all of the formations at once.
 }

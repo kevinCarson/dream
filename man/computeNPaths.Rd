@@ -2,7 +2,7 @@
 % Please edit documentation in R/npaths_deprecatedV100.R
 \name{computeNPaths}
 \alias{computeNPaths}
-\title{Compute the Number of Paths of Length K in a One-Mode Network}
+\title{Compute the Number of Walks of Length K in a One-Mode Network}
 \usage{
 computeNPaths(net, k)
 }
@@ -12,22 +12,22 @@ computeNPaths(net, k)
 \item{k}{A numerical value that corresponds to the length of the paths to be computed.}
 }
 \value{
-An \emph{n} x \emph{n} matrix of counts of paths.
+An \emph{n} x \emph{n} matrix of counts of walks.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeNPaths()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_om_nwalks()}and see the \code{NEWS.md}.
+\code{computeNPaths()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_om_nwalks()} function and see the \code{NEWS.md} file for more details.
 
-This function calculates the number of paths of length \emph{k}
+This function calculates the number of walks of length \emph{k}
 between any two vertices in an unweighted one-mode network.
 }
 \details{
-A nice result from graph theory is that the number of paths of length \emph{k} between
+A nice result from graph theory is that the number of walks of length \emph{k} between
 vertices \emph{i} and \emph{j} can be found by:
 \deqn{ A_{ij}^k }
 
-This function is similar to the functions provided in \emph{igraph} that provide the path between
+This function is similar to the functions provided in \emph{igraph} that provide the walks between
 two vertices. The main difference is that this function provides the counts
 of paths between all vertices in the network. In addition, this function assumes that
 there are no self-loops (i.e., the diagonal of the matrix is 0).

@@ -45,8 +45,7 @@ This function computes the persistence network sufficient statistic for
 a relational event sequence (see Butts 2008). Persistence measures the proportion of past ties sent from the event sender that went to the current event receiver.
 Furthermore, this measure allows for persistence scores to be only
 computed for the sampled events, while creating the weights based on the full event
-sequence. Moreover, the function allows users to specify relational relevancy for the statistic and
-employ a sliding windows framework for large relational sequences.
+sequence. Moreover, the function allows users to specify relational relevancy for the resulting statistic.
 }
 \details{
 The function calculates the persistence network sufficient statistic for a relational event sequence based on Butts (2008).
@@ -93,6 +92,7 @@ eventSet <- create_riskset(type = "one-mode",
                           n_controls = 6,
                           seed = 9999)
 
+#Computing the persistence statistic for the relational event sequence
 eventSet$remstats_persistence <- remstats_persistence(
    time = as.numeric(eventSet$time),
    observed = eventSet$observed,

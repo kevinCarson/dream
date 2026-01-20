@@ -84,12 +84,13 @@ A data frame that contains the simulated relational event sequence with the suff
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The function allows users to simulate a random one-mode relational event sequence
-between \emph{n} actors for \emph{k} events. Importantly, this function follows the methods
-discussed in Butts (2008), Amati, Lomi, and Snijders (2024), and Scheter and
-Quintane (2021). See the details for more information on this algorithm. Critically,
-this function can be used to simulate a random event sequence, to assess the goodness of
-fit for ordinal timing relational event models (see Amati, Lomi, and Snijders 2024), and simulate
-random outcomes for relational outcome models.
+between \emph{n} actors for \emph{k} events. This function follows the methods discussed
+in Butts (2008), Amati, Lomi, and Snijders (2024), and Scheter and
+Quintane (2021). See the details section for more information on this
+algorithm. Importanty, this function can be used to simulate a random event
+sequence to assess the goodness of fit for ordinal timing relational event
+models (see Amati, Lomi, and Snijders 2024), and simulate random outcomes
+for relational outcome models.
 }
 \details{
 Following the authors listed in the descriptions section, the probability of
@@ -133,11 +134,14 @@ Currently, the function supports 6 statistics for one-mode networks. These are:
 Where \emph{n} represents the counts of past events, \emph{i} is the event sender, and \emph{j} is the event target. See Scheter and Quintane (2021)
 and Butts (2008) for a further discussion of these statistics.
 
-Users are allowed to insert a starting event sequence to base the simulation on. A few things are worth nothing. The starting
-event sequence should be a matrix with \emph{n} rows indicating the number of starting events and 2 columns, with the
-first representing the event senders and the second column representing the event targets. Internally, the number
-of actors is ignored, as the number of possible actors in the risk set is based only on the actors present in the
-starting event sequence. Finally, the sender and target actor IDs should be numerical values.
+Users are allowed to insert a starting event sequence to base the simulation
+on. A few things are worth nothing. The starting event sequence should be a
+matrix with \emph{n} rows indicating the number of starting events and 2 columns, with
+the first representing the event senders and the second column
+representing the event receivers. Internally, the number of actors is
+ignored, as the number of possible actors in the risk set is based only on
+the actors present in the starting event sequence. Finally, the sender and
+receiver actor IDs should be numerical values.
 }
 \examples{
 #Creating a random relational sequence with 5 actors and 25 events

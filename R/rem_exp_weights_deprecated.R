@@ -8,7 +8,8 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `remExpWeights()` has been deprecated in the newest update to the `dream` package. Please see the `NEWS.md`.
+#' `remExpWeights()` has been deprecated starting on version 1.0.0 of the `dream` package. Please see the `NEWS.md` file for more details.
+#'
 #' A helper function for computing exponential decay weights and the corresponding minimum effective time used
 #' to calculate network statistics in relational event models within the \pkg{dream} package.
 #' This implementation follows the formulations of Lerner et al. (2013) and Lerner & Lomi (2020).

@@ -34,7 +34,7 @@ computeISP(
 \item{processed_receiver}{The vector of event receivers from the post-processing event sequence (i.e., the event sequence that contains the observed and null events).}
 
 \item{sliding_windows}{TRUE/FALSE. TRUE indicates that the sliding windows computational approach will
-be used to compute the network statistic, while FALSE indicates the ap- proach will not be used. Set
+be used to compute the resulting network statistic, while FALSE indicates the ap- proach will not be used. Set
 to FALSE by default. It’s important to note that the sliding windows framework should only be used
 when the pre-processed event sequence is ‘big’, such as the 360 million pre-processed event sequence
 used in Lerner and Lomi (2020), as it aims to reduce the computational burden of sorting ‘big’ datasets. In general,
@@ -52,9 +52,9 @@ non-sliding framework with the same conditions as before.}
 
 \item{counts}{TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.}
 
-\item{halflife}{A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).}
+\item{halflife}{A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).}
 
-\item{dyadic_weight}{A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.}
+\item{dyadic_weight}{A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.}
 
 \item{window_size}{If sliding_windows is set to TRUE, the sizes of the windows that are used for the sliding windows computational framework. If NA, the function internally divides the dataset into ten slices (may not be optimal).}
 
@@ -66,7 +66,7 @@ The vector of incoming shared partner statistics for the relational event sequen
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeISP()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_triads()}and see the \code{NEWS.md}.
+\code{computeISP()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{remstats_triads()} function and see the \code{NEWS.md} file for more details.
 
 This function calculates the incoming shared partners (ISP) network sufficient statistic for
 a relational event sequence (see Lerner and Lomi 2020; Butts 2008). In essence, the incoming shared partners measure captures the tendency of triadic closure to occur in the network of past events, in which the past triadic closure is based upon the incoming shared partners structure (see Butts 2008 for an empirical example).

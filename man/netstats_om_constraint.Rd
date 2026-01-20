@@ -21,7 +21,7 @@ netstats_om_constraint(
 
 \item{isolates}{What value should isolates be given? Set to NA by default.}
 
-\item{pendants}{What value should be given to pendant vertices? Set to 1 by default.}
+\item{pendants}{What value should be given to pendant vertices? Set to 1 by default. Pendant vertices are those nodes who have one outgoing tie.}
 }
 \value{
 The vector of ego network constraint values.
@@ -43,7 +43,7 @@ Finally, the aggregate constraint of an ego \emph{i} is:
 While this function internally locates isolates (i.e., nodes
 who have no ties) and pendants (i.e., nodes who only have
 one tie), the user should specify what values for constraint are returned for them via the \emph{isolates} and
-\emph{pendants} options.
+\emph{pendants} options. In particular, pendant vertices are those nodes who have one outgoing tie.
 
 Lastly, this function allows users to compute the values in parallel via the
 \emph{foreach}, \emph{doParallel}, and \emph{parallel} R packages.

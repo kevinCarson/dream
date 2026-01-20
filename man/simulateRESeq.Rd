@@ -80,7 +80,7 @@ A data frame that contains the simulated relational event sequence with the suff
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{simulateRESeq()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{simulate_rem_seq()}and see the \code{NEWS.md}.
+\code{simulateRESeq()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Instead, please use the \code{simulate_rem_seq()} function and see the \code{NEWS.md} file for more details.
 
 The function allows users to simulate a random one-mode relational event sequence
 between \emph{n} actors for \emph{k} events. Importantly, this function follows the methods

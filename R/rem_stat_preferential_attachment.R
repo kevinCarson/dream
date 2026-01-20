@@ -11,8 +11,7 @@
 #' positive feedback loop in which actors involved in more past events are more likely to be involved
 #' in future events (see Butts 2008 for an empirical example and discussion).This measure allows
 #' for preferential attachment scores to be only computed for the sampled events, while creating the statistics based on the full event
-#' sequence. Moreover, the function allows users to specify relational relevancy for the statistic and
-#' employ a sliding windows framework for large relational sequences.
+#' sequence. Moreover, the function allows users to specify relational relevancy for the resulting statistics.
 
 #' @name remstats_prefattachment
 #' @param time The vector of event times from the post-processing event sequence.
@@ -78,8 +77,7 @@
 #'                           n_controls = 6,
 #'                           seed = 9999)
 #'
-#'# Compute Preferential Attachment Statistic without Sliding Windows Framework and
-#'# No Temporal Dependency
+#'#Computing the preferential attachment statistic for the relational event sequence
 #'eventSet$pref <- remstats_prefattachment(
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,

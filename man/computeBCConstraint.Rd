@@ -13,7 +13,7 @@ computeBCConstraint(net, isolates = NA, returnCIJmat = FALSE, weighted = FALSE)
 
 \item{returnCIJmat}{TRUE/FALSE. TRUE indicates that the full constraint matrix, that is, the network constraint from an alter j on node i, will be returned to the user. FALSE indicates that the total constraint will be returned. Set to FALSE by default.}
 
-\item{weighted}{TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
+\item{weighted}{TRUE/FALSE. TRUE indicates the resulting statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.}
 }
 \value{
 The vector of two-mode constraint scores for level 1 actors in a two-mode network.
@@ -21,7 +21,7 @@ The vector of two-mode constraint scores for level 1 actors in a two-mode networ
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeBCConstraint()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_constraint()}and see the \code{NEWS.md}.
+\code{computeBCConstraint()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_tm_constraint()} function and see the \code{NEWS.md} file for more details.
 
 This function calculates the values for two-mode network constraint
 for weighted and unweighted two-mode networks based on Burchard and Cornwell (2018).
@@ -33,7 +33,7 @@ where:
 \itemize{
 \item \eqn{c_{ij}} is the constraint of ego \emph{i} with respect to actor \emph{j}.
 \item \eqn{|\zeta(j) \cap \zeta(i)|} is the number of opposite-class contacts that \emph{i} and \emph{j} both share.
-\item The denominator, \eqn{|\zeta^{(i*)}|}, represents the total number of opposite-class contacts of ego \emph{i} excluding pendants (level 2 groups that only have one member).
+\item The denominator, \eqn{|\zeta^{(i*)}|}, represents the total number of opposite-class contacts of ego \emph{i} excluding pendants, that is, level 2 groups that only have one member.
 }
 The total constraint for ego \emph{i} is given by:
 \deqn{C_{i} = \sum_{j \in \sigma(i)} c_{ij}}

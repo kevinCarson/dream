@@ -7,12 +7,12 @@
 \format{
 \subsection{\code{southern.women}}{
 
-Two-Mode Affliation Matrix from Davis et al.(1941) Southern Women study. 18 women x 14 events.
-Dataset is taken from the networkdata R package (Almquist)
+Two-Mode affliation matrix from Davis et al.(1941) Southern Women study. 18 women x 14 events.
+Dataset is taken from the networkdata R package (Almquist 2014)
 }
 }
 \source{
-Almquist ZW (2014). \emph{networkdata: Lin Freeman's Network Data Collection}. R package version 0.01, \url{https://github.com/Z-co/networkdata}.
+Almquist, Zach. 2014. \emph{networkdata: Lin Freeman's Network Data Collection}. R package version 0.01, \url{https://github.com/Z-co/networkdata}.
 
 Brieger, Ronald. 1974. "Duality of Persons and Groups." \emph{Social Forces} 53(2): 181-190.
 

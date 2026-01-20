@@ -7,7 +7,7 @@
 #' @name netstats_tm_redundancy
 #' @param net A two-mode adjacency matrix or affiliation matrix.
 #' @param isolates What value should isolates be given? Preset to be NA.
-#' @param weighted TRUE/FALSE. TRUE indicates the statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.
+#' @param weighted TRUE/FALSE. TRUE indicates the resulting statistic will be based on the weighted formula (see the details section). FALSE indicates the statistic will be based on the original non-weighted formula. Set to FALSE by default.
 #' @param inParallel TRUE/FALSE. TRUE indicates that parallel processing will be used to compute the statistic with the *foreach* package. FALSE indicates that parallel processing will not be used. Set to FALSE by default.
 #' @param nCores If inParallel = TRUE, the number of computing cores for parallel processing. If this value is not specified, then the function internally provides it by dividing the number of available cores in half.
 #' @return An *n x n* matrix with level 1 redundancy scores for actors in a two-mode network.

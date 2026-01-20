@@ -32,7 +32,8 @@ When exp.weights = TRUE, the numeric vector of exponential decay weights. When e
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{remExpWeights()} has been deprecated in the newest update to the \code{dream} package. Please see the \code{NEWS.md}.
+\code{remExpWeights()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please see the \code{NEWS.md} file for more details.
+
 A helper function for computing exponential decay weights and the corresponding minimum effective time used
 to calculate network statistics in relational event models within the \pkg{dream} package.
 This implementation follows the formulations of Lerner et al. (2013) and Lerner & Lomi (2020).

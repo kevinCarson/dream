@@ -133,41 +133,59 @@ removes these events from the sequence prior to estimation.
 \examples{
 #Creating a psuedo one-mode relational event sequence with ordinal timing
 relational.seq <- simulate_rem_seq(n_actors = 8,
-                               n_events = 50,
-                               inertia = TRUE,
-                               inertia_p = 0.10,
-                               sender_outdegree = TRUE,
-                               sender_outdegree_p = 0.05)
+                                  n_events = 50,
+                                  inertia = TRUE,
+                                  inertia_p = 0.10,
+                                 sender_outdegree = TRUE,
+                                  sender_outdegree_p = 0.05)
 
 #Creating a post-processing event sequence for the above relational sequence
 post.processing <- create_riskset(type = "one-mode",
-                                time = relational.seq$eventID,
-                                eventID = relational.seq$eventID,
-                                sender = as.character(relational.seq$sender),
-                                receiver = as.character(relational.seq$target),
-                                n_controls = 5)
+                                 time = relational.seq$eventID,
+                                 eventID = relational.seq$eventID,
+                                 sender = as.character(relational.seq$sender),
+                                 receiver = as.character(relational.seq$target),
+                                 n_controls = 5)
 
 #Computing the sender-outdegree statistic for the above post-processing
 #one-mode relational event sequence
-post.processing$sender.outdegree <- rnorm(nrow(post.processing))
+post.processing$sender.outdegree <- remstats_degree(formation = "sender-outdegree",
+                                                   time = post.processing$time,
+                                                   observed = post.processing$observed,
+                                                   sampled = post.processing$sampled,
+                                                   sender = post.processing$sender,
+                                                   receiver = post.processing$receiver,
+                                                   halflife = 2, #halflife parameter
+                                                   dyadic_weight = 0,
+                                                  exp_weight_form = FALSE)
 
 #Computing the inertia/repetition statistic for the above post-processing
 #one-mode relational event sequence
+post.processing$inertia <- remstats_repetition(time = post.processing$time,
+                                              observed = post.processing$observed,
+                                             sampled = post.processing$sampled,
+                                             sender = post.processing$sender,
+                                             receiver = post.processing$receiver,
+                                             halflife = 2, #halflife parameter
+                                             dyadic_weight = 0,
+                                             exp_weight_form = FALSE)
 
 #Fitting a (ordinal) relational event model to the above one-mode relational
 #event sequence
-rem <- estimate_rem_logit(observed~sender.outdegree,
-                  event.cluster = post.processing$time,
-                  data=post.processing)
+rem <- estimate_rem_logit(observed~ sender.outdegree + inertia,
+                         event.cluster = post.processing$time,
+                         data=post.processing)
 summary(rem) #summary of the relational event model
 
 #Fitting a (ordinal) relational event model to the above one-mode relational
 #event sequence via the optim function
-rem1 <- estimate_rem_logit(observed~sender.outdegree,
-                  event.cluster = post.processing$time,
-                  data=post.processing,
-                  newton.rhapson=FALSE) #use the optim function
+rem1 <- estimate_rem_logit(observed~ sender.outdegree + inertia,
+                          event.cluster = post.processing$time,
+                          data=post.processing,
+                          newton.rhapson=FALSE)
 summary(rem1) #summary of the relational event model
+
+
 }
 \references{
 Box-Steffensmeier, Janet and Bradford S. Jones. 2004. \emph{Event History Modeling: A Guide for Social Scientists}. Cambridge University Press.

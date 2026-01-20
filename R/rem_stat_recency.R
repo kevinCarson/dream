@@ -5,23 +5,24 @@
 #' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' This function computes the recency network sufficient statistic for
-#' a relational event sequence (see Butts 2008; Vu et al. 2015; Meijerink-Bosman et al. 2022). The recency statistic
-#' captures the tendency in which more recent events (i.e., an exchange between two medical doctors) are more
-#' likely to reoccur in comparison to events that happened in the distant past (see Butts 2008 for a discussion). This measure allows for recency scores to be only
-#' computed for the sampled events, while creating the statistics based on the full event
-#' sequence. Moreover, the function allows users to specify relational relevancy for the statistic and
-#' employ a sliding windows framework for large relational sequences.
+#'This function computes the recency network sufficient statistic for a relational
+#'event sequence (see Butts 2008; Vu et al. 2015; Meijerink-Bosman et al. 2022). The
+#'recency statistic captures the tendency for more recent events (i.e., an exchange
+#'between two medical doctors) are more likely to re-occur in comparison to events
+#'that happened in the more distant past (see Butts 2008 for a discussion). This
+#'measure allows for recency scores to be only computed for the sampled events,
+#'while computing the statistics based on the full event sequence.
+#'
 #' @name remstats_recency
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
 #' @param receiver The vector of event receivers from the post-processing event sequence
 #' @param observed A vector for the post-processing event sequence where i is equal to 1 if the dyadic event is observed and 0 if not.
 #' @param sampled A vector for the post-processing event sequence where i is equal to 1 if the observed dyadic event is sampled and 0 if not.
-#' @param type A string value that specifies which recency formula will be used to compute the statistics. The options are "raw.diff", "inv.diff.plus1", "rank.ordered.count" (see the details section).
-#' @param i_neighborhood TRUE/FALSE. TRUE indicates that the recency statistic will be computed in reference to the sender’s past relational history (see details section). FALSE indicates that the persistence statistic will be computed in reference to the target’s past relational history (see details section). Set to TRUE by default.
-#' @param nopastEvents The numerical value that specifies what value should be given to events in which the sender has sent not past ties (i's neighborhood when i_neighborhood = TRUE) or has not received any past ties (j's neighborhood when i_neighborhood = FALSE). Set to NA by default.
-#' @param dependency TRUE/FALSE. TRUE indicates that temporal relevancy will be modeled (see the details section). FALSE indicates that temporal relevancy will not be modeled, that is, all past events are relevant (see the details section). Set to FALSE by default.
+#' @param type A string value that specifies which recency formula will be used to compute the statistics. The options are "raw.diff", "inv.diff.plus1", "rank.ordered.count" (see details section).
+#' @param i_neighborhood TRUE/FALSE. TRUE indicates that the recency statistic will be computed in reference to the sender’s past relational history (see details section). FALSE indicates that the recency statistic will be computed in reference to the target’s past relational history (see details section). Set to TRUE by default.
+#' @param nopastEvents The numerical value that specifies what value should be given to events in which the sender was not active as a sender in the past (i’s neighborhood when i_neighborhood = TRUE) or was not the recipient of a past event (j’s neighborhood when i_neighborhood = FALSE). Set to NA by default.
+#' @param dependency TRUE/FALSE. TRUE indicates that temporal relevancy will be modeled (see details section). FALSE indicates that temporal relevancy will not be modeled, that is, all past events are relevant (see details section). Set to FALSE by default.
 #' @param relationalTimeSpan If dependency = TRUE, a numerical value that corresponds to the temporal span for relational relevancy, which must be the same measurement unit as the observed_time and processed_time objects. When dependency = TRUE, the relevant events are events that have occurred between current event time, *t*, and *t - relationalTimeSpan*. For example, if the time measurement is the number of days since the first event and the value for relationalTimeSpan is set to 10, then only those events which occurred in the past 10 days are included in the computation of the statistic.
 #' @import Rcpp
 #' @return The vector of recency network statistics for the relational event sequence.
@@ -119,8 +120,7 @@
 #'                          n_controls = 6,
 #'                          seed = 9999)
 #'
-#'# Compute Recency Statistic without Sliding Windows Framework and
-#'# No Temporal Dependency
+#'#Computing the recency statistics (with raw time difference) for the relational event sequence
 #'eventSet$recency_rawdiff <- remstats_recency(
 #'    time = as.numeric(eventSet$time),
 #'    observed = eventSet$observed,
@@ -128,6 +128,25 @@
 #'    sender = eventSet$sender,
 #'    receiver = eventSet$receiver,
 #'    type = "raw.diff")
+#'
+#'#Computing the recency statistics (with inverse of time difference) for the
+#'#relational event sequence
+#'eventSet$recency_rawdiff <- remstats_recency(
+#'    time = as.numeric(eventSet$time),
+#'    observed = eventSet$observed,
+#'    sampled = rep(1,nrow(eventSet)),
+#'    sender = eventSet$sender,
+#'    receiver = eventSet$receiver,
+#'    type = "inv.diff.plus1")
+#'
+#'#Computing the rank-based recency statistics for the relational event sequence
+#'eventSet$recency_rawdiff <- remstats_recency(
+#'    time = as.numeric(eventSet$time),
+#'    observed = eventSet$observed,
+#'    sampled = rep(1,nrow(eventSet)),
+#'    sender = eventSet$sender,
+#'    receiver = eventSet$receiver,
+#'    type = "rank.ordered.count")
 #'
 
 remstats_recency <-   function(   time,

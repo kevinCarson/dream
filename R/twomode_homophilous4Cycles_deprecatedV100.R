@@ -14,7 +14,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `computeHomFourCycles()` has been deprecated in the newest update to the `dream` package. Please use the `netstats_tm_homfourcycles()`and see the `NEWS.md`.
+#' `computeHomFourCycles()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `netstats_tm_homfourcycles()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #' This function computes the number of homophilous four-cycles in

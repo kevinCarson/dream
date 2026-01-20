@@ -60,7 +60,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `estimateREM()` has been deprecated in the newest update to the `dream` package. Please use the `estimate_rem_logit()`and see the `NEWS.md`.
+#' `estimateREM()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `estimate_rem_logit()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #'

@@ -4,10 +4,10 @@
 \alias{remstats_dyadcut}
 \title{A Helper Function to Assist Researchers in Finding Dyadic Weight Cutoff Values}
 \usage{
-remstats_dyadcut(halflife, relationalWidth, exp_weight_form = FALSE)
+remstats_dyadcut(halflife = 2, relationalWidth, exp_weight_form = FALSE)
 }
 \arguments{
-\item{halflife}{The user specified halflife value for the weighting function.}
+\item{halflife}{A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).}
 
 \item{relationalWidth}{The numerical value that corresponds to the time range for which the user specifies for temporal relevancy.}
 

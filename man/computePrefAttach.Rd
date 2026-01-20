@@ -37,7 +37,7 @@ computePrefAttach(
 \item{relationalTimeSpan}{If dependency = TRUE, a numerical value that corresponds to the temporal span for relational relevancy, which must be the same measurement unit as the observed_time and processed_time objects. When dependency = TRUE, the relevant events are events that have occurred between current event time, \emph{t}, and \emph{t - relationalTimeSpan}. For example, if the time measurement is the number of days since the first event and the value for relationalTimeSpan is set to 10, then only those events which occurred in the past 10 days are included in the computation of the statistic.}
 
 \item{sliding_windows}{TRUE/FALSE. TRUE indicates that the sliding windows computational approach will
-be used to compute the network statistic, while FALSE indicates the ap- proach will not be used. Set
+be used to compute the resulting network statistic, while FALSE indicates the approach will not be used. Set
 to FALSE by default. It’s important to note that the sliding windows framework should only be used
 when the pre-processed event sequence is ‘big’, such as the 360 million pre-processed event sequence
 used in Lerner and Lomi (2020), as it aims to reduce the computational burden of sorting ‘big’ datasets. In general,
@@ -61,7 +61,7 @@ The vector of event preferential attachment statistics for the relational event 
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computePrefAttach()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_prefattachment()}and see the \code{NEWS.md}.
+\code{computePrefAttach()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{remstats_prefattachment()} function and see the \code{NEWS.md} file for more details.
 
 The function computes the preferential attachment network sufficient statistic for
 a relational event sequence (see Butts 2008). Preferential attachment measures the tendency towards a

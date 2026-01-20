@@ -4,7 +4,7 @@
 ## Last Updated: 07-15-24
 #' @title A Helper Function to Assist Researchers in Finding Dyadic Weight Cutoff Values
 #' @name remstats_dyadcut
-#' @param halflife The user specified halflife value for the weighting function.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
 #' @param relationalWidth The numerical value that corresponds to the time range for which the user specifies for temporal relevancy.
 #' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @return The dyadic weight cutoff based on user specified values.
@@ -98,7 +98,7 @@
 #'                 exp_weight_form = FALSE)
 #'
 #'
-remstats_dyadcut <- function(halflife,  #the user specificed halflife
+remstats_dyadcut <- function(halflife = 2,  #the user specificed halflife
                              relationalWidth, #this is a value that measures how long the time span is
                              exp_weight_form = FALSE){ #should the Lerner et al. 2013 weighting function be used
   message("You are employing this function to find the corresponding dyadic cutoff value

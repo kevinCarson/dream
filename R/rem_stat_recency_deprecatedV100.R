@@ -5,7 +5,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `computeRecency()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_recency()`and see the `NEWS.md`.
+#' `computeRecency()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `remstats_recency()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #' This function computes the recency network sufficient statistic for
@@ -28,7 +28,7 @@
 #' @param dependency TRUE/FALSE. TRUE indicates that temporal relevancy will be modeled (see the details section). FALSE indicates that temporal relevancy will not be modeled, that is, all past events are relevant (see the details section). Set to FALSE by default.
 #' @param relationalTimeSpan If dependency = TRUE, a numerical value that corresponds to the temporal span for relational relevancy, which must be the same measurement unit as the observed_time and processed_time objects. When dependency = TRUE, the relevant events are events that have occurred between current event time, *t*, and *t - relationalTimeSpan*. For example, if the time measurement is the number of days since the first event and the value for relationalTimeSpan is set to 10, then only those events which occurred in the past 10 days are included in the computation of the statistic.
 #' @param sliding_windows TRUE/FALSE. TRUE indicates that the sliding windows computational approach will
-#' be used to compute the network statistic, while FALSE indicates the ap- proach will not be used. Set
+#' be used to compute the resulting network statistic, while FALSE indicates the approach will not be used. Set
 #' to FALSE by default. It’s important to note that the sliding windows framework should only be used
 #' when the pre-processed event sequence is ‘big’, such as the 360 million pre-processed event sequence
 #' used in Lerner and Lomi (2020), as it aims to reduce the computational burden of sorting ‘big’ datasets. In general,

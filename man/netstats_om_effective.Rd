@@ -21,7 +21,7 @@ netstats_om_effective(
 
 \item{isolates}{The numerical value that represents what value will isolates be given. Set to NA by default.}
 
-\item{pendants}{The numerical value that represents what value will pendant vertices be given. Set to 1 by default.}
+\item{pendants}{The numerical value that represents what value will pendant vertices be given. Set to 1 by default. Pendant vertices are those nodes who have one outgoing tie.}
 }
 \value{
 The vector of ego network effective size values.
@@ -43,7 +43,7 @@ and \eqn{m_{jq}} is:
 While this function internally locates isolates (i.e., nodes
 who have no ties) and pendants (i.e., nodes who only have
 one tie), the user should specify what values for constraint are returned for them via the \emph{isolates} and
-\emph{pendants} options.
+\emph{pendants} options. In particular, pendant vertices are those nodes who have one outgoing tie.
 }
 \examples{
 # For this example, we recreate the ego network provided in Borgatti (1997):

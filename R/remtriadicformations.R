@@ -3,15 +3,15 @@
 
 #' @title Compute Butts' (2008) Triadic Formation Statistics for Relational Event Sequences
 #' @name remstats_triads
-#' @param formation The specific triadic formation to based the statistic on (see the details). "ISP" = incoming shared partners. "OSP" = outgoing shared partners. "OTP" = outgoing two-paths. "ITP" = incoming two-paths.
+#' @param formation The specific triadic formation the statistic will be based on (see details section). "ISP" = incoming shared partners. "OSP" = outgoing shared partners. "OTP" = outgoing two-paths. "ITP" = incoming two-paths.
 #' @param time The vector of event times from the post-processing event sequence.
 #' @param sender The vector of event senders from the post-processing event sequence.
 #' @param receiver The vector of event receivers from the post-processing event sequence
 #' @param observed A vector for the post-processing event sequence where i is equal to 1 if the dyadic event is observed and 0 if not.
 #' @param sampled A vector for the post-processing event sequence where i is equal to 1 if the observed dyadic event is sampled and 0 if not.
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
-#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
-#' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
+#' @param dyadic_weight A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
 #' @param exp_weight_form TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @import Rcpp
 #' @return The vector of triadic formation statistics for the relational event sequence.
@@ -20,12 +20,13 @@
 #' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' The function computes the set of triadic formation statistics discussed in Butts (2008) for a one-mode relational
+#' The function computes the set of one-mode triadic formation statistics discussed in Butts (2008) for a one-mode relational
 #' event sequence (see also Lerner and Lomi 2020). The function can compute the following triadic formations: 1) incoming shared partners (ISP),
-#' 2) outgoing shared partners (OSP), 3) incoming two-paths (ITP), and 4) outgoing two-paths. Importantly, this measure allows for the triadic formation
+#' 2) outgoing shared partners (OSP), 3) incoming two-paths (ITP), and 4) outgoing two-paths (OTP). Importantly, this function allows for the triadic formation
 #' statistics to be computed only for the sampled events, while creating the weights based on the full event sequence (see
-#' Lerner and Lomi 2020; Vu et al. 2015). The function allows users to use two different weighting functions for the
-#' exponential weighting formula or return the counts of past triadic formations.
+#' Lerner and Lomi 2020; Vu et al. 2015). The function also allows users to use two different
+#' weighting functions, return the counts of past events, reduce computational
+#' runtime, and specify a dyadic cutoff for relational relevancy.
 #'
 #'
 #'@details The function calculates the triadic formation statistics discussed in Butts (2008) for relational
@@ -67,10 +68,10 @@
 #'
 #'**Outgoing Two-Paths**:
 #'
-#'The general formula for outgoing two paths  for event \eqn{e_i} is:
+#'The general formula for outgoing two-paths for event \eqn{e_i} is:
 #'\deqn{OTP_{e_{i}} = \sqrt{ \sum_h w(s, h, t) \cdot w(h, r, t) }}
 #'
-#'That is, as discussed in Butts (2008), outgoing two paths finds all
+#'That is, as discussed in Butts (2008), outgoing two-paths finds all
 #'past events where the current sender sends a relational tie to node *h* and
 #'the current target receives a relational tie from the same *h* node.
 #'
@@ -80,26 +81,26 @@
 #'Where, \eqn{d()} is the number of past events that meet the specific set operations. \eqn{d(s,h,t)} is the number
 #'of past events where the current event sender sent a tie to a third actor, *h*, and \eqn{d(h,r,t)} is the number
 #'of past events where the third actor *h* sent a tie to the current event receiver. The sum loops through all
-#'unique actors that have formed past outgoing two path structures with the current event sender and receiver.
+#'unique actors that have formed past outgoing two-path structures with the current event sender and receiver.
 #'
 #'
 #'**Incoming Two-Paths**:
 #'
-#'The general formula for incoming two paths for event \eqn{e_i} is:
+#'The general formula for incoming two-paths for event \eqn{e_i} is:
 #'\deqn{ITP_{e_{i}} = \sqrt{ \sum_h w(r, h, t) \cdot w(h, s, t) }}
 #'
-#'That is, as discussed in Butts (2008), incoming two paths finds all past events
+#'That is, as discussed in Butts (2008), incoming two-paths finds all past events
 #'where the current sender was the receiver in a relational event where the sender
 #'was a node h and the current target was the sender in a past relational event
 #'where the target was the same node h.
 #'
-#'#'Following Butts (2008), if the counts of the past events are requested, the formula for incoming two paths for
+#'Following Butts (2008), if the counts of the past events are requested, the formula for incoming two paths for
 #'event \eqn{e_i} is:
 #'\deqn{ITP_{e_{i}} = \sum_{i=1}^{|H|} \min\left[d(r,h,t), d(h,s,t\right]}
 #'Where, \eqn{d()} is the number of past events that meet the specific set operations. \eqn{d(r,h,t)} is the number
 #'of past events where the current event receiver sent a tie to a third actor, *h*, and \eqn{d(h,s,t} is the number
 #'of past events where the third actor *h* sent a tie to the current event sender. The sum loops through all
-#'unique actors that have formed past incoming two path structures with the current event sender and receiver.
+#'unique actors that have formed past incoming two-path structures with the current event sender and receiver.
 #'
 #'
 #'**Incoming Shared Partners**:

@@ -37,7 +37,7 @@ computeFourCycles(
 \item{processed_receiver}{The vector of event receivers from the post-processing event sequence (i.e., the event sequence that contains the observed and null events).}
 
 \item{sliding_windows}{TRUE/FALSE. TRUE indicates that the sliding windows computational approach will
-be used to compute the network statistic, while FALSE indicates the ap- proach will not be used. Set
+be used to compute the resulting network statistic, while FALSE indicates the approach will not be used. Set
 to FALSE by default. It’s important to note that the sliding windows framework should only be used
 when the pre-processed event sequence is ‘big’, such as the 360 million pre-processed event sequence
 used in Lerner and Lomi (2020), as it aims to reduce the computational burden of sorting ‘big’ datasets. In general,
@@ -55,9 +55,9 @@ non-sliding framework with the same conditions as before.}
 
 \item{counts}{TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.}
 
-\item{halflife}{A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).}
+\item{halflife}{A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).}
 
-\item{dyadic_weight}{A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.}
+\item{dyadic_weight}{A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.}
 
 \item{window_size}{If sliding_windows is set to TRUE, the sizes of the windows that are used for the sliding windows computational framework. If NA, the function internally divides the dataset into ten slices (may not be optimal).}
 
@@ -75,7 +75,7 @@ The vector of four-cycle statistics for the two-mode relational event sequence.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeFourCycles()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{remstats_fourcycles()}and see the \code{NEWS.md}.
+\code{computeFourCycles()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{remstats_fourcycles()} function and see the \code{NEWS.md} file for more details.
 
 The function computes the four-cycles network sufficient statistic for a two-mode relational
 sequence with the exponential weighting function (Lerner and Lomi 2020). In essence, the
@@ -132,7 +132,7 @@ event \eqn{e_i} is:
 \deqn{four cycles_{e_{i}} = \sum_{i=1}^{|S'|} \sum_{j=1}^{|R'|} \min\left[d(s'_{i}, r, t),\ d(s, r'_{j}, t),\ d(s'_{i}, r'_{j}, t)\right]}
 where, \eqn{d()} is the number of past events that meet the specific set operations, \eqn{d(s'_{i},r,t)} is the number
 of past events where the current event receiver received a tie from another sender \eqn{s'_{i}}, \eqn{d(s,r'_{j},t)} is the number
-of past events where the current event sender sent a tie to a another receiver \eqn{r'_{j}}, and \eqn{d(s'_{i},r'_{j},t)} is the
+of past events where the current event sender sent a tie to another receiver \eqn{r'_{j}}, and \eqn{d(s'_{i},r'_{j},t)} is the
 number of past events where the sender \eqn{s'_{i}} sent a tie to the receiver \eqn{r'_{j}}. Moreover, the counting
 equation can leverage relational relevancy, by specifying the halflife parameter, exponential
 weighting function, and the dyadic cut off weight values (see the above sections for help with this). If the user is not interested in modeling

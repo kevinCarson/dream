@@ -17,7 +17,7 @@ The vector of counts of homophilous four-cycles for the two-mode network.
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
-\code{computeHomFourCycles()} has been deprecated in the newest update to the \code{dream} package. Please use the \code{netstats_tm_homfourcycles()}and see the \code{NEWS.md}.
+\code{computeHomFourCycles()} has been deprecated starting on version 1.0.0 of the \code{dream} package. Please use the \code{netstats_tm_homfourcycles()} function and see the \code{NEWS.md} file for more details.
 
 This function computes the number of homophilous four-cycles in
 a two-mode network as proposed by Fujimoto, Snijders, and Valente (2018: 380).

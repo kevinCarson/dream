@@ -35,7 +35,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `processTMEventSeq()` has been deprecated in the newest update to the `dream` package. Please use the `create_riskset()`and see the `NEWS.md`.
+#' `processTMEventSeq()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `create_riskset()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #' This function creates a two-mode post-sampling eventset with options for case-control

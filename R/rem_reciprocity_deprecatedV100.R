@@ -11,11 +11,11 @@
 #' @param processed_sender The vector of event senders from the post-processing event sequence (i.e., the event sequence that contains the observed and null events).
 #' @param processed_receiver The vector of event receivers from the post-processing event sequence (i.e., the event sequence that contains the observed and null events).
 #' @param counts TRUE/FALSE. TRUE indicates that the counts of past events should be computed (see the details section). FALSE indicates that the temporal exponential weighting function should be used to downweigh past events (see the details section). Set to FALSE by default.
-#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see the details section). Preset to 2 (should be updated by user).
-#' @param dyadic_weight A numerical value that is the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
+#' @param halflife A numerical value that is the halflife value to be used in the exponential weighting function (see details section). Preset to 2 (should be updated by the user based on substantive context).
+#' @param dyadic_weight A numerical value for the dyadic cutoff weight that represents the numerical cutoff value for temporal relevancy based on the exponential weighting function. For example, a numerical value of 0.01, indicates that an exponential weight less than 0.01 will become 0 and that events with such value (or smaller values) will not be included in the sum of the past event weights (see the details section). Set to 0 by default.
 #' @param Lerneretal_2013 TRUE/FALSE. TRUE indicates that the Lerner et al. (2013) exponential weighting function will be used (see the details section). FALSE indicates that the Lerner and Lomi (2020) exponential weighting function will be used (see the details section). Set to FALSE by default
 #' @param sliding_windows TRUE/FALSE. TRUE indicates that the sliding windows computational approach will
-#' be used to compute the network statistic, while FALSE indicates the ap- proach will not be used. Set
+#' be used to compute the resulting network statistic, while FALSE indicates the approach will not be used. Set
 #' to FALSE by default. It’s important to note that the sliding windows framework should only be used
 #' when the pre-processed event sequence is ‘big’, such as the 360 million pre-processed event sequence
 #' used in Lerner and Lomi (2020), as it aims to reduce the computational burden of sorting ‘big’ datasets. In general,
@@ -38,7 +38,7 @@
 #' @description
 #' `r lifecycle::badge("deprecated")`
 #'
-#' `computeReciprocity()` has been deprecated in the newest update to the `dream` package. Please use the `remstats_reciprocity()`and see the `NEWS.md`.
+#' `computeReciprocity()` has been deprecated starting on version 1.0.0 of the `dream` package. Please use the `remstats_reciprocity()` function and see the `NEWS.md` file for more details.
 #'
 #'
 #' This function calculates the reciprocity network sufficient statistic for
