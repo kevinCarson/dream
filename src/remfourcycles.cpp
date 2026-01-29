@@ -261,7 +261,36 @@ NumericVector computefourcyclesrem(NumericVector time,
       past_target_neighbors.push_back(Rcpp::as<std::string>(sender[i])); //appending the current event sender
       std::string curdyad = Rcpp::as<std::string>(dyad_id[i]); //the current event dyad
       std::vector<double>& past_times = dyad_events[curdyad];  // this extracts all of the past event times
-      past_times.push_back(time[i]);
+      if(cutweight < 0){ // updating the past edges!
+
+        int npast = past_times.size(); // the number of past weights
+        double pastweight; // the past cut weight
+        int drop = -1;
+        for (int z = 0; z < npast; z++) { // for all past events
+          if(weightScheme == 1){ //if the weighting scheme should be of Lerner and Lomi (2020)
+            pastweight= exp((-(time[i] - past_times[z]) * log(2)/(halflife)));
+          }else{//if the weighting scheme should be of Lerner et al. (2013)
+            pastweight= exp((-(time[i] - past_times[z]) * log(2)/(halflife))) * log(2)/(halflife);
+          }
+          if(pastweight >= cutweight){// if the weight is good
+            drop = z; //
+            break; // breaking out of the past weight check for loop
+          }
+        }
+        if(drop == 0){ // no need to drop past event times
+          past_times.push_back(time[i]); // appending the past times vector
+        }else{
+          if(drop == -1){ // need to remove all past weights as they are all zero
+            past_times.clear();
+            past_times.push_back(time[i]); // keep only the current event
+          }else{ // drop those irrelevant temporal times
+            past_times.erase(past_times.begin(), past_times.begin() + drop);
+            past_times.push_back(time[i]); // appending the past times vector
+          }
+        }
+      }else{
+        past_times.push_back(time[i]); // appending the past times vector
+      }
 
     }
 

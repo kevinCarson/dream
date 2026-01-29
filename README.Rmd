@@ -119,7 +119,7 @@ post.processing.riskset$repetition <- remstats_repetition(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
 
 # computing the sender outdegree statistic with the exponential weights and a halflife
@@ -132,7 +132,7 @@ post.processing.riskset$sender.outdegree <- remstats_degree(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
 
 # computing the receiver indegree statistic with the exponential weights and a halflife
@@ -145,7 +145,7 @@ post.processing.riskset$receiver.indegree <- remstats_degree(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
 
 # computing the four-cycles statistic with the exponential weights and a halflife
@@ -157,8 +157,14 @@ post.processing.riskset$fourcycles <- remstats_fourcycles(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
+
+#transforming the variables following Lerner and Lomi (2020) 
+post.processing.riskset$fourcycles <- log1p(post.processing.riskset$fourcycles)
+post.processing.riskset$sender.outdegree <- log1p(post.processing.riskset$sender.outdegree)
+post.processing.riskset$receiver.indegree <- log1p(post.processing.riskset$receiver.indegree)
+post.processing.riskset$repetition <- log1p(post.processing.riskset$repetition)
 
 # Estimating the ordinal relational event model! 
 lerner.lomi.rem <- estimate_rem_logit(observed ~ 

@@ -179,7 +179,7 @@ post.processing.riskset$repetition <- remstats_repetition(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
 
 # computing the sender outdegree statistic with the exponential weights and a halflife
@@ -192,7 +192,7 @@ post.processing.riskset$sender.outdegree <- remstats_degree(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
 
 # computing the receiver indegree statistic with the exponential weights and a halflife
@@ -205,7 +205,7 @@ post.processing.riskset$receiver.indegree <- remstats_degree(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
 
 # computing the four-cycles statistic with the exponential weights and a halflife
@@ -217,8 +217,14 @@ post.processing.riskset$fourcycles <- remstats_fourcycles(
    sampled = EventSet$sampled,
    observed = EventSet$observed,
    halflife = 2.592e+09, 
-   dyadic_weight = 0,
+   dyadic_weight = 0.01,
    exp_weight_form = FALSE)
+
+#transforming the variables following Lerner and Lomi (2020) 
+post.processing.riskset$fourcycles <- log1p(post.processing.riskset$fourcycles)
+post.processing.riskset$sender.outdegree <- log1p(post.processing.riskset$sender.outdegree)
+post.processing.riskset$receiver.indegree <- log1p(post.processing.riskset$receiver.indegree)
+post.processing.riskset$repetition <- log1p(post.processing.riskset$repetition)
 
 # Estimating the ordinal relational event model! 
 lerner.lomi.rem <- estimate_rem_logit(observed ~ 
@@ -248,20 +254,20 @@ summary(lerner.lomi.rem)
 #>  n events: 10000 null events: 1e+05 
 #> 
 #> Coefficients:
-#>                                    Estimate Std. Error z value  Pr(>|z|)    
-#> repetition                           7.1365     0.3970  17.976 < 2.2e-16 ***
-#> sender.outdegree                     0.0219     0.0005  44.825 < 2.2e-16 ***
-#> receiver.indegree                    0.1580     0.0093  16.995 < 2.2e-16 ***
-#> fourcycles                           1.3161     0.0465  28.334 < 2.2e-16 ***
-#> sender.outdegree:receiver.indegree  -0.0009     0.0001 -10.218 < 2.2e-16 ***
+#>                                    Estimate Std. Error z value Pr(>|z|)    
+#> repetition                           7.6871     0.4450 17.2726   <2e-16 ***
+#> sender.outdegree                     1.3698     0.0207 66.1147   <2e-16 ***
+#> receiver.indegree                    1.2488     0.0620 20.1311   <2e-16 ***
+#> fourcycles                           0.2654     0.1095  2.4243   0.0153 *  
+#> sender.outdegree:receiver.indegree  -0.0799     0.0289 -2.7677   0.0056 ** 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> Null Likelihood: -23978.95 Model Likelihood: -7558.12 
+#> Null Likelihood: -23978.95 Model Likelihood: -3929.474 
 #> 
-#> Likelihood Ratio Test: 32841.67  with df: 5 p-value: 0 
+#> Likelihood Ratio Test: 40098.96  with df: 5 p-value: 0 
 #> 
-#> AIC 15126.24 BIC 15162.29
+#> AIC 7868.947 BIC 7904.999
 ```
 
 ## Questions, Comments, or Suggestions!
