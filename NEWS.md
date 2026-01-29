@@ -1,3 +1,13 @@
+# dream 1.0.1 (2026-01-28)
+
+# dream 1.0.1 (2026-01-19)
+
+## Minor Changes
+
+* Updated the `remstats_`-related `C++` files to delete past network edges (i.e., past 
+event weights) that are smaller than the past event cut off value (i.e., `dyadic_weight`) when this feature is 
+selected by the user. That is, when the `dyadic_weight` argument is non-zero.
+
 # dream 1.0.0 (2026-01-19)
 
 ## Major Changes
