@@ -217,6 +217,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// processREMseqOM_varying
+List processREMseqOM_varying(std::vector<double> time, std::vector<double> seqid, std::vector<std::string> sender, std::vector<std::string> target, double pobserved, double ncontrols, std::string appender, double rseed);
+RcppExport SEXP _dream_processREMseqOM_varying(SEXP timeSEXP, SEXP seqidSEXP, SEXP senderSEXP, SEXP targetSEXP, SEXP pobservedSEXP, SEXP ncontrolsSEXP, SEXP appenderSEXP, SEXP rseedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<double> >::type time(timeSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type seqid(seqidSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type sender(senderSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type target(targetSEXP);
+    Rcpp::traits::input_parameter< double >::type pobserved(pobservedSEXP);
+    Rcpp::traits::input_parameter< double >::type ncontrols(ncontrolsSEXP);
+    Rcpp::traits::input_parameter< std::string >::type appender(appenderSEXP);
+    Rcpp::traits::input_parameter< double >::type rseed(rseedSEXP);
+    rcpp_result_gen = Rcpp::wrap(processREMseqOM_varying(time, seqid, sender, target, pobserved, ncontrols, appender, rseed));
+    return rcpp_result_gen;
+END_RCPP
+}
 // persistencerem
 NumericVector persistencerem(NumericVector time, NumericVector sampledevent, NumericVector controlevent, std::vector<std::string> dyad_id, std::vector<std::string> actor, bool timedependency, double cuttime, double nopastEvents);
 RcppExport SEXP _dream_persistencerem(SEXP timeSEXP, SEXP sampledeventSEXP, SEXP controleventSEXP, SEXP dyad_idSEXP, SEXP actorSEXP, SEXP timedependencySEXP, SEXP cuttimeSEXP, SEXP nopastEventsSEXP) {
@@ -410,6 +428,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// processREMseqTM_varying
+List processREMseqTM_varying(std::vector<double> time, std::vector<double> seqid, std::vector<std::string> sender, std::vector<std::string> target, double pobserved, double ncontrols, std::string appender, double rseed);
+RcppExport SEXP _dream_processREMseqTM_varying(SEXP timeSEXP, SEXP seqidSEXP, SEXP senderSEXP, SEXP targetSEXP, SEXP pobservedSEXP, SEXP ncontrolsSEXP, SEXP appenderSEXP, SEXP rseedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<double> >::type time(timeSEXP);
+    Rcpp::traits::input_parameter< std::vector<double> >::type seqid(seqidSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type sender(senderSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type target(targetSEXP);
+    Rcpp::traits::input_parameter< double >::type pobserved(pobservedSEXP);
+    Rcpp::traits::input_parameter< double >::type ncontrols(ncontrolsSEXP);
+    Rcpp::traits::input_parameter< std::string >::type appender(appenderSEXP);
+    Rcpp::traits::input_parameter< double >::type rseed(rseedSEXP);
+    rcpp_result_gen = Rcpp::wrap(processREMseqTM_varying(time, seqid, sender, target, pobserved, ncontrols, appender, rseed));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_dream_burteffective", (DL_FUNC) &_dream_burteffective, 2},
@@ -424,6 +460,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dream_checkVarianceData", (DL_FUNC) &_dream_checkVarianceData, 2},
     {"_dream_pibcpp", (DL_FUNC) &_dream_pibcpp, 6},
     {"_dream_computerecencynorank", (DL_FUNC) &_dream_computerecencynorank, 10},
+    {"_dream_processREMseqOM_varying", (DL_FUNC) &_dream_processREMseqOM_varying, 8},
     {"_dream_persistencerem", (DL_FUNC) &_dream_persistencerem, 8},
     {"_dream_computeremprefattach", (DL_FUNC) &_dream_computeremprefattach, 5},
     {"_dream_prefattachrelspanrem", (DL_FUNC) &_dream_prefattachrelspanrem, 6},
@@ -437,6 +474,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dream_computefourcyclesrem", (DL_FUNC) &_dream_computefourcyclesrem, 11},
     {"_dream_tmdegcentraility", (DL_FUNC) &_dream_tmdegcentraility, 1},
     {"_dream_tmegodist", (DL_FUNC) &_dream_tmegodist, 2},
+    {"_dream_processREMseqTM_varying", (DL_FUNC) &_dream_processREMseqTM_varying, 8},
     {NULL, NULL, 0}
 };
 

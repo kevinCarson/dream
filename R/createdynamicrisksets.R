@@ -2,8 +2,8 @@
 ## Code written by Kevin Carson (https://kevincarson.github.io/) and Deigo Leal (https://www.diegoleal.info/)
 ## Last Updated: 01-09-2025
 
-#' @title Process and Create Risk Sets for a One- and Two-Mode Relational Event Sequences
-#' @name create_riskset
+#' @title Process and Create Time-Dynamic Risk Sets for a One- and Two-Mode Relational Event Sequences
+#' @name create_riskset_dynamic
 #' @param type "two-mode" indicates that this is a two-mode event sequence. "one-mode" indicates that the event sequence is one-mode.
 #' @param time The vector of event time values from the observed event sequence.
 #' @param sender The vector of event senders from the observed event sequence.
@@ -31,15 +31,15 @@
 #' `r lifecycle::badge("stable")`
 #'
 #'
-#' This function creates one- and two-mode post-sampling eventset with options for case-control
+#' This function creates one- and two-mode time-dynamic post-sampling eventset with options for case-control
 #' sampling (Vu et al. 2015) and sampling from the observed event sequence (Lerner and Lomi 2020). Case-control
 #' sampling samples an arbitrary *m* number of controls from the risk set for any event
 #' (Vu et al. 2015). Lerner and Lomi (2020) proposed sampling from the observed event sequence
 #' where observed events are sampled with probability *p*. Importantly, this function generates risk sets
 #' that assume that the risk set for each event is fixed across all time points, that is, all actors active
 #' at any time point across the event sequence are in the set of potential events. Users interested in
-#' generating time-varying risks sets should consult the \code{\link[dream]{create_riskset_dynamic}} function
-#' for one- and two-mode event sequences.
+#' generating time non-varying risks sets should consult the \code{\link[dream]{create_riskset}} function
+#' for one- and two-mode event sequence.
 #'
 #' @details This function processes observed events from the set \eqn{E}, where each event \eqn{e_i} is
 #' defined as:
@@ -52,26 +52,26 @@
 #'   \item \eqn{G[E;t] = \{e_1, e_2, \ldots, e_{t'} \mid t' < t\}} is the network of past events, that is, all events that occurred prior to the current event, \eqn{e_i}.
 #' }
 #'
-#' Following Butts (2008) and Butts and Marcum (2017), for one-mode event sequences, the risk (support)
-#' set is defined as all possible  events at time \eqn{t}, \eqn{A_t}, as the full Cartesian
-#' product of prior senders and receivers in the set \eqn{G[E;t]} that could have
-#' occurred at time \eqn{t}. Formally:
-#' \deqn{A_t = \{ (s, r) \mid s \in S \times r \in R\}}
-#' where \eqn{S} is the set of potential event senders and \eqn{R} is the set of potential event receivers. In this function,
-#' the full risk set is considered fixed across all time points.
+#' Following Butts (2008) and Butts and Marcum (2017), for one-mode event sequences (i.e., `type` = "one-mode"), the risk (support)
+#' set at time \eqn{t}, that is, \eqn{A_t}, is defined as the full Cartesian product
+#' of all past actors who have been involved in a relational event at or before time \eqn{t}.
+#' Formally:
+#' \deqn{A_t = \{ (s, r) \mid s \in N_t \times r \in N_t\}}
+#' where \eqn{N_t} is the set of potential event senders and targets at and time \eqn{t}.
 #'
-#' For two-mode event sequences, the risk (support) set is defined as all possible
-#' events at time \eqn{t}, \eqn{A_t}, as the cross product of two disjoint sets, namely, prior senders and receivers,
+#' Similarly, for two-mode event sequences (i.e., `type` = "one-mode"),  the risk (support)
+#' set at time \eqn{t}, that is, \eqn{A_t}, is defined as the product of two disjoint sets, namely, prior senders and receivers,
 #' in the set \eqn{G[E;t]} that could have occurred at time \eqn{t}. Formally:
-#' \deqn{A_t = \{ (s, r) \mid s \in S \times r \in R\}}
-#' where \eqn{S} is the set of potential event senders and \eqn{R} is the set of potential event receivers. In this function,
-#' the full risk set is considered fixed across all time points.
+#' \deqn{A_t = \{ (s, r) \mid s \in S_t \times r \in R_t\}}
+#' where \eqn{S_t} is the set of potential event senders that have sent a relational tie prior to or at time \eqn{t} and \eqn{R} is the
+#' set of potential event receivers that have received a relational tie prior to or at time \eqn{t}.
+#'
 #'
 #' Case-control sampling maintains the full set of observed events, that is, all events in \eqn{E}, and
 #' samples an arbitrary number \eqn{m} of non-events from the support set \eqn{A_t} (Vu et al. 2015; Lerner
 #' and Lomi 2020). This process generates a new support set, \eqn{SA_t}, for any relational event
 #' \eqn{e_i} contained in \eqn{E} given a network of past events \eqn{G[E;t]}. \eqn{SA_t} is formally defined as:
-#' \deqn{SA_t \subseteq \{ (s, r) \mid s \in S \times r \in R \}}
+#' \deqn{SA_t \subseteq \{ (s, r) \mid s \in S_t \times r \in R_t \}}
 #' and in the process of sampling from the observed events, \eqn{n} number of observed events are
 #' sampled from the set \eqn{E} with known probability \eqn{0 < p \le 1}. More formally, sampling from
 #' the observed set generates a new set \eqn{SE \subseteq E}.
@@ -93,7 +93,7 @@
 #' WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
 #' ### Creating the EventSet By Employing Case-Control Sampling With M = 10 and
 #' ### Sampling from the Observed Event Sequence with P = 0.01
-#' EventSet <- create_riskset(
+#' EventSet <- create_riskset_dynamic(
 #'   type = "two-mode",
 #'   time = WikiEvent2018.first100k$time, # The Time Variable
 #'   eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
@@ -107,7 +107,7 @@
 #' ### Creating A New EventSet with more observed events and less control events
 #' ### Sampling from the Observed Event Sequence with P = 0.02
 #' ### Employing Case-Control Sampling With M = 2
-#' EventSet1 <- create_riskset(
+#' EventSet1 <- create_riskset_dynamic(
 #'   type = "two-mode",
 #'   time = WikiEvent2018.first100k$time, # The Time Variable
 #'   eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
@@ -116,6 +116,8 @@
 #'   p_samplingobserved = 0.02, # The Probability of Selection
 #'   n_controls = 2, # The Number of Controls to Sample from the Full Risk Set
 #'   seed = 9999) # The Seed for Replication
+#'
+#'
 #'
 #'set.seed(9999)
 #'events <- data.frame(time = sort(rexp(1:18)),
@@ -135,7 +137,7 @@
 #'
 #'# Creating a one-mode relational risk set with p = 1.00 (all true events)
 #'# and 5 controls
-#'eventSet <- create_riskset( type = "two-mode",
+#'eventSet <- create_riskset_dynamic(type = "two-mode",
 #'                       time = events$time,
 #'                       eventID = events$eventID,
 #'                       sender = events$sender,
@@ -143,18 +145,16 @@
 #'                       p_samplingobserved = 1.00,
 #'                       n_controls = 5,
 #'                       seed = 9999)
-#'
-#'
 
-create_riskset <-  function(type = c("two-mode", "one-mode"), #the type of risk set to be created
-                           time, # variable (column) name that contains the time variable
-                           eventID, # variable (column) name that contains event Sequence ID
-                           sender, # variable (column) name that contains the sender variable
-                           receiver, # variable (column) name that contains the receiver variable
-                           p_samplingobserved = 1, # probability of selection for case control sampling
-                           n_controls, # number of controls for each selected event
-                           combine = TRUE,
-                           seed = 9999) { # seed for replication (user can change this value)
+create_riskset_dynamic <-  function(type = c("two-mode", "one-mode"), #the type of risk set to be created
+                            time, # variable (column) name that contains the time variable
+                            eventID, # variable (column) name that contains event Sequence ID
+                            sender, # variable (column) name that contains the sender variable
+                            receiver, # variable (column) name that contains the receiver variable
+                            p_samplingobserved = 1, # probability of selection for case control sampling
+                            n_controls, # number of controls for each selected event
+                            combine = TRUE,
+                            seed = 9999) { # seed for replication (user can change this value)
 
   #base::cat("Checking Data Structure and User Inputs.......") # outputting status to user
 
@@ -180,22 +180,22 @@ create_riskset <-  function(type = c("two-mode", "one-mode"), #the type of risk 
   #
   #######################################################
   if(type == "two-mode"){ #if it is a two-mode event sequence
-      #then create a two-mode event sequence!
-      bigeventlist <- processREMseqTM(time = time,
-                                      seqid = eventID,
-                                      sender = (sender),
-                                      target = (receiver),
-                                      pobserved = p_samplingobserved,
-                                      ncontrols = n_controls,
-                                      rseed = seed)
+    #then create a two-mode event sequence!
+    bigeventlist <- processREMseqTM_varying(time = time,
+                                            seqid = eventID,
+                                            sender = (sender),
+                                            target = (receiver),
+                                            pobserved = p_samplingobserved,
+                                            ncontrols = n_controls,
+                                              rseed = seed)
   }else{#then create a one-mode event sequence!
-      bigeventlist <- processREMseqOM(time = time,
-                                      seqid = eventID,
-                                      sender = (sender),
-                                      target = (receiver),
-                                      pobserved = p_samplingobserved,
-                                      ncontrols = n_controls,
-                                      rseed = seed)
+    bigeventlist <- processREMseqOM_varying(time = time,
+                                            seqid = eventID,
+                                            sender = (sender),
+                                            target = (receiver),
+                                            pobserved = p_samplingobserved,
+                                            ncontrols = n_controls,
+                                            rseed = seed)
   }
   #cleaning the post-processing dataset!
   eventSeq <- data.table::rbindlist(bigeventlist) # merging everything into a nice dataframe to be exported to the user!

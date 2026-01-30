@@ -49,6 +49,10 @@ computerecencynorank <- function(time, sampledevent, controlevent, dyad_id, send
     .Call(`_dream_computerecencynorank`, time, sampledevent, controlevent, dyad_id, sender, target, i_neighborhood, raw_diff, nopastEvents, appender)
 }
 
+processREMseqOM_varying <- function(time, seqid, sender, target, pobserved = 1, ncontrols = 1, appender = "__NIKOACAR3718__", rseed = 9999) {
+    .Call(`_dream_processREMseqOM_varying`, time, seqid, sender, target, pobserved, ncontrols, appender, rseed)
+}
+
 persistencerem <- function(time, sampledevent, controlevent, dyad_id, actor, timedependency, cuttime, nopastEvents) {
     .Call(`_dream_persistencerem`, time, sampledevent, controlevent, dyad_id, actor, timedependency, cuttime, nopastEvents)
 }
@@ -99,5 +103,9 @@ tmdegcentraility <- function(tmnet) {
 
 tmegodist <- function(net, mem) {
     .Call(`_dream_tmegodist`, net, mem)
+}
+
+processREMseqTM_varying <- function(time, seqid, sender, target, pobserved = 1, ncontrols = 1, appender = "__NIKOACAR3718__", rseed = 9999) {
+    .Call(`_dream_processREMseqTM_varying`, time, seqid, sender, target, pobserved, ncontrols, appender, rseed)
 }
 
