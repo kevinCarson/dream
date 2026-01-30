@@ -66,12 +66,11 @@ You can install the stable verison of `dream` from
 install.packages("dream")
 ```
 
-You can install the development version of `dream` from
+You can install the developmental version of `dream` from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("kevinCarson/dream")
+remotes::install_github("kevinCarson/dream")
 ```
 
 ## The `dream` Package API
