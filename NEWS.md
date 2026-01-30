@@ -1,6 +1,9 @@
-# dream 1.0.1 (2026-01-28)
+# dream 1.0.1 (2026-01-30)
 
-# dream 1.0.1 (2026-01-19)
+## Major Changes
+
+* Implemented a new function to create time-dynamic risk sets for one- and two-mode
+relational event sequences. The new function is named `create_riskset_dynamic()`. 
 
 ## Minor Changes
 

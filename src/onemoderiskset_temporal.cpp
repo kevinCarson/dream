@@ -149,7 +149,12 @@ List processREMseqOM_varying(std::vector<double> time,
 
       } // the end of the for loop for searching and sampling controls
 
-
+      DataFrame processi =  DataFrame::create(Rcpp::Named("time") = curtime,
+                                              Rcpp::Named("seqeuence_id") =curseqid,
+                                              Rcpp::Named("sender") = curfullsender,
+                                              Rcpp::Named("receiver") = curfulltarget,
+                                              Rcpp::Named("observed") = curobserved);
+      processedevents[0] = processi; // storing the dataframe
 
     }else{ // if not, then we have to make the full event set
       std::vector<std::string> samsenders; // an empty vector to store the sampled senders

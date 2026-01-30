@@ -90,7 +90,7 @@ prefix identifies what category the specific function corresponds to
 The `remstats_` functions compute relational/network statistics for
 relational event sequences. For instance, `remstats_fourcycles` computes
 the four-cycles network statistic for a two-mode relational event
-sequence. The `create_` function creates a risk-set for one- and
+sequence. The `create_` functions creates a risk-set for one- and
 two-mode relational event sequences based on a set of sampling
 procedures. The `netstats_om_` series of functions compute static
 network statics for one-mode networks (i.e., `netstats_om_pib` computes
@@ -141,7 +141,7 @@ data("WikiEvent2018.first100k")
 WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
 ### Creating the EventSet By Employing Case-Control Sampling With M = 10 and
 ### Sampling from the Observed Event Sequence with P = 0.01
-EventSet <- create_riskset(
+EventSet <- create_riskset_dynamic(
   type = "two-mode",
   time = WikiEvent2018.first100k$time, # The Time Variable
   eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
@@ -255,19 +255,19 @@ summary(lerner.lomi.rem)
 #> 
 #> Coefficients:
 #>                                    Estimate Std. Error z value Pr(>|z|)    
-#> repetition                           7.6871     0.4450 17.2726   <2e-16 ***
-#> sender.outdegree                     1.3698     0.0207 66.1147   <2e-16 ***
-#> receiver.indegree                    1.2488     0.0620 20.1311   <2e-16 ***
-#> fourcycles                           0.2654     0.1095  2.4243   0.0153 *  
-#> sender.outdegree:receiver.indegree  -0.0799     0.0289 -2.7677   0.0056 ** 
+#> repetition                           6.9705     0.2758 25.2723   <2e-16 ***
+#> sender.outdegree                     1.1173     0.0172 64.9368   <2e-16 ***
+#> receiver.indegree                    0.2917     0.0682  4.2754   <2e-16 ***
+#> fourcycles                           0.5739     0.0777  7.3871   <2e-16 ***
+#> sender.outdegree:receiver.indegree  -0.0667     0.0232 -2.8750    0.004 ** 
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> Null Likelihood: -23978.95 Model Likelihood: -3929.474 
+#> Null Likelihood: -23978.95 Model Likelihood: -5827.479 
 #> 
-#> Likelihood Ratio Test: 40098.96  with df: 5 p-value: 0 
+#> Likelihood Ratio Test: 36302.95  with df: 5 p-value: 0 
 #> 
-#> AIC 7868.947 BIC 7904.999
+#> AIC 11664.96 BIC 11701.01
 ```
 
 ## Questions, Comments, or Suggestions!
