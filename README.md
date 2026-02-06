@@ -5,11 +5,6 @@
 
 <!-- badges: start -->
 
-[![](https://www.r-pkg.org/badges/version/dream?color=blue)](https://cran.r-project.org/package=dream)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/dream?color=red)](https://cran.r-project.org/package=dream)
-[![CRAN
-checks](https://badges.cranchecks.info/summary/dream.svg)](https://cran.r-project.org/web/checks/check_results_dream.html)
-
 [![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 

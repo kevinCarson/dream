@@ -16,14 +16,6 @@ knitr::opts_chunk$set(
 # dream: An R Package for Dynamic Relational Event Analysis and Modeling
 
 <!-- badges: start -->
-```{r, echo = FALSE, results='asis'}
-library(badger)
-cat(
-	badge_cran_release("dream", "blue"),
-	badge_cran_download("dream", "grand-total", "red"),
-  badge_cran_checks("dream")
-)
-```
 
 [![R-CMD-check](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kevinCarson/dream/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->

@@ -1,2 +1,0 @@
-PKG_CXXFLAGS = -g0
-PKG_LIBS     = -s
