@@ -294,7 +294,7 @@ remstats_triads <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type
   #
   ########################################################
   if(formation == "OSP"){ #if outgoing shared partners is requested!
-        weights <- computeoutsharedpart(time = time,
+        weights <- computetriadsrem(time = time,
                                         sampledevent = sampled,
                                         controlevent = controleventsR,
                                         sender = base::paste0(sender),
@@ -304,11 +304,12 @@ remstats_triads <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type
                                         counts = countsR,
                                         cutweight = dyadic_weight,
                                         halflife = halflife,
-                                        appender = appender)
+                                        appender = appender,
+                                        tri_type = "outgoing.shared.partners")
   }
 
   if(formation == "ISP"){ #if outgoing shared partners is requested!
-      weights <- computeincomingsharedparts(time = time,
+      weights <- computetriadsrem(time = time,
                                             sampledevent = sampled,
                                             controlevent = controleventsR,
                                             sender = base::paste0(sender),
@@ -318,11 +319,12 @@ remstats_triads <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type
                                             counts = countsR,
                                             cutweight = dyadic_weight,
                                             halflife = halflife,
-                                            appender = appender)
+                                            appender = appender,
+                                            tri_type = "incoming.shared.partners")
   }
 
   if(formation == "ITP"){ #if outgoing shared partners is requested!
-      weights <- computeincomingtwopaths(time = time,
+      weights <- computetriadsrem(time = time,
                                          sampledevent = sampled,
                                          controlevent = controleventsR,
                                          sender = base::paste0(sender),
@@ -332,11 +334,12 @@ remstats_triads <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type
                                          counts = countsR,
                                          cutweight = dyadic_weight,
                                          halflife = halflife,
-                                         appender = appender)
+                                         appender = appender,
+                                         tri_type = "incoming.two.paths")
   }
 
   if(formation == "OTP"){ #if outgoing shared partners is requested!
-    weights <- computeouttwopaths(time = time,
+    weights <- computetriadsrem(time = time,
                                   sampledevent = sampled,
                                   controlevent = controleventsR,
                                   sender = base::paste0(sender),
@@ -346,7 +349,8 @@ remstats_triads <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the type
                                   counts = countsR,
                                   cutweight = dyadic_weight,
                                   halflife = halflife,
-                                  appender = appender)
+                                  appender = appender,
+                                  tri_type = "outgoing.two.paths")
   }
 
 

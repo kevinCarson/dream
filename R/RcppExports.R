@@ -17,20 +17,8 @@ computeremweightsv2 <- function(time, sampledevent, controlevent, dyad_id, dyad_
     .Call(`_dream_computeremweightsv2`, time, sampledevent, controlevent, dyad_id, dyad_idOpposite, weightScheme, counts, cutweight, halflife)
 }
 
-computeincomingsharedparts <- function(time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender) {
-    .Call(`_dream_computeincomingsharedparts`, time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender)
-}
-
-computeincomingtwopaths <- function(time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender) {
-    .Call(`_dream_computeincomingtwopaths`, time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender)
-}
-
-computeoutsharedpart <- function(time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender) {
-    .Call(`_dream_computeoutsharedpart`, time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender)
-}
-
-computeouttwopaths <- function(time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender) {
-    .Call(`_dream_computeouttwopaths`, time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender)
+computetriadsrem <- function(time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender, tri_type) {
+    .Call(`_dream_computetriadsrem`, time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender, tri_type)
 }
 
 extractEventData <- function(stats, outcome, event_cluster, names) {
