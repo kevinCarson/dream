@@ -1,3 +1,14 @@
+# dream 1.1.1 (2026-03-24)
+
+## Major Changes
+
+* All `remstats_`-related functions were renamed to `dreamstats_` to provide a more
+consistently named API for the `dream` package. As a result, all `remstats_` original functions are now 
+deprecated starting on version 1.1.1, but remain available in this update. 
+* `create_riskset()` was renamed to `create_riskset_constant()`. 
+* All functions that were deprecated in `dream` 1.0.0 were removed.
+
+
 # dream 1.0.1 (2026-01-30)
 
 ## Major Changes

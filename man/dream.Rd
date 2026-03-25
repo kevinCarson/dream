@@ -22,7 +22,7 @@ of the authors and do not necessarily reflect the views of the NSF.
 
 The dream package 'API' is structured into six categories, where the prefix identifies what category the specific function corresponds to (see below):
 \itemize{
-\item \code{remstats_}
+\item \code{dreamstats_}
 \item \code{netstats_om_}
 \item \code{netstats_tm_}
 \item \code{estimate_}
@@ -30,8 +30,8 @@ The dream package 'API' is structured into six categories, where the prefix iden
 \item \code{create_}
 }
 
-The \code{remstats_} functions compute relational/network statistics for relational event sequences.
-For instance, \code{remstats_fourcycles} computes the four-cycles network statistic for a two-mode
+The \code{dreamstats_} functions compute relational/network statistics for relational event sequences.
+For instance, \code{dreamstats_fourcycles} computes the four-cycles network statistic for a two-mode
 relational event sequence. The \code{create_} function creates a risk-set for one- and two-mode
 relational event sequences based on a set of sampling procedures. The \code{netstats_om_} series of functions compute
 static network statics for one-mode networks

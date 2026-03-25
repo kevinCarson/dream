@@ -39,7 +39,9 @@ remstats_repetition(
 The vector of repetition statistics for the relational event sequence.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{remstats_repetition()} has been deprecated starting on version 1.1.1 of the \code{dream} package. Please use the \code{dreamstats_repetition()} function and see the \code{NEWS.md} file for more details.
 
 This function computes the repetition network sufficient statistic for a relational event
 sequence (see Lerner and Lomi 2020; Butts 2008). Repetition measures the increased tendency
@@ -92,7 +94,7 @@ WikiEvent2018 <- WikiEvent2018.first100k[1:10000,] #the first ten thousand event
 WikiEvent2018$time <- as.numeric(WikiEvent2018$time) #making the variable numeric
 ### Creating the EventSet By Employing Case-Control Sampling With M = 5 and
 ### Sampling from the Observed Event Sequence with P = 0.01
-EventSet <- create_riskset(type = "two-mode",
+EventSet <- create_riskset_constant(type = "two-mode",
  time = WikiEvent2018$time, # The Time Variable
  eventID = WikiEvent2018$eventID, # The Event Sequence Variable
  sender = WikiEvent2018$user, # The Sender Variable

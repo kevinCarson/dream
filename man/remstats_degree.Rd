@@ -45,7 +45,9 @@ outdegree statistic for the event receivers.}
 The vector of degree statistics for the relational event sequence.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{remstats_degree()} has been deprecated starting on version 1.1.1 of the \code{dream} package. Please use the \code{dreamstats_degree()} function and see the \code{NEWS.md} file for more details.
 
 The function computes the indegree network sufficient statistic for event senders
 in a relational event sequence (see Lerner and Lomi 2020; Butts 2008).
@@ -138,7 +140,7 @@ events <- data.frame(time = 1:18, eventID = 1:18,
                                           "H", "J", "A",
                                           "F", "C", "B"))
 
-eventSet <- create_riskset(type = "one-mode",
+eventSet <- create_riskset_constant(type = "one-mode",
                       time = events$time,
                       eventID = events$eventID,
                       sender = events$sender,

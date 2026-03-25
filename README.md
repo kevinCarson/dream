@@ -74,17 +74,17 @@ The dream package ‘API’ is structured into six categories, where the
 prefix identifies what category the specific function corresponds to
 (see below):
 
-- `remstats_`
+- `dreamstats_`
 - `netstats_om_`
 - `netstats_tm_`
 - `estimate_`
 - `simulate_`
 - `create_`
 
-The `remstats_` functions compute relational/network statistics for
-relational event sequences. For instance, `remstats_fourcycles` computes
-the four-cycles network statistic for a two-mode relational event
-sequence. The `create_` functions creates a risk-set for one- and
+The `dreamstats_` functions compute relational/network statistics for
+relational event sequences. For instance, `dreamstats_fourcycles`
+computes the four-cycles network statistic for a two-mode relational
+event sequence. The `create_` functions creates a risk-set for one- and
 two-mode relational event sequences based on a set of sampling
 procedures. The `netstats_om_` series of functions compute static
 network statics for one-mode networks (i.e., `netstats_om_pib` computes
@@ -166,7 +166,7 @@ control events per observed events (i.e., 100,000 null events).
 ``` r
 # computing the inertia statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$repetition <- remstats_repetition(
+post.processing.riskset$repetition <- dreamstats_repetition(
    time = EventSet$time,
    sender = EventSet$sender,
    receiver = EventSet$receiver,
@@ -178,7 +178,7 @@ post.processing.riskset$repetition <- remstats_repetition(
 
 # computing the sender outdegree statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$sender.outdegree <- remstats_degree(
+post.processing.riskset$sender.outdegree <- dreamstats_degree(
    formation = "sender-outdegree",
    time = EventSet$time,
    sender = EventSet$sender,
@@ -191,7 +191,7 @@ post.processing.riskset$sender.outdegree <- remstats_degree(
 
 # computing the receiver indegree statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$receiver.indegree <- remstats_degree(
+post.processing.riskset$receiver.indegree <- dreamstats_degree(
    formation = "receiver-indegree",
    time = EventSet$time,
    sender = EventSet$sender,
@@ -204,7 +204,7 @@ post.processing.riskset$receiver.indegree <- remstats_degree(
 
 # computing the four-cycles statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$fourcycles <- remstats_fourcycles(
+post.processing.riskset$fourcycles <- dreamstats_fourcycles(
    time = EventSet$time,
    sender = EventSet$sender,
    receiver = EventSet$receiver,
