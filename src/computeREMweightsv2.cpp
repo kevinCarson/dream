@@ -77,7 +77,7 @@ NumericVector computeremweightsv2(NumericVector time,
             }
 
           }else{
-            weights[z] = 0; // the evnet time is the current time (this should not really happen empirically)
+            weights[z] = 0; // the event time is the current time (this should not really happen empirically)
           }
         }
 
@@ -98,7 +98,6 @@ NumericVector computeremweightsv2(NumericVector time,
     if(controlevent[i] != 1){ // if it is not a fake event, append the current time to the vector
       std::string curdyadC = Rcpp::as<std::string>(dyad_idOpposite[i]); //the current event dyad
       std::vector<double>& past_times = dyad_events[curdyadC];  // this extracts all of the past event times
-      past_times.push_back(time[i]);
       if(cutweight < 0){ // updating the past edges!
 
         int npast = past_times.size(); // the number of past weights

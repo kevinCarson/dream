@@ -53,16 +53,31 @@ remotes::install_github("kevinCarson/dream")
 
 ## The `dream` Package API
 
-The dream package 'API' is structured into six categories, where the prefix identifies what category the specific function corresponds to (see below): 
+The dream package 'API' is structured into six categories, where the prefix identifies what category the specific function corresponds to (see below):
 
-- `dreamstats_`
-- `netstats_om_`
-- `netstats_tm_`
-- `estimate_`
-- `simulate_`
-- `create_` 
-
-The `dreamstats_` functions compute relational/network statistics for relational event sequences. For instance, `dreamstats_fourcycles` computes the four-cycles network statistic for a two-mode relational event sequence. The `create_` functions creates a risk-set for one- and two-mode relational event sequences based on a set of sampling procedures. The `netstats_om_` series of functions compute static network statics for one-mode networks (i.e., `netstats_om_pib` computes [Leal (2025)](https://journals.sagepub.com/doi/10.1177/00491241251322517) measure for potential for intercultural brokerage). The `netstats_tm_` set of functions compute static network statistics for two-mode networks (i.e., `netstats_tm_effective` computes [Burchard and Cornwell (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0378873317302241) measure for two-mode ego effective size). The `estimate_` function estimates a relational event models for relational event sequences. Currently, the only function in this set is `estimate_rem_logit`, which estimates the ordinal timing relational event model and, under certain conditions, can estimate a Cox-proportional hazard model for exact timing relational event models (see [Bianchi et al. (2024)](https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-040722-060248) and [Butts (2008)](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x) for more information on these models). Finally, the `simulate_` functions simulate one-mode relational event sequences based upon results of a relational event model. 
+  - `dreamstats_`
+  - `netstats_om_`
+  - `netstats_tm_`
+  - `estimate_rem`
+  - `simulate_rem_seq`
+  - `create_res`'
+  
+The `dreamstats_` functions compute relational/network statistics for relational event sequences.
+For instance, `dreamstats_fourcycles` computes the four-cycles network statistic for a two-mode
+relational event sequence. The `create_res` function creates a risk-set for one- and two-mode
+relational event sequences based on a set of sampling procedures. The `netstats_om_` series of functions compute
+static network statics for one-mode networks
+(i.e., `netstats_om_pib` computes [Leal (2025)](https://journals.sagepub.com/doi/10.1177/00491241251322517) measure for
+potential for intercultural brokerage). The `netstats_om_` set of functions compute static network
+statics for two-mode networks (i.e., `netstats_om_effective`
+computes [Burchard and Cornwell (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0378873317302241) measure for two-mode
+ego effective size). The `estimate_rem` functions estimate relational event models for relational event sequences. The
+function estimates the interval and ordinal timing relational event model and,
+under certain conditions, can estimate a Cox-proportional hazard model for exact timing relational event
+models (see [Bianchi et al. (2024)](https://www.annualreviews.org/content/journals/10.1146/annurev-statistics-040722-060248)
+and [Butts (2008)](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x) for more information on
+these models). Finally, the `simulate_rem_seq` functions simulate one-mode relational event sequences based upon
+results of a relational event model.
 
 
 ## Estimating an (Ordinal) Relational Event Model in `dream`
@@ -70,30 +85,29 @@ The `dreamstats_` functions compute relational/network statistics for relational
 ### Sampling from the Observed Events and Case-Control Sampling
 
 This is a basic example which shows how to sample from the observed events
-and employ the case-control sampling technique for large relational event models (see [Butts 2008](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x)) following [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897) and [Vu et al. (2015)](https://www.sciencedirect.com/science/article/abs/pii/S0378873315000477). Then based upon the post-processing event sequence, the example computes a set of standard network statistics for two-mode relational event models. Lastly, the examples estimates an ordinal timing relational event model. The event sequence included in this example is based a subset (i.e., the first 100,000 events) of the 2018 Wikipedia article-edit event sequence used in [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897). Across five replications, the average execution time for the example below on a standard MacBook Air was 46.392 seconds. 
+and employ the case-control sampling technique for large relational event models (see [Butts 2008](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x)) following [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897) and [Vu et al. (2015)](https://www.sciencedirect.com/science/article/abs/pii/S0378873315000477). Then based upon the post-processing event sequence, the example computes a set of standard network statistics for two-mode relational event models. Lastly, the examples estimates an ordinal timing relational event model. The event sequence included in this example is based a subset (i.e., the first 100,000 events) of the 2018 Wikipedia article-edit event sequence used in [Lerner and Lomi (2020)](https://www.cambridge.org/core/journals/network-science/article/reliability-of-relational-event-model-estimates-under-sampling-how-to-fit-a-relational-event-model-to-360-million-dyadic-events/B4286F370CD3A1A4ED30DF5120F04897).
+
 
 ```{r processevents}
 library(dream)
-data("WikiEvent2018.first100k")
+data("WikiEvent2018.first100k", package = "dream")
 WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
 ### Creating the EventSet By Employing Case-Control Sampling With M = 10 and
 ### Sampling from the Observed Event Sequence with P = 0.01
-EventSet <- create_riskset_dynamic(
+processed <- create_res(
   type = "two-mode",
+  ordinal = TRUE,
+  riskset = "dynamic_sample",
   time = WikiEvent2018.first100k$time, # The Time Variable
-  eventID = WikiEvent2018.first100k$eventID, # The Event Sequence Variable
   sender = WikiEvent2018.first100k$user, # The Sender Variable
   receiver = WikiEvent2018.first100k$article, # The Receiver Variable
-  p_samplingobserved = 0.10, # The Probability of Selection
+  p_samplingobserved = 0.20, # The Probability of Selection
   n_controls = 10, # The Number of Controls to Sample from the Full Risk Set
   seed = 9999) # The Seed for Replication
-
-post.processing.riskset <- EventSet[EventSet$sampled == 1,] #only those sampled events! 
 ```
 
 ```{r print, echo=TRUE}
-nrow(post.processing.riskset) #the total number of post-processing events
-table(post.processing.riskset$observed) # 0 = null events; 1 = observed events
+processed #printing the summary information
 ```
 
 Based on the above results, the post-processing event sequence contains 110,000 post-processing events, that is, 10,000 observed events and 10 control events per observed events (i.e., 100,000 null events).
@@ -103,70 +117,45 @@ Based on the above results, the post-processing event sequence contains 110,000 
 ```{r computestats}
 # computing the inertia statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$repetition <- dreamstats_repetition(
-   time = EventSet$time,
-   sender = EventSet$sender,
-   receiver = EventSet$receiver,
-   sampled = EventSet$sampled,
-   observed = EventSet$observed,
-   halflife = 2.592e+09, 
-   dyadic_weight = 0.01,
-   exp_weight_form = FALSE)
+processed <- dreamstats_repetition(data = processed, 
+                                   halflife = 2.592e+09, 
+                                   dyadic_weight = 0.01)
 
 # computing the sender outdegree statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$sender.outdegree <- dreamstats_degree(
-   formation = "sender-outdegree",
-   time = EventSet$time,
-   sender = EventSet$sender,
-   receiver = EventSet$receiver,
-   sampled = EventSet$sampled,
-   observed = EventSet$observed,
-   halflife = 2.592e+09, 
-   dyadic_weight = 0.01,
-   exp_weight_form = FALSE)
+processed <- dreamstats_degree(formation = "sender-outdegree",
+                               data = processed,
+                               halflife = 2.592e+09, 
+                               dyadic_weight = 0.01)
 
 # computing the receiver indegree statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$receiver.indegree <- dreamstats_degree(
-   formation = "receiver-indegree",
-   time = EventSet$time,
-   sender = EventSet$sender,
-   receiver = EventSet$receiver,
-   sampled = EventSet$sampled,
-   observed = EventSet$observed,
-   halflife = 2.592e+09, 
-   dyadic_weight = 0.01,
-   exp_weight_form = FALSE)
+processed <- dreamstats_degree(formation ="receiver-indegree",
+                               data = processed,
+                               halflife = 2.592e+09, 
+                               dyadic_weight = 0.01)
 
 # computing the four-cycles statistic with the exponential weights and a halflife
 # value of 30 days
-post.processing.riskset$fourcycles <- dreamstats_fourcycles(
-   time = EventSet$time,
-   sender = EventSet$sender,
-   receiver = EventSet$receiver,
-   sampled = EventSet$sampled,
-   observed = EventSet$observed,
-   halflife = 2.592e+09, 
-   dyadic_weight = 0.01,
-   exp_weight_form = FALSE)
+processed <- dreamstats_fourcycles(data = processed, 
+                                   halflife = 2.592e+09, 
+                                   dyadic_weight = 0.01)
 
 #transforming the variables following Lerner and Lomi (2020) 
-post.processing.riskset$fourcycles <- log1p(post.processing.riskset$fourcycles)
-post.processing.riskset$sender.outdegree <- log1p(post.processing.riskset$sender.outdegree)
-post.processing.riskset$receiver.indegree <- log1p(post.processing.riskset$receiver.indegree)
-post.processing.riskset$repetition <- log1p(post.processing.riskset$repetition)
+processed$statistics$four.cycles <- log1p(processed$statistics$four.cycles)
+processed$statistics$sender.outdegree <- log1p(processed$statistics$sender.outdegree)
+processed$statistics$receiver.indegree <- log1p(processed$statistics$receiver.indegree)
+processed$statistics$repetition <- log1p(processed$statistics$repetition)
+
+#some realized events have the same time point, so to make them ordered
+#in the sequence of the realized relational event sequence per Lerner and Lomi (2020)
+processed$processed_sequence$time <- processed$processed_sequence$eventID
 
 # Estimating the ordinal relational event model! 
-lerner.lomi.rem <- estimate_rem_logit(observed ~ 
-                            repetition +
-                            sender.outdegree + 
-                            receiver.indegree + 
-                            receiver.indegree:sender.outdegree +
-                            fourcycles,
-                            event.cluster = post.processing.riskset$eventID,
-                            newton.rhapson=FALSE,
-                            data = post.processing.riskset)
+lerner.lomi.rem <- estimate_rem(formula= ~ repetition + sender.outdegree + 
+                            receiver.indegree + four.cycles +
+                            receiver.indegree:sender.outdegree,
+                            data = processed)
 ```
 
 ```{r, echo=TRUE}

@@ -5,7 +5,7 @@ using namespace Rcpp;
 std::vector<NumericMatrix> extractEventData(
     NumericMatrix stats,
     NumericVector outcome,
-    IntegerVector event_cluster,
+    NumericVector event_cluster,
     CharacterVector names) {
 
   // a function to extract the network statistics per event cluster
@@ -14,7 +14,7 @@ std::vector<NumericMatrix> extractEventData(
   int K = stats.ncol();  // number of covariates requested by the user
 
   // 1. Stratify by event clusters
-  std::map<int, std::vector<int>> strata;
+  std::map<double, std::vector<int>> strata;
   for (int i = 0; i < N; i++) { // for all events in the sequence
     strata[event_cluster[i]].push_back(i); // adding the respective place
   }

@@ -1,3 +1,59 @@
+# dream 2.1.1 (2026-05-27)
+
+## Major Changes
+* The package has undergone a new API for the analysis of relational event sequences 
+aimed at reducing redundant user-inputs and increasing useability. Importantly, the 
+package now contains two S3 object classes: `dream_sequence` and `dream_rem`, 
+where `dream_sequence` is the object class created after using `create_res()` in the 
+dream package to generate the post-processing relational event 
+sequence (i.e., (sampled) realized events and sampled control/null events) or 
+after using `dream_sequence()`, a new function to create the S3 object based 
+upon a user-generated processing sequence. Moreover, in prior versions of 
+the package, users had to input 6 arguments into the functions to compute 
+various sufficient network statistics (e.g., four-cycles, repetition), these 
+6 arguments are now pulled from the `dream_sequence` data object. Additionally, 
+the functions that compute the sufficient network statistics add the vector of 
+computed statistics to the user-inputted `dream_sequence` object as an additional
+element in the `statistics` list. The `estimate_rem()` function now relies 
+upon the user-created `dream_sequence` objects and extracts the relational event 
+model covariates from the data object. Finally, `dream_rem` S3 objects now contain
+a new set of functions to extract relevant model information: `vcov()`, `logLik()`, 
+`coef()`, and `predict()`. 
+* `create_riskset_dynamic()` and `create_riskset_constant()` have been replaced  
+by the new function `create_res()`, which internally is the same as the aforementioned functions
+and generate risksets based upon the `riskset` argument. We encourage users
+to read the help page for the `create_res()` to see the updated set of full 
+riskset possibilities. 
+* As mentioned above, the `dreamstats_` series of functions have been updated
+to reduce the number of arguments supplied by the user. Previously, the following
+arguments needed to be specified: `time`, `sender`, `receiver`, `eventID`, 
+`observed`, and `sampled`. However, the new updated functions internally create
+these based upon the `data` argument which is an S3 `dream_sequence` object. 
+* The newly created S3 `dream_sequence` object, which is created using the 
+`create_res()` function, also has a function named `dream_sequence()` that
+can create a `dream_sequence` object based upon the user-inputted values. In 
+addition, the `as.data.frame()` has been supplied to extract the post-processing
+relational event sequence and the computed statistics. Users may find this function
+useful if they would like to estimate the relational event model by a different 
+modeling function such as the `clogit()` function in the `survival` package or
+a user-created function. 
+* The new package version also includes a new suite of functions that expands the 
+set of exogenous statistics for the estimation of relational event models. These are
+`dreamstats_actor()`, `dreamstats_actorfe()`, `dreamstats_dyadic()`, 
+`dreamstats_dyadfe()`, and `dreamstats_event()`. These functions, respectively, 
+allow users to (1) add actor-level time-varying and time-invariant exogenous
+covariates, (2) add actor-level (sender and receiver) fixed effects, (3) add 
+dyadic-level time-varying and time-invariant exogenous covariates, (4) add
+dyadic-level fixed effects, and (3) add event-level exogenous covariates. 
+* Lastly, the `estimate_rem()` function now allows for the estimation of 
+interval timing relational event models. In terms of estimation routines, the
+c++ functions to compute the model log-likelihoods, hessians, and gradients 
+are now computed using `RcppArmadillo` with the `arma` set of functions. 
+* All functions that were deprecated in `dream` 1.1.1 were removed, in addition
+to the past function arguments for the `dreamstats_` functions. 
+
+
+
 # dream 1.1.1 (2026-03-24)
 
 ## Major Changes

@@ -9,16 +9,19 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 List processREMseqTM_varying(std::vector<double> time,
-                             std::vector<double> seqid,
+                             NumericVector seqid,
                              std::vector<std::string> sender,
                              std::vector<std::string> target,
                              double pobserved = 1,
                              double ncontrols = 1,
                              std::string appender = "__NIKOACAR3718__",
-                             double rseed = 9999) {
+                             bool interval = false,
+                             double t = 0) {
 
   double nevents = time.size(); // the number of observed evetns in the event seqeucne
   double howmany = std::round(nevents*pobserved); // this should return the number of events we need to sample
+  RNGScope scope;
+
   //
   //
   //          Sampling from the observed event sequence
@@ -31,13 +34,10 @@ List processREMseqTM_varying(std::vector<double> time,
     //std::uniform_int_distribution<int> dist(0, nevents); //sampling from the sequence id
     //std::vector<double> sampledevents = di
     //sampling howmany observed events from the observed event sequence
-    std::mt19937 gen(rseed);  // create a generator
-    std::sample(seqid.begin(), seqid.end(),
-                std::back_inserter(sampledevents),
-                static_cast<size_t>(howmany),
-                gen);
+    sampledevents = as<std::vector<double>>(sample(seqid,howmany,false));
+
   }else{
-    sampledevents = seqid; // an empty vector to store the sampled events
+    sampledevents = as<std::vector<double>>(seqid); // an empty vector to store the sampled events
   }
 
   List processedevents(howmany); //each list element will be a data frame! with 1 + ncontrols rows
@@ -46,8 +46,7 @@ List processREMseqTM_varying(std::vector<double> time,
   std::vector<std::string> pasttargets; // the past active targets at time t (for sampling)
   std::vector<std::string> pastsenders; // the past active senders at time t (for sampling)
   std::size_t pastupdateindex = 0; // the most recent past time
-  std::random_device rd; //prepping the random device
-  std::mt19937 gen(rseed); // setting the random seed
+
   //
   //
   //         The First Sampled Event
@@ -108,17 +107,18 @@ List processREMseqTM_varying(std::vector<double> time,
       std::vector<std::string> samsenders(ncontrols); // an empty vector to store the sampled senders
       std::vector<std::string> samtargets(ncontrols); // an empty vector to store the sampled targets
       std::vector<std::string> predyads; // an empty vector to store the previously sampled targets
-      std::uniform_int_distribution<int> sender_dist(0, pastsenders.size()-1); //setting the distribution
-      std::uniform_int_distribution<int> target_dist(0, pasttargets.size()-1); //setting the distribution
+
+      CharacterVector senders1 = Rcpp::wrap(pastsenders);
+      CharacterVector targets1 = Rcpp::wrap(pasttargets);
 
       for(int j = 0; j < ncontrols; j++){
         double good = 0; // once good = 1 we accept the sampled dyad!
         while(good < 1){ // while good is still equal to zero
 
-          int senderid = sender_dist(gen); // randomly sampling a sender
-          int targetid = target_dist(gen); // randomly sampling a target
-          std::string ssender = pastsenders[senderid]; //the randomly sampled sender
-          std::string starget = pasttargets[targetid]; //the randomly sampled target
+          CharacterVector sendsample = sample(senders1,1); //the randomly sampled sender
+          CharacterVector recsample = sample(targets1,1); //the randomly sampled sender
+          std::string ssender = as<std::string>(sendsample[0]); //the randomly sampled sender
+          std::string starget =  as<std::string>(recsample[0]); //the randomly sampled target
           if(ssender == cursender && starget == curtarget){ // if it is the current dyad, sample a new dyad
             good = 0;
           }else{// if it is not the current dyad, check to make sure it is not an already sampled dyad
@@ -241,17 +241,18 @@ List processREMseqTM_varying(std::vector<double> time,
       std::vector<std::string> samsenders(ncontrols); // an empty vector to store the sampled senders
       std::vector<std::string> samtargets(ncontrols); // an empty vector to store the sampled targets
       std::vector<std::string> predyads; // an empty vector to store the previously sampled targets
-      std::uniform_int_distribution<int> sender_dist(0, pastsenders.size()-1); //setting the distribution
-      std::uniform_int_distribution<int> target_dist(0, pasttargets.size()-1); //setting the distribution
+      CharacterVector senders1 = Rcpp::wrap(pastsenders);
+      CharacterVector targets1 = Rcpp::wrap(pasttargets);
 
       for(int j = 0; j < ncontrols; j++){
         double good = 0; // once good = 1 we accept the sampled dyad!
         while(good < 1){ // while good is still equal to zero
 
-          int senderid = sender_dist(gen); // randomly sampling a sender
-          int targetid = target_dist(gen); // randomly sampling a target
-          std::string ssender = pastsenders[senderid]; //the randomly sampled sender
-          std::string starget = pasttargets[targetid]; //the randomly sampled target
+          CharacterVector sendsample = sample(senders1,1); //the randomly sampled sender
+          CharacterVector recsample = sample(targets1,1); //the randomly sampled sender
+
+          std::string ssender = as<std::string>(sendsample[0]); //the randomly sampled sender
+          std::string starget =  as<std::string>(recsample[0]); //the randomly sampled target
           if(ssender == cursender && starget == curtarget){ // if it is the current dyad, sample a new dyad
             good = 0;
           }else{// if it is not the current dyad, check to make sure it is not an already sampled dyad
@@ -323,5 +324,104 @@ List processREMseqTM_varying(std::vector<double> time,
       processedevents[i] = processi; // storing the dataframe
     }
   }
+
+
+
+
+
+
+  if(interval && t > 0){
+
+
+    // now for each sampled event time point, we need to sample n null events (non-observed events at time t)
+    //double curevent = sampledevents[i] - 1; // the current observed events
+    // getting the list of null event senders
+    std::vector<std::string> samsenders(ncontrols); // an empty vector to store the sampled senders
+    std::vector<std::string> samtargets(ncontrols); // an empty vector to store the sampled targets
+    std::vector<std::string> predyads; // an empty vector to store the previously sampled targets
+    //
+    //
+    //          Updating the network of past events
+    //
+    //
+    double curtimei = t; //a vector of length: n control + 1
+    for(int k = pastupdateindex; k < nevents; k++){ // for all events until the first one
+      if(time[k] <= curtimei){ // if the time j is less or equal to the current event time
+        if(targetset.insert(target[k]).second){ // if the current target can be inserted (i.e., not already in the set)
+          pasttargets.push_back(target[k]); // adding the current target
+        }
+        if(senderset.insert(sender[k]).second){ // if the current sender can be inserted (i.e., not already in the set)
+          pastsenders.push_back(sender[k]); // adding the current target
+        }
+      }else{
+        pastupdateindex = k; // the most recent time that is beyond the current time point
+        break; // escaping the loop as time is beyond ti
+      }
+    } // ending the searching loop to add nodes to their respective lists!
+
+    double curevent = seqid.size() + 1; // updating the count by 1
+    std::vector<double> curtime(ncontrols); //a vector of length: n control + 1
+    std::vector<double> curobserved(ncontrols);
+    std::vector<double> curseqid(ncontrols);
+    std::vector<std::string> curfullsender(ncontrols);
+    std::vector<std::string> curfulltarget(ncontrols);
+    CharacterVector senders1 = Rcpp::wrap(pastsenders);
+    CharacterVector targets1 = Rcpp::wrap(pasttargets);
+
+    for(int j = 0; j < ncontrols; j++){
+      double good = 0; // once good = 1 we accept the sampled dyad!
+      while(good < 1){ // while good is still equal to zero
+
+        CharacterVector sendsample = sample(senders1,1); //the randomly sampled sender
+        CharacterVector recsample = sample(targets1,1); //the randomly sampled sender
+
+        std::string ssender = as<std::string>(sendsample[0]); //the randomly sampled sender
+        std::string starget =  as<std::string>(recsample[0]); //the randomly sampled target
+        if(ssender != starget){ // if it is the current dyad, sample a new dyad, or if this is a self-loop
+          // if it is not the current dyad, check to make sure it is not an already sampled dyad
+          if(j > 0){ //if we have already sampled an actor
+            std::string checkID = (ssender + appender + starget);
+            auto check = std::find(predyads.begin(),predyads.end(),checkID);
+            if(check == predyads.end()){ // if the dyad is not present then;
+              samsenders[j] = ssender; //store the result
+              samtargets[j] = starget; //store the result
+              good = 1; // if this is not a repeated dyad, then we are good!
+            }else{
+              good = 0;
+            }
+          }else{
+            good = 1; // if this is the first sample, we are good, store the results
+            samsenders[j] = ssender; //store the result
+            samtargets[j] = starget; //store the result
+          }
+        } // the end of the intial if statement
+      } // the end of the while loop
+
+
+      curtime[j] = t; //the first place should be the observed event
+      curobserved[j] = 0; // this is a null event
+      curseqid[j] = curevent; // the current event sequence
+      curfullsender[j] = samsenders[j]; // the current event sender
+      curfulltarget[j] = samtargets[j]; // the current event target
+      predyads.push_back(samsenders[j] + "__NIKOACAR__" + samtargets[j]);//adding the new dyad to the vector!
+
+    } // the end of the for loop for searching and sampling controls
+
+    //storing the full resulting list that is:
+    // the current dyad
+    // the sampled dyad
+    // the dummy vector
+    // the time vector
+    // creating a dataframe to store the results
+
+    DataFrame processi =  DataFrame::create(Rcpp::Named("time") = curtime,
+                                            Rcpp::Named("seqeuence_id") = curseqid,
+                                            Rcpp::Named("sender") = curfullsender,
+                                            Rcpp::Named("receiver") = curfulltarget,
+                                            Rcpp::Named("observed") = curobserved);
+
+    processedevents.push_back(processi);
+  }
+
   return(processedevents);
 }

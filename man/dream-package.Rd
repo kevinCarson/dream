@@ -2,6 +2,7 @@
 % Please edit documentation in R/dream-package.R
 \docType{package}
 \name{dream-package}
+\alias{dream}
 \alias{dream-package}
 \title{dream: Dynamic Relational Event Analysis and Modeling}
 \description{
