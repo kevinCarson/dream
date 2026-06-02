@@ -239,6 +239,10 @@ the Social Sciences: 192.
 
 Greene, William H. 2003. \emph{Econometric Analysis}. Fifth Edition. Prentice Hall Press.
 }
+\seealso{
+\code{\link{predict.dream_rem}}, \code{\link{vcov.dream_rem}}, \code{\link{logLik.dream_rem}},
+\code{\link{AIC}}, \code{\link{gof_rem}}, \code{\link{residuals.dream_rem}},\code{\link{plot.dream_rem}},\code{\link{coef.dream_rem}}.
+}
 \author{
 Kevin A. Carson \href{mailto:kacarson@arizona.edu}{kacarson@arizona.edu} and Diego F. Leal \href{mailto:dflc@arizona.edu}{dflc@arizona.edu}
 }

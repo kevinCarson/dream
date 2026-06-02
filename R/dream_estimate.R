@@ -26,7 +26,6 @@
 #' @param ... Additional arguments.
 #' @import stats
 #' @import Rcpp
-#' @importFrom methods is
 #' @return An object of class "dream_rem" as a list containing the following components:
 #' \itemize{
 #'   \item \code{optimization.method} - The optimzation method used to find the parameters.
@@ -52,6 +51,11 @@
 #'   \item \code{search.algo} - A data.frame object that contains the Newton-Rhapson searching algorithm results.
 #'}
 #' @export
+#' @seealso
+#' \code{\link{predict.dream_rem}}, \code{\link{vcov.dream_rem}}, \code{\link{logLik.dream_rem}},
+#' \code{\link{AIC}}, \code{\link{gof_rem}}, \code{\link{residuals.dream_rem}},\code{\link{plot.dream_rem}},\code{\link{coef.dream_rem}}.
+#'
+
 
 
 #' @description
@@ -238,6 +242,7 @@ estimate_rem <- function(formula,
   if(!inherits(data,"dream_sequence")) base::stop("The `data` argument is not a `dream_sequence` object.")
   ordinal <- data$ordinal
   interevent <- data$interevent_times #the timing between the events
+  rem.data <-data
   tknown <- TRUE #presetting the values
   if(data$t < 0) tknown <- FALSE #presetting the values based upon variable inputs
   data <- as.data.frame(data, all.events = FALSE)
@@ -245,6 +250,7 @@ estimate_rem <- function(formula,
   formula = as.formula(paste("observed ~" , as.character(formula)[2]))
   data.stats <- model.frame(formula, data = data) #extracting the variables
   outcome <- model.extract(data.stats,"response") #the outcome variable (1 = event; 0 = null)
+  out.mat <- data.frame(time=data$time, outcome=outcome)
   n.events <- sum(outcome) #the number of true observed events
   null.events <- length(outcome)-n.events #the number of null events
   net_stats <- model.matrix(formula, data = data) #extracting the model matrix
@@ -452,6 +458,7 @@ estimate_rem <- function(formula,
   } #and finished!
   results <- list( #combining all results to be outputted
     outcome=outcome,
+    rem.data = rem.data, #the relational event sequence dataset
     rem.type = rem.type,
     optimization.method = ifelse(optim.used==TRUE,"optim","Newton-Rhapson with line searching"), #optimization method
     converged = converged,#did the model converge?
@@ -844,5 +851,372 @@ predict.dream_rem <- function(object, newdata = NULL, se.fit=FALSE,...){
     lambda
   }
 }
+
+
+
+#' Model residuals for `dream_rem` relational event model fits
+#'
+#' This function returns a set of model residuals based upon the realized
+#' events in a relational event sequence (Butts 2008). The residuals included are: unit deviance,
+#' residual deviance, standardized residual deviance, and for each covariate,
+#' the Schoenfeld residual (please see Schoenfeld 1982).
+#'
+#' @param object An object of class "dream_rem".
+#' @param ... Additional arguments for other methods.
+#'
+#'
+#' @return A `data.frame` object that contains the following results:
+#' \itemize{
+#'   \item \code{time} - The timing of each realized event.
+#'   \item \code{unit.deviance} - The unit deviance for each realized event (the contribution of each realized event to the log-likelihood).
+#'   \item \code{residual.deviance} - The residual deviance for each realized event (the square of the contribution of each realized event to the log-likelihood).
+#'   \item \code{standardized.deviance} - The standardized residual deviance for each realized event (the square of the contribution of each realized event to the log-likelihood).
+#'   \item \code{schof.resid} - The Schoenfeld residual for each included covariate.
+#'}
+#'
+#' @details
+#'
+#' The residuals, based upon an estimated relational event model, included are: unit deviance,
+#' residual deviance, standardized residual deviance, and for each covariate,
+#' the Schoenfeld residual (please see Schoenfeld 1982).
+#'
+#' @references
+#' Butts, Carter T. 2008. "A Relational Event Framework for Social Action." *Sociological Methodology* 38(1): 155-200.
+#'
+#' Schoenfeld, David. 1982 "Partial Residuals for The Proportional Hazards Regression Model." *Biometrika* 69(1): 239-241.
+#'
+#' @examples
+#'#Creating a psuedo one-mode relational event sequence with ordinal timing
+#'relational.seq <- simulate_rem_seq(n_actors = 8,
+#'                                   n_events = 50,
+#'                                   inertia = TRUE,
+#'                                   inertia_p = 0.10,
+#'                                   sender_outdegree = TRUE,
+#'                                   sender_outdegree_p = 0.05)
+#'
+#'#Creating a post-processing event sequence for the above relational sequence
+#'post.processing <-  create_res(type = "one-mode",
+#'                               ordinal = TRUE,
+#'                                riskset = "constant_sample",
+#'                               time = relational.seq$eventID,
+#'                               sender = as.character(relational.seq$sender),
+#'                               receiver = as.character(relational.seq$target),
+#'                               n_controls = 5)
+#'
+#'#Computing the sender-outdegree statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_degree(formation = "sender-outdegree",
+#'                                   data = post.processing,
+#'                                   halflife = 2)
+#'
+#'#Computing the inertia/repetition statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_repetition(data = post.processing,
+#'                                         halflife = 2)
+#'
+#'#Fitting an ordinal timing relational event model to the above one-mode relational
+#'#event sequence
+#'rem <- estimate_rem(~ sender.outdegree + repetition,
+#'                          data=post.processing)
+#'summary(rem) #summary of the relational event model
+#'
+#'#the model residuals
+#'residuals(rem)
+#'@export
+residuals.dream_rem <- function(object,...){
+  if(!inherits(object, "dream_rem")) base::stop("Error: The `object` argument must be a `dream_rem` object.")
+  m1 <- as.data.frame(object$rem.data) #the modeling dataframe
+  m1 <- m1[m1$sampled == 1,] #extracting only those sampled events
+  coefnames <- names(coef(object)) #the coefficent names
+  check.if.need.to.drop.no.null <- aggregate(x=1-m1$observed,by=list(m1$time),FUN=sum)
+  if(any(check.if.need.to.drop.no.null$x == 0)){
+    drop.these <- check.if.need.to.drop.no.null[,1][which(check.if.need.to.drop.no.null$x == 0)]
+    m1 <- subset(m1,!(m1$time %in% drop.these) )
+  }
+  m1$rates <- predict(object)
+  #computing the pij (relevent for the ordinal timing log likelihodo)
+  m1a <- split(m1, f=m1$time)
+  m1a <- lapply(m1a,function(j){j$pij <- j[,"rates"] / sum(j[,"rates"]); j})
+  #adding the intervevent times
+  ordinal<-object$rem.data$ordinal
+  if(!ordinal)  m1a <- lapply(1:length(m1a),function(i){m1a[[i]]$interevent <- object$rem.data$interevent_times[i]})
+
+  if(ordinal) m1a <- lapply(m1a,function(res){ dev <- -2*log(res$pij)
+                                                      dev[which(res$observed==1)]})
+  if(!ordinal){
+      if(object$rem.data$t>0){
+        m1a <- m1a[[-length(m1a)]] #removing the set of null events
+      }
+
+      m1a <- lapply(m1a,function(res){
+        idx <-which(res$observed == 1)
+        dev <- log(res$pij) - sum(res$rates*res$interevent)
+        -2*dev[idx]
+      })
+  }
+  unit.deviance <- unlist(m1a) #the deviance residuals for the ordinal timing log likelihood
+  deviance.resid <- sqrt(unit.deviance)
+  standardized.deviance <- (deviance.resid - mean(deviance.resid))/sd(deviance.resid)
+
+  m1a <- split(m1, f=m1$time)
+  m1a <- lapply(m1a,function(j){j$pij <- j[,"rates"] / sum(j[,"rates"]); j})
+  if(!ordinal){
+    if(object$rem.data$t>0){
+      m1a <- m1a[[-length(m1a)]] #removing the set of null events
+    }
+  }
+  #estimating the schoenfeld residual for the kth covariate
+  m1a <- lapply(m1a,function(res){
+    resid.sch <- rep(0,length(coefnames))
+    for(j in 1:length(coefnames)){
+      effect <- coefnames[j]
+      xik <- res[res$observed==1, effect ]
+      all <- res[,effect ]
+      expected <- all%*%res[,"rates"]/sum(res[,"rates"])
+      resid.sch[j] <- (xik - expected)
+    }
+    resid.sch
+  })
+
+  schof.resid <- do.call(rbind, m1a)
+  colnames(schof.resid) <- paste0(coefnames, ".schoenfeld")
+  resid.data <- data.frame(time=unique(m1$time),
+                           unit.deviance = unit.deviance,
+                           residual.deviance=deviance.resid,
+                           standardized.deviance=standardized.deviance,
+                           schof.resid)
+  rownames(resid.data) <- NULL #making the rownames null
+  resid.data
+
+}
+
+
+#' Estimate the proportion of dyads predicted by `dream_rem` relational event model fits
+#'
+#' This function returns the proportion of dyads, senders, and targets predicted
+#' by a `dream_rem` relational event model object. To compute the proportion for each
+#' category, the function finds, for each realized event time, the dyad (based upon
+#' the user's provided risk set) that is most likely to occur (i.e., the dyad
+#' with the largest hazard rate) (Butts 2008). The predicted dyad is then compared to the
+#' realized event dyad.
+#'
+#' @param object An object of class "dream_rem".
+#' @param rseed The random seed for reproducibility of results. When more than 1 dyad has
+#' the maximum hazard rate, the predicted dyad is selected at random with equal probabilty
+#' for each dyad. For example, if three dyads have the same hazard value, then the probability
+#' of selecting each dyad will be 1/3.
+#' @param ... Additional arguments for other methods.
+#'
+#' @return A `list` object that contains the following results:
+#' \itemize{
+#'   \item \code{props} - A `data.frame` that contains the proportion of correctly predicted dyads, senders, and targets.
+#'   \item \code{edgelist} - A `data.frame` object that contains the predicted and realized relational event sequence.
+#'}
+#'
+#' @details
+#' To compute the proportion for each category, the function finds, for each realized event time, the dyad (based upon
+#' the user's provided risk set) that is most likely to occur (i.e., the dyad
+#' with the largest hazard rate) (Butts 2008). The predicted dyad is then compared to the
+#' realized event dyad.
+#'
+#' @references
+#' Butts, Carter T. 2008. "A Relational Event Framework for Social Action." *Sociological Methodology* 38(1): 155-200.
+#'#'
+#' @examples
+#'#Creating a psuedo one-mode relational event sequence with ordinal timing
+#'relational.seq <- simulate_rem_seq(n_actors = 8,
+#'                                   n_events = 50,
+#'                                   inertia = TRUE,
+#'                                   inertia_p = 0.10,
+#'                                   sender_outdegree = TRUE,
+#'                                   sender_outdegree_p = 0.05)
+#'
+#'#Creating a post-processing event sequence for the above relational sequence
+#'post.processing <-  create_res(type = "one-mode",
+#'                               ordinal = TRUE,
+#'                                riskset = "constant_sample",
+#'                               time = relational.seq$eventID,
+#'                               sender = as.character(relational.seq$sender),
+#'                               receiver = as.character(relational.seq$target),
+#'                               n_controls = 5)
+#'
+#'#Computing the sender-outdegree statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_degree(formation = "sender-outdegree",
+#'                                   data = post.processing,
+#'                                   halflife = 2)
+#'
+#'#Computing the inertia/repetition statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_repetition(data = post.processing,
+#'                                         halflife = 2)
+#'
+#'#Fitting an ordinal timing relational event model to the above one-mode relational
+#'#event sequence
+#'rem <- estimate_rem(~ sender.outdegree + repetition,
+#'                          data=post.processing)
+#'summary(rem) #summary of the relational event model
+#'
+#'#the predicted dyadic events
+#'gof <- gof_rem(rem,rseed=3718)
+#'gof$props #check the proportion of dyads, senders, and targets correctly predicted
+#'gof$edgelist #check the predicted edgelist for the dyadic events
+#'@export
+gof_rem <- function(object,rseed=NULL,...){
+  #the proportion of correctly specified dyads
+  #a properly fit model should be able to predict what dyadic
+  #events will occur (fail), that is, replicate the original
+  #event sequence edgelist
+  if(!inherits(object, "dream_rem")) base::stop("Error: The `object` argument must be a `dream_rem` object.")
+  set.seed(rseed)
+  edges <- as.data.frame(object$rem.data) #the modeling dataframe
+  check.if.need.to.drop.no.null <- aggregate(x=1-edges$observed,by=list(edges$time),FUN=sum)
+  if(any(check.if.need.to.drop.no.null$x == 0)){
+    drop.these <- check.if.need.to.drop.no.null[,1][which(check.if.need.to.drop.no.null$x == 0)]
+    edges <- subset(edges,!(edges$time %in% drop.these) )
+  }
+  if(object$rem.data$t > 0) edges <- subset(edges, edges$time != object$rem.data$t )
+  correct.dyads <- edges[edges$observed==1,c("time","sender","receiver")]
+
+  #now time to pick, the dyad with the largest hazard rate should be the
+  #models best guest at who will be next (even in the ordinal case: lambdaij / sum(all events))
+  rates <- data.frame(ratei = predict(object),
+                      time = edges$time,
+                      sender=edges$sender,
+                      receiver=edges$receiver) #extracting the predicted hazard rates
+  ratesj <- split(rates,f=rates$time) #splitting as a list to start our guessing
+  guess <- lapply(ratesj, function(data){
+    max.value <- max(data$ratei)
+    ids <- which(data$ratei == max.value) #checking the guess
+    #if we have dyads with the same probabilty, sample 1 at random
+    if(length(ids) > 1) ids <- sample(ids, 1) #with equal probability
+    guess <- data.frame(obs.time=data$time[ids],rate=data$ratei[ids],
+                        predicted.sender=data$sender[ids],predicted.receiver=data$receiver[ids])
+  })
+  guess <- do.call(rbind,guess) #combining the results
+  rownames(guess) <- NULL #making them null
+  #now to check how well the model did in terms of picking the "best" dyad
+  guess$predicted.dyad <- paste0(guess$predicted.sender,"_+_",guess$predicted.receiver)
+  guess$observed.dyad  <- paste0(edges$sender[edges$observed==1],"_+_",edges$receiver[edges$observed==1])
+  guess$correct.dyad <- ifelse(guess$predicted.dyad==guess$observed.dyad,1,0)
+  guess$correct.sender <- ifelse(guess$predicted.sender==edges$sender[edges$observed==1],1,0)
+  guess$correct.receiver <- ifelse(guess$predicted.sender==edges$receiver[edges$observed==1],1,0)
+
+  N <- nrow(guess) #the number of realized events
+  Y <- sum(guess$correct.dyad) #the number that we predicted correctly
+  Y_sender <- sum(guess$predicted.sender == edges$sender[edges$observed==1])
+  Y_receiver<- sum(guess$predicted.sender == edges$receiver[edges$observed==1])
+  prop.correct <- Y/N
+  prop.sender <- Y_sender/N
+  prop.receiver <- Y_receiver/N
+  gof <- list(props = data.frame(Type = c("dyad", "sender", "receiver"),
+                                 Events = N,
+                                 N_Correct = c(Y,Y_sender,Y_receiver),
+                                 Prop_Correct=c(prop.correct,prop.sender,prop.receiver)),
+              edgelist = guess)
+  gof
+
+}
+
+
+
+
+#' Plot method for `dream_rem` Relational Event Model Fits
+#'
+#' Plot the residuals of a `dream_rem` relational event model fit. Currently,
+#' the `plot` function returns plots of either: (1) standardized deviance
+#' residual values (y) by realized event times (x) or, for each
+#' covariate, (2) the Schoenfeld residual values (y) by realized event times (x).
+#'
+#' @param x An object of class "dream_rem".
+#' @param type If "std.deviance", the returned plot is the standardized deviance
+#' residual values (y) by realized event times (x). If "schoenfeld", then the
+#' returned plots are for each covariates, (2) the Schoenfeld residual values (y) by realized event times (x).
+#' @param ... Additional arguments for other methods.
+#' @importFrom graphics abline
+#' @importFrom graphics lines
+#' @importFrom graphics par
+#' @details
+#' Generate plots for `dream_rem` relational event model fits to plot
+#' model diagnostics.
+#'
+#' @examples
+#'#Creating a psuedo one-mode relational event sequence with ordinal timing
+#'relational.seq <- simulate_rem_seq(n_actors = 8,
+#'                                   n_events = 50,
+#'                                   inertia = TRUE,
+#'                                   inertia_p = 0.10,
+#'                                   sender_outdegree = TRUE,
+#'                                   sender_outdegree_p = 0.05)
+#'
+#'#Creating a post-processing event sequence for the above relational sequence
+#'post.processing <-  create_res(type = "one-mode",
+#'                               ordinal = TRUE,
+#'                                riskset = "constant_sample",
+#'                               time = relational.seq$eventID,
+#'                               sender = as.character(relational.seq$sender),
+#'                               receiver = as.character(relational.seq$target),
+#'                               n_controls = 5)
+#'
+#'#Computing the sender-outdegree statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_degree(formation = "sender-outdegree",
+#'                                   data = post.processing,
+#'                                   halflife = 2)
+#'
+#'#Computing the inertia/repetition statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_repetition(data = post.processing,
+#'                                         halflife = 2)
+#'
+#'#Fitting an ordinal timing relational event model to the above one-mode relational
+#'#event sequence
+#'rem <- estimate_rem(~ sender.outdegree + repetition,
+#'                          data=post.processing)
+#'summary(rem) #summary of the relational event model
+#'
+#'#plotting the standardized deviance residuals for the estimated model
+#'plot(rem, type="std.deviance")
+
+#'@export
+plot.dream_rem <- function(x,type=c("std.deviance", "schoenfeld"),...) {
+  if(!inherits(x, "dream_rem")) base::stop("Error: The `x` argument must be a `dream_rem` object.")
+  if(!(type %in% c("std.deviance", "schoenfeld"))) base::stop("Error: The `type` argument must be of either `std.deviance` or `schoenfeld`.")
+  res <- residuals(x) #the model residuals based upon the x object
+  #the standarized deviance residual plot
+  if(type=="std.deviance"){
+  plot(y=res$standardized.deviance,
+         x= res$time,
+         ylab = "Standardized Deviance Residuals",
+         xlab = "Realized Event Times",
+         main = "Standardized Deviance Residuals",
+         pch = 16,
+         ...) #the plot
+  abline(h = 0, lty = "solid",col="red") #adding a horizontal line at 0
+  abline(h = 2, lty = "dashed",col = "blue")#the upper 2*sd line
+  abline(h = -2, lty = "dashed",col = "blue")#the lower 2*sd line
+  }
+  if(type == "schoenfeld"){
+  schoenfeld.res <- grep("schoenfeld", names(res),value = TRUE) #the schoenfeld residuals
+  k <- length(schoenfeld.res) #the number of schoenfeld residuals
+  #the .schoenfeld residual plots
+  op <- par(no.readonly = TRUE)
+  #making a square for each covariates
+  par(mfrow = c(ceiling(k / 2), 2), mar = c(4, 4, 2, 1))
+  for(j in 1:k) {
+    y <- res[,schoenfeld.res[j]]
+    name <- paste0("Covariate: ", sub("\\.schoenfeld$", "", schoenfeld.res[j]))
+    plot(y,pch = 16,main = name, xlab = "Realized Event Times",ylab = "Schoenfeld Residual")
+    lines(lowess(y), col = "blue", lwd = 2)
+    abline(h = 0, lty = 2)
+  }
+  #resetting the plot parameters to the user
+  par(op)
+  }
+}
+
+
+
+
 
 

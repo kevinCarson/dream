@@ -1,6 +1,6 @@
 Package: dream
 Title: Dynamic Relational Event Analysis and Modeling
-Version: 2.1.1
+Version: 2.1.2
 Authors@R: c(
     person(given = c("Kevin","A."), family = "Carson", email = "kacarson@arizona.edu", 
     role = c("aut", "cre"),comment = c(ORCID = "0009-0001-5762-2586")),

@@ -1,3 +1,14 @@
+# dream 2.1.2 (2026-06-02)
+
+## Minor Changes
+* Added three new functions for the examination of relational event model fits. First, `gof_rem()`
+computes the proportion of correctly predicted dyadic events for a `dream_rem` relational event 
+model fit. Secondly, we added the `plot()` and `residuals()` S3 methods for the
+`dream_rem` object class. Please see the function documentation pages for more information
+on these new functions. Happy dreaming!
+
+
+
 # dream 2.1.1 (2026-05-27)
 
 ## Major Changes
