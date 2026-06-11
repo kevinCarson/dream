@@ -56,16 +56,27 @@ List processREMseqOM_varying(std::vector<double> time,
   std::string curdyad;
 
   if(sampledevents[0] == 1){
-    std::vector<double> curtime(1); //a vector of length: n control + 1
+    std::vector<double> curtime(2); //a vector of length: n control + 1
     curtime[0] = time[curevent]; //the first place should be the observed event
-    std::vector<double> curobserved(1);
+    curtime[1] = time[curevent]; //the first place should be the observed event
+
+    std::vector<double> curobserved(2);
     curobserved[0] = 1; // this is the real event
-    std::vector<double> curseqid(1);
+    curobserved[1] = 0; // this is the real event
+
+    std::vector<double> curseqid(2);
     curseqid[0] = seqid[curevent]; // the current event sequence
-    std::vector<std::string> curfullsender(1);
+    curseqid[1] = seqid[curevent]; // the current event sequence
+
+    std::vector<std::string> curfullsender(2);
     curfullsender[0] = cursender; // the current event sender
-    std::vector<std::string> curfulltarget(1);
+    curfullsender[1] = curtarget; // the current event sender
+
+    std::vector<std::string> curfulltarget(2);
     curfulltarget[0] = curtarget; // the current event target
+    curfulltarget[1] = cursender; // the current event target
+
+
     DataFrame processi =  DataFrame::create(Rcpp::Named("time") = curtime,
                                             Rcpp::Named("seqeuence_id") =curseqid,
                                             Rcpp::Named("sender") = curfullsender,

@@ -144,7 +144,7 @@ relational.seq <- simulate_rem_seq(n_actors = 8,
 #Creating a post-processing event sequence for the above relational sequence
 post.processing <-  create_res(type = "one-mode",
                               ordinal = TRUE,
-                              riskset = "complete",
+                              riskset = "fixed",
                               time = relational.seq$eventID,
                               sender = as.character(relational.seq$sender),
                               receiver = as.character(relational.seq$target))
@@ -199,12 +199,13 @@ events <- data.frame(time = 1:18, eventID = 1:18,
 # and 5 controls based upon the interval timing relational event framework
 eventSet <- create_res(ordinal = FALSE,
                       t = max(events$time) + rexp(1),
-                      riskset = "dynamic_sample",
+                      riskset = "cumulative",
                       type = "one-mode",
                       time = events$time,
                       sender = events$sender,
                       receiver = events$target,
                       p_samplingobserved = 1.00,
+                      case_control=TRUE,
                       n_controls = 5,
                       seed = 9999)
 

@@ -139,7 +139,7 @@
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
 #'                               ordinal = TRUE,
-#'                               riskset = "complete",
+#'                               riskset = "fixed",
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target))
@@ -194,12 +194,13 @@
 #'# and 5 controls based upon the interval timing relational event framework
 #'eventSet <- create_res(ordinal = FALSE,
 #'                       t = max(events$time) + rexp(1),
-#'                       riskset = "dynamic_sample",
+#'                       riskset = "cumulative",
 #'                       type = "one-mode",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                       case_control=TRUE,
 #'                       n_controls = 5,
 #'                       seed = 9999)
 #'
@@ -639,10 +640,11 @@ print.dream_rem  <- function(x,digits=6,...) {
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
 #'                               ordinal = TRUE,
-#'                               riskset = "constant_sample",
+#'                               riskset = "fixed",
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
 #'                               n_controls = 5)
 #'
 #'#Computing the sender-outdegree statistic for the above post-processing
@@ -691,10 +693,11 @@ logLik.dream_rem <- function(object,...,REML = FALSE){
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
 #'                               ordinal = TRUE,
-#'                               riskset = "constant_sample",
+#'                               riskset = "fixed",
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
 #'                               n_controls = 5)
 #'
 #'#Computing the sender-outdegree statistic for the above post-processing
@@ -739,11 +742,12 @@ coef.dream_rem  <- function(object,...){
 #'
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
-#'                               riskset = "constant_sample",
+#'                               riskset = "fixed",
 #'                               ordinal = TRUE,
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
 #'                               n_controls = 5)
 #'
 #'#Computing the sender-outdegree statistic for the above post-processing
@@ -809,10 +813,11 @@ vcov.dream_rem  <- function(object,...){
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
 #'                               ordinal = TRUE,
-#'                                riskset = "constant_sample",
+#'                                riskset = "fixed",
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
 #'                               n_controls = 5)
 #'
 #'#Computing the sender-outdegree statistic for the above post-processing
@@ -897,10 +902,11 @@ predict.dream_rem <- function(object, newdata = NULL, se.fit=FALSE,...){
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
 #'                               ordinal = TRUE,
-#'                                riskset = "constant_sample",
+#'                               riskset = "fixed",
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
 #'                               n_controls = 5)
 #'
 #'#Computing the sender-outdegree statistic for the above post-processing
@@ -927,13 +933,16 @@ residuals.dream_rem <- function(object,...){
   if(!inherits(object, "dream_rem")) base::stop("Error: The `object` argument must be a `dream_rem` object.")
   m1 <- as.data.frame(object$rem.data) #the modeling dataframe
   m1 <- m1[m1$sampled == 1,] #extracting only those sampled events
+  model.mat <- object$statistics
   coefnames <- names(coef(object)) #the coefficent names
+  colnames(model.mat) <- coefnames
   check.if.need.to.drop.no.null <- aggregate(x=1-m1$observed,by=list(m1$time),FUN=sum)
   if(any(check.if.need.to.drop.no.null$x == 0)){
     drop.these <- check.if.need.to.drop.no.null[,1][which(check.if.need.to.drop.no.null$x == 0)]
     m1 <- subset(m1,!(m1$time %in% drop.these) )
   }
-  m1$rates <- predict(object)
+  m1 <- as.data.frame(cbind(model.mat, observed =m1$observed, rates = predict(object)[,1],
+              time = m1$time))
   #computing the pij (relevent for the ordinal timing log likelihodo)
   m1a <- split(m1, f=m1$time)
   m1a <- lapply(m1a,function(j){j$pij <- j[,"rates"] / sum(j[,"rates"]); j})
@@ -1034,10 +1043,11 @@ residuals.dream_rem <- function(object,...){
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
 #'                               ordinal = TRUE,
-#'                                riskset = "constant_sample",
+#'                                riskset = "fixed",
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
 #'                               n_controls = 5)
 #'
 #'#Computing the sender-outdegree statistic for the above post-processing
@@ -1100,12 +1110,12 @@ gof_rem <- function(object,rseed=NULL,...){
   guess$observed.dyad  <- paste0(edges$sender[edges$observed==1],"_+_",edges$receiver[edges$observed==1])
   guess$correct.dyad <- ifelse(guess$predicted.dyad==guess$observed.dyad,1,0)
   guess$correct.sender <- ifelse(guess$predicted.sender==edges$sender[edges$observed==1],1,0)
-  guess$correct.receiver <- ifelse(guess$predicted.sender==edges$receiver[edges$observed==1],1,0)
+  guess$correct.receiver <- ifelse(guess$predicted.receiver==edges$receiver[edges$observed==1],1,0)
 
   N <- nrow(guess) #the number of realized events
   Y <- sum(guess$correct.dyad) #the number that we predicted correctly
   Y_sender <- sum(guess$predicted.sender == edges$sender[edges$observed==1])
-  Y_receiver<- sum(guess$predicted.sender == edges$receiver[edges$observed==1])
+  Y_receiver<- sum(guess$predicted.receiver == edges$receiver[edges$observed==1])
   prop.correct <- Y/N
   prop.sender <- Y_sender/N
   prop.receiver <- Y_receiver/N
@@ -1129,13 +1139,14 @@ gof_rem <- function(object,rseed=NULL,...){
 #' covariate, (2) the Schoenfeld residual values (y) by realized event times (x).
 #'
 #' @param x An object of class "dream_rem".
-#' @param type If "std.deviance", the returned plot is the standardized deviance
+#' @param type If "std.deviance", the returned plot is the absolute value standardized deviance
 #' residual values (y) by realized event times (x). If "schoenfeld", then the
 #' returned plots are for each covariates, (2) the Schoenfeld residual values (y) by realized event times (x).
 #' @param ... Additional arguments for other methods.
 #' @importFrom graphics abline
 #' @importFrom graphics lines
 #' @importFrom graphics par
+#' @importFrom graphics mtext
 #' @details
 #' Generate plots for `dream_rem` relational event model fits to plot
 #' model diagnostics.
@@ -1152,10 +1163,11 @@ gof_rem <- function(object,rseed=NULL,...){
 #'#Creating a post-processing event sequence for the above relational sequence
 #'post.processing <-  create_res(type = "one-mode",
 #'                               ordinal = TRUE,
-#'                                riskset = "constant_sample",
+#'                               riskset = "fixed",
 #'                               time = relational.seq$eventID,
 #'                               sender = as.character(relational.seq$sender),
 #'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
 #'                               n_controls = 5)
 #'
 #'#Computing the sender-outdegree statistic for the above post-processing
@@ -1175,7 +1187,7 @@ gof_rem <- function(object,rseed=NULL,...){
 #'                          data=post.processing)
 #'summary(rem) #summary of the relational event model
 #'
-#'#plotting the standardized deviance residuals for the estimated model
+#'#plotting the absolute value standardized deviance residuals for the estimated model
 #'plot(rem, type="std.deviance")
 
 #'@export
@@ -1185,16 +1197,20 @@ plot.dream_rem <- function(x,type=c("std.deviance", "schoenfeld"),...) {
   res <- residuals(x) #the model residuals based upon the x object
   #the standarized deviance residual plot
   if(type=="std.deviance"){
-  plot(y=res$standardized.deviance,
+  plot(y=abs(res$standardized.deviance),
          x= res$time,
-         ylab = "Standardized Deviance Residuals",
+         ylab = "Abs. Standardized Deviance Residuals",
          xlab = "Realized Event Times",
-         main = "Standardized Deviance Residuals",
-         pch = 16,
+         main = "Absolute Standardized Deviance Residuals",
+         pch = 20,
+         cex.lab = 1.25,
+         cex.main = 1.5,
          ...) #the plot
-  abline(h = 0, lty = "solid",col="red") #adding a horizontal line at 0
-  abline(h = 2, lty = "dashed",col = "blue")#the upper 2*sd line
-  abline(h = -2, lty = "dashed",col = "blue")#the lower 2*sd line
+  abline(h = 2, lty = "solid",col="red")
+  n <- length(res$standardized.deviance)
+  k <- sum(abs(res$standardized.deviance) > 2) #the number of sd resid greater than 2
+  mtext(paste0("number (and percent) of residuals with |st. dev.| > 2: ", k, " (", round(k/n,4)*100 ,"%)"),
+    side = 3, line = 0.25, adj = 1, font=3,cex = 1.1,... )
   }
   if(type == "schoenfeld"){
   schoenfeld.res <- grep("schoenfeld", names(res),value = TRUE) #the schoenfeld residuals

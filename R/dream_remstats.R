@@ -167,11 +167,12 @@
 #'
 #'eventSet <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                       case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
@@ -412,10 +413,11 @@ dreamstats_triads <- function(formation = c("ISP", "OSP", "ITP", "OTP"), #the ty
 #'processed <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
 #'                       time = events$time,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                       case_control=TRUE,
 #'                       n_controls = 5,
 #'                       seed = 9999)
 #'
@@ -535,11 +537,12 @@ dreamstats_event <- function(data, #the relational event sequence
 #'
 #'processed <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                       case_control=TRUE,
 #'                       n_controls = 20,
 #'                       seed = 9999)
 #'
@@ -642,7 +645,7 @@ dreamstats_actorfe <- function(data, #the relational event sequence
 #'
 #'processed <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "complete",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
@@ -840,11 +843,12 @@ dreamstats_dyadfe <- function(data, #the relational event sequence
 #'
 #'eventSet <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                       case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
@@ -1191,12 +1195,13 @@ dreamstats_degree <- function(formation = c("sender-indegree",
 #'
 #'# Creating the Post-Processing Event Dataset with Null Events
 #'post.processing <- create_res(type = "one-mode",
-#'                            riskset = "constant_sample",
+#'                            riskset = "fixed",
 #'                       ordinal = TRUE,
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                       case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
@@ -1372,11 +1377,12 @@ dreamstats_recency <-   function( data,
 #'
 #'post.processing <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                          case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
@@ -1532,11 +1538,12 @@ dreamstats_prefattachment <-   function(data,
 #'
 #'post.processing <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                          case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
@@ -1711,11 +1718,12 @@ dreamstats_persistence <-   function(data,
 #'### Sampling from the Observed Event Sequence with P = 0.01
 #'post.processing <- create_res(type = "two-mode",
 #'  ordinal = TRUE,
-#'  riskset = "constant_sample",
+#'  riskset = "fixed",
 #'  time = WikiEvent2018$time, # The Time Variable
 #'  sender = WikiEvent2018$user, # The Sender Variable
 #'  receiver = WikiEvent2018$article, # The Receiver Variable
 #'  p_samplingobserved = 0.01, # The Probability of Selection
+#'     case_control=TRUE,
 #'  n_controls = 8, # The Number of Controls to Sample from the Full Risk Set
 #'  seed = 9999)
 #'
@@ -1952,11 +1960,12 @@ dreamstats_repetition <-    function(data,
 #'
 #'post.processing <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                          case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
@@ -2142,11 +2151,12 @@ dreamstats_reciprocity <- function(data, #a dream class object
 #'### Sampling from the Observed Event Sequence with P = 0.01
 #'post.processing <- create_res(type = "two-mode",
 #'  ordinal = TRUE,
-#'  riskset = "constant_sample",
+#'  riskset = "fixed",
 #'  time = WikiEvent2018$time, # The Time Variable
 #'  sender = WikiEvent2018$user, # The Sender Variable
 #'  receiver = WikiEvent2018$article, # The Receiver Variable
 #'  p_samplingobserved = 0.01, # The Probability of Selection
+#'     case_control=TRUE,
 #'  n_controls = 8, # The Number of Controls to Sample from the Full Risk Set
 #'  seed = 9999)
 #'
@@ -2317,11 +2327,12 @@ dreamstats_fourcycles <- function(data,
 #'
 #'processed <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                          case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'
@@ -2490,11 +2501,12 @@ dreamstats_dyadic <- function(data, #the relational event sequence
 #'
 #'processed <- create_res(type = "one-mode",
 #'                       ordinal = TRUE,
-#'                       riskset = "constant_sample",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
+#'                          case_control=TRUE,
 #'                       n_controls = 1,
 #'                       seed = 9999)
 #'

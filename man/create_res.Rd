@@ -11,9 +11,9 @@ create_res(
   time,
   sender,
   receiver,
-  riskset = c("complete", "constant_sample", "dynamic_sample", "actor_varying",
-    "actor_varying_sample"),
+  riskset = c("fixed", "compositional", "cumulative"),
   p_samplingobserved = 1,
+  case_control = FALSE,
   n_controls = NULL,
   active_times = NULL,
   seed = NULL
@@ -46,28 +46,27 @@ the jth entry is the event sender for the jth observed/realized event.}
 \item{receiver}{The vector of event receivers from the observed event sequence where
 the jth entry is the event receiver for the jth observed/realized event.}
 
-\item{riskset}{The argument should be one of the following strings: "complete", "constant_sample", "dynamic_sample",
-"actor_varying", "actor_varying_sample". "complete" will create a post-processing relational event
+\item{riskset}{The argument should be one of the following strings: "fixed", "compositional",
+"cumulative". "fixed" will create a post-processing relational event
 sequence where the set of null events for each (sampled) realized/observed event is the full
 set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
 full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-event sender and receiver sets). "constant_sample" will create a post-processing relational event
-sequence where the set of null events for each (sampled) realized/observed event is a random sample from the full
-set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
-full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-event sender and receiver sets), where the number of sampled events is dependent upon the \code{n_controls}
-argument. "dynamic_sample" will create a post-processing relational event
-sequence where the set of null events for each (sampled) realized/observed event at time t is a random sample from the full
-set of actors that have been active up to and including t. "actor_varying" will create a post-processing relational event
+event sender and receiver sets). "cumulative" will create a post-processing relational event
+sequence where the set of null events for each (sampled) realized/observed event at time t
+is the full set of actors that have been active up to and including t. "compositional" will create a post-processing relational event
 sequence where the set of null events for each (sampled) realized/observed event at time t is the full
 set of actors that are considered relationally active at time t dependent upon the \code{active_times}
-argument, whereas the "actor_varying_sample" option will create a post-processing relational event
-sequence where the set of null events for each (sampled) realized/observed event is a random
-sample from the set of relationally active actors.}
+argument.}
 
 \item{p_samplingobserved}{The numerical value for the probability of selection for sampling
 from the observed event sequence. Set to 1 by default indicating that all observed
 events from the event sequence will be included in the post-processing event sequence.}
+
+\item{case_control}{TRUE/FALSE. TRUE indicates that case-control sampling from
+the riskset will be implemented (i.e., a sample from the risk set will be
+returned). FALSE indicates that case-control sampling will not occur and that
+all non-realized events based upon the \code{riskset} argument will be returned. Set ot
+FALSE by default.}
 
 \item{n_controls}{The numerical value for the number of null event controls for
 each (sampled) observed event. This argument should be specified when one of the
@@ -113,6 +112,7 @@ of 1 if the dyad was sampled at that event time and 0 if not (relevant for case-
 \item \code{t} - Based upon the user's input.
 \item \code{riskset} - Based upon the user's input.
 \item \code{p} - The probability of sampling from the observed event sequence. Based upon the user's input.
+\item \code{case_control} - Based upon the user's input.
 \item \code{m} - The number of null event controls for each (sampled) observed event. Based upon the user's input.
 \item \code{type} - Based upon the user's input. (\code{two-mode} and \code{one-mode})
 \item \code{n} - The number of observed events.
@@ -161,26 +161,21 @@ where the relevant actors can be either senders or receivers (in the case of two
 sequences, or where the relevant actors can be both (in the case of one-mode
 sequences), and (3) how the processed support set for each event should be
 constructed. The third axis is based upon the \code{riskset} argument, which is
-one of the following: "complete", "constant_sample", "dynamic_sample",
-"actor_varying", "actor_varying_sample". "complete" will create a post-processing relational event
+one of the following:  "fixed", "compositional",
+"cumulative". "fixed" will create a post-processing relational event
 sequence where the set of null events for each (sampled) realized/observed event is the full
 set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
 full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-event sender and receiver sets). "constant_sample" will create a post-processing relational event
-sequence where the set of null events for each (sampled) realized/observed event is a random sample from the full
-set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
-full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-event sender and receiver sets), where the number of sampled events is dependent upon the \code{n_controls}
-argument. "dynamic_sample" will create a post-processing relational event
-sequence where the set of null events for each (sampled) realized/observed event at time t is a random sample from the full
-set of actors that have been active up to and including t. "actor_varying" will create a post-processing relational event
+event sender and receiver sets). "cumulative" will create a post-processing relational event
+sequence where the set of null events for each (sampled) realized/observed event at time t
+is the full set of actors that have been active up to and including t. "compositional" will create a post-processing relational event
 sequence where the set of null events for each (sampled) realized/observed event at time t is the full
 set of actors that are considered relationally active at time t dependent upon the \code{active_times}
-argument, whereas the "actor_varying_sample" option will create a post-processing relational event
-sequence where the set of null events for each (sampled) realized/observed event is a random
-sample from the set of relationally active actors.
+argument. In addition, case-control sampling from the riskset can be
+implemented by setting the \code{case_control} argument to TRUE and specifying
+a value for \code{n_controls}.
 
-\strong{Complete Risk Sets}:
+\strong{Fixed Risk Sets}:
 
 Following Butts (2008) and Butts and Marcum (2017), for one-mode
 event sequences (\code{type} = "one-mode"), the risk (support) set is defined as all possible
@@ -198,7 +193,7 @@ event receivers (i.e., \eqn{R}). Formally:
 where \eqn{S} is the set of potential event senders and \eqn{R} is the set of potential event receivers. In this function,
 the full risk set is considered fixed across all time points.
 
-\strong{Constant Sample Risk Sets}:
+\strong{Fixed Case-Control Risk Sets}:
 
 Following Butts (2008), Vu et al. (2015), and Lerner and Lomi (2020), case-control sampling
 samples an arbitrary number \eqn{m} of non-events from the above risk/support set definitions \eqn{M_t}. This
@@ -207,9 +202,20 @@ process generates a new support set, \eqn{\tilde{M}_t}, for any relational event
 relational event sequences, is formally defined as:
 \deqn{\tilde{M}_t \subseteq \{ (s, r) \mid s \in N \times r \in N \}}
 
-\strong{Dynamic Sample Risk Sets}:
+\strong{Cumulative Risk Sets}:
 
-For dynamic risk sets, for one-mode event sequences (\code{type} = "one-mode"), the risk (support)
+For cumulative risk sets, for one-mode event sequences (\code{type} = "one-mode"), the risk (support)
+set at time \eqn{t}, that is, \eqn{M_t}, is defined as the full Cartesian product
+of all past actors who have been involved in a relational event at or before time \eqn{t}.
+Formally:
+\deqn{M_t  \{ (s, r) \mid s \in N_t \times r \in N_t\}}
+where \eqn{N_t} is the set of potential event senders and targets at and time \eqn{t}. The
+definition follows the same as above for two-mode event sequences, where the sets
+are now defined as \eqn{S_t} and \eqn{R_t}.
+
+\strong{Cumulative Case-Control Risk Sets}:
+
+For cumulative risk sets, for one-mode event sequences (\code{type} = "one-mode"), the risk (support)
 set at time \eqn{t}, that is, \eqn{M_t}, is defined as a sample of \eqn{m} dyads from the full Cartesian product
 of all past actors who have been involved in a relational event at or before time \eqn{t}.
 Formally:
@@ -218,9 +224,9 @@ where \eqn{N_t} is the set of potential event senders and targets at and time \e
 definition follows the same as above for two-mode event sequences, where the sets
 are now defined as \eqn{S_t} and \eqn{R_t}.
 
-\strong{Actor-varying Risk Sets}:
+\strong{Compositional Risk Sets}:
 
-Actor-varying support sets allows for actors to enter, exit, and re-enter
+Compositional support sets allows for actors to enter, exit, and re-enter
 the relational event sequence as time progresses. For one-mode event sequences,
 the node set \eqn{Y_t} is defined as those actors who are considered
 relationally active at time \eqn{t}. For two-mode event sequences,
@@ -229,7 +235,7 @@ senders who can be active at time \eqn{t} and the receivers who can be
 active at time \eqn{t}. For one-mode sequences, the formal definition is:
 \deqn{V_t = \{ (s, r) \mid s \in Y_t \times r \in Y_t\}}
 
-\strong{Actor-varying Sampling Risk Sets}:
+\strong{Compositional Case-Control Risk Sets}:
 
 Based upon the formal definition above, sampling from the full actor-varying
 risk set generates a new support set definition:
@@ -260,7 +266,7 @@ events <- data.frame(time = sort(rexp(18)),
 # based upon the ordinal timing relational event framework
 full.process <- create_res(ordinal = TRUE,
                       type = "one-mode",
-                      riskset = "complete",
+                      riskset = "fixed",
                       time = events$time,
                       sender = events$sender,
                       receiver = events$target,
@@ -271,7 +277,8 @@ full.process <- create_res(ordinal = TRUE,
 # and 5 controls based upon the ordinal timing relational event framework
 sample.process <- create_res(ordinal = TRUE,
                             type = "one-mode",
-                            riskset = "constant_sample",
+                            riskset = "fixed",
+                            case_control=TRUE,
                             time = events$time,
                             sender = events$sender,
                             receiver = events$target,
@@ -280,19 +287,30 @@ sample.process <- create_res(ordinal = TRUE,
                             seed = 9999)
 
 # Creating a dynamic one-mode relational risk set with p = 1.00 (all true events)
-# and 5 controls based upon the interval timing relational event framework
+# based upon the interval timing relational event framework
 dynamic.process <- create_res(ordinal = FALSE,
                       t = max(events$time) + rexp(1),
                       type = "one-mode",
-                      riskset = "dynamic_sample",
+                      riskset = "cumulative",
+                      time = events$time,
+                      sender = events$sender,
+                      receiver = events$target,
+                      p_samplingobserved = 1.00,
+                      seed = 9999)
+
+# Creating a dynamic one-mode relational risk set with p = 1.00 (all true events)
+# and 5 controls based upon the interval timing relational event framework
+dynamic.sample.process <- create_res(ordinal = FALSE,
+                      t = max(events$time) + rexp(1),
+                      type = "one-mode",
+                      riskset = "cumulative",
+                      case_control=TRUE,
                       time = events$time,
                       sender = events$sender,
                       receiver = events$target,
                       p_samplingobserved = 1.00,
                       n_controls = 5,
                       seed = 9999)
-
-
 # Creating a actor-varying one-mode relational event sequence where actors
 # enter, exit, and re-enter the event sequence dependent upon the user-specified
 # active times. Each row contains the actor id, the time for which, in a specific relevant
@@ -307,7 +325,7 @@ active.times <- data.frame(actor_id = c("A", "B", "B", "C", "D", "E", "F", "G",
 
 actor.varying.process <- create_res(ordinal = TRUE,
                                    type= "one-mode",
-                                   riskset = "actor_varying",
+                                   riskset = "compositional",
                                    time = events$time,
                                    sender = events$sender,
                                    receiver = events$target,

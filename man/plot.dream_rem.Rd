@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{An object of class "dream_rem".}
 
-\item{type}{If "std.deviance", the returned plot is the standardized deviance
+\item{type}{If "std.deviance", the returned plot is the absolute value standardized deviance
 residual values (y) by realized event times (x). If "schoenfeld", then the
 returned plots are for each covariates, (2) the Schoenfeld residual values (y) by realized event times (x).}
 
@@ -37,10 +37,11 @@ relational.seq <- simulate_rem_seq(n_actors = 8,
 #Creating a post-processing event sequence for the above relational sequence
 post.processing <-  create_res(type = "one-mode",
                               ordinal = TRUE,
-                               riskset = "constant_sample",
+                              riskset = "fixed",
                               time = relational.seq$eventID,
                               sender = as.character(relational.seq$sender),
                               receiver = as.character(relational.seq$target),
+                              case_control=TRUE,
                               n_controls = 5)
 
 #Computing the sender-outdegree statistic for the above post-processing
@@ -60,6 +61,6 @@ rem <- estimate_rem(~ sender.outdegree + repetition,
                          data=post.processing)
 summary(rem) #summary of the relational event model
 
-#plotting the standardized deviance residuals for the estimated model
+#plotting the absolute value standardized deviance residuals for the estimated model
 plot(rem, type="std.deviance")
 }

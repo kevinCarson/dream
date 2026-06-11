@@ -1,3 +1,14 @@
+# dream 2.1.3 (2026-06-10)
+
+## Minor Changes
+* Fixed a bug in the `gof_rem()` function that resulted in the proportion of receivers
+correctly predicted to be incorrect, and added the `rseed` argument to allow
+the user to set the random seed.
+* Add the `cumulative` option to the `create_res()` function as an additional 
+option. Case-control sampling is now indicated by the argument `case_control` 
+in the `create_res()` function. 
+
+
 # dream 2.1.2 (2026-06-02)
 
 ## Minor Changes

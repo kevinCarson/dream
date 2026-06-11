@@ -103,11 +103,12 @@ WikiEvent2018$time <- as.numeric(WikiEvent2018$time) #making the variable numeri
 ### Sampling from the Observed Event Sequence with P = 0.01
 post.processing <- create_res(type = "two-mode",
  ordinal = TRUE,
- riskset = "constant_sample",
+ riskset = "fixed",
  time = WikiEvent2018$time, # The Time Variable
  sender = WikiEvent2018$user, # The Sender Variable
  receiver = WikiEvent2018$article, # The Receiver Variable
  p_samplingobserved = 0.01, # The Probability of Selection
+    case_control=TRUE,
  n_controls = 8, # The Number of Controls to Sample from the Full Risk Set
  seed = 9999)
 

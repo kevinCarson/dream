@@ -51,7 +51,7 @@ events <- data.frame(time = 1:18, eventID = 1:18,
 
 processed <- create_res(type = "one-mode",
                       ordinal = TRUE,
-                      riskset = "complete",
+                      riskset = "fixed",
                       time = events$time,
                       sender = events$sender,
                       receiver = events$target,

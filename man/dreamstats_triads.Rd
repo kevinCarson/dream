@@ -158,11 +158,12 @@ events <- data.frame(time = 1:18,
 
 eventSet <- create_res(type = "one-mode",
                       ordinal = TRUE,
-                      riskset = "constant_sample",
+                      riskset = "fixed",
                       time = events$time,
                       sender = events$sender,
                       receiver = events$target,
                       p_samplingobserved = 1.00,
+                      case_control=TRUE,
                       n_controls = 1,
                       seed = 9999)
 

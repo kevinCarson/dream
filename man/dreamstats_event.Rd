@@ -64,10 +64,11 @@ events <- data.frame(time = 1:18, eventID = 1:18,
 processed <- create_res(type = "one-mode",
                       ordinal = TRUE,
                       time = events$time,
-                      riskset = "constant_sample",
+                      riskset = "fixed",
                       sender = events$sender,
                       receiver = events$target,
                       p_samplingobserved = 1.00,
+                      case_control=TRUE,
                       n_controls = 5,
                       seed = 9999)
 

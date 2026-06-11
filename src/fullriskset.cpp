@@ -48,15 +48,22 @@ List fullrisksetom(std::vector<double> time,
   std::vector<std::string> sendersRS(outer*(outer-1));
   std::vector<std::string> receiversRS(outer*(outer-1));
   int index = 0;
+  std::string dyadupdate;
+  std::string appender = "_OllieBug_";
+  std::unordered_map<std::string, int> dyad_places;
+
   //creating the empty vectors to store the sender charcter vectors
   for(int i = 0; i < outer; i++){
    for(int j = 0; j < i; j++){
      sendersRS[index] = actors[i];
      receiversRS[index] = actors[j];
+     dyadupdate = actors[i] + appender + actors[j];
+     dyad_places[dyadupdate] = index;
      index += 1;
-
      sendersRS[index] = actors[j];
      receiversRS[index] = actors[i];
+     dyadupdate = actors[j] + appender + actors[i];
+     dyad_places[dyadupdate] = index;
      index += 1;
     }
   }
@@ -76,12 +83,10 @@ List fullrisksetom(std::vector<double> time,
     std::fill(curobserved.begin(), curobserved.end(), 0); // fill the vector with the current event time point
     std::vector<double> curseqid(ncontrols);
     std::fill(curseqid.begin(), curseqid.end(),  seqid[curevent]); // fill the vector with the current event time point
-    for(int k = 0; k < ncontrols; k++){
-      if(sendersRS[k] == cursender && receiversRS[k] == curtarget){
-        curobserved[k] = 1; //denoting the observed event here
-        break; // getting out of the inner loop here to not go through the entire dyadic list
-      }
-    }
+    dyadupdate = cursender + appender + curtarget;
+    auto here = dyad_places.find(dyadupdate);
+    curobserved[here->second] = 1; //adding the value of 1 to the observed vector
+
     //storing the full resulting list that is:
     // the current dyad
     // the sampled dyad
@@ -161,11 +166,16 @@ List fullrisksettm(std::vector<double> time,
   std::vector<std::string> sendersRS(outer*inner);
   std::vector<std::string> receiversRS(outer*inner);
   int index = 0;
+  std::string dyadupdate;
+  std::string appender = "_OllieBug_";
+  std::unordered_map<std::string, int> dyad_places;
   //creating the empty vectors to store the sender charcter vectors
   for(int i = 0; i < outer; i++){
     for(int j = 0; j < inner; j++){
       sendersRS[index] = senders[i];
       receiversRS[index] = receivers[j];
+      dyadupdate = senders[i] + appender + receivers[j];
+      dyad_places[dyadupdate] = index;
       index += 1;
     }
   }
@@ -184,12 +194,10 @@ List fullrisksettm(std::vector<double> time,
     std::fill(curobserved.begin(), curobserved.end(), 0); // fill the vector with the current event time point
     std::vector<double> curseqid(ncontrols);
     std::fill(curseqid.begin(), curseqid.end(),  seqid[curevent]); // fill the vector with the current event time point
-    for(int k = 0; k < ncontrols; k++){
-      if(sendersRS[k] == cursender && receiversRS[k] == curtarget){
-        curobserved[k] = 1; //denoting the observed event here
-        break; // getting out of the inner loop here to not go through the entire dyadic list
-      }
-    }
+    dyadupdate = cursender + appender + curtarget;
+    auto here = dyad_places.find(dyadupdate);
+    curobserved[here->second] = 1; //adding the value of 1 to the observed vector
+
     //storing the full resulting list that is:
     // the current dyad
     // the sampled dyad

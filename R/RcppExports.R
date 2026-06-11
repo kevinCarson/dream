@@ -37,6 +37,14 @@ computetriadsrem <- function(time, sampledevent, controlevent, sender, target, d
     .Call(`_dream_computetriadsrem`, time, sampledevent, controlevent, sender, target, dyad_id, weightScheme, counts, cutweight, halflife, appender, tri_type)
 }
 
+cumulativeomriskset <- function(time, seqid, sender, target, pobserved = 1, interval = FALSE, t = 0) {
+    .Call(`_dream_cumulativeomriskset`, time, seqid, sender, target, pobserved, interval, t)
+}
+
+cumulativetmriskset <- function(time, seqid, sender, target, pobserved = 1, interval = FALSE, t = 0) {
+    .Call(`_dream_cumulativetmriskset`, time, seqid, sender, target, pobserved, interval, t)
+}
+
 extractEventData <- function(stats, outcome, event_cluster, names) {
     .Call(`_dream_extractEventData`, stats, outcome, event_cluster, names)
 }

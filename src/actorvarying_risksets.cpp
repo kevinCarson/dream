@@ -41,6 +41,8 @@ List timevaryingomriskset(std::vector<double> time,
   std::vector<std::string> targetobs =target;
   List processedevents(howmany);//each list element will be a data frame! with 1 + ncontrols rows
   int n = actors.size();
+  std::string dyadupdate;
+  std::string appender = "_OllieBug_";
 
   for(int i = 0; i < howmany; i++){ // for all sampled events
 
@@ -61,16 +63,22 @@ List timevaryingomriskset(std::vector<double> time,
     std::vector<std::string> sendersRS(outer*(outer-1));
     std::vector<std::string> receiversRS(outer*(outer-1));
     int index = 0;
+    std::unordered_map<std::string, int> dyad_places;
+
     //creating the empty vectors to store the sender charcter vectors
     for(int k = 0; k < outer; k++){
       for(int j = 0; j < k; j++){
         sendersRS[index] = possibleactors[k];
         receiversRS[index] = possibleactors[j];
-        index += 1;
+        dyadupdate = possibleactors[k] + appender + possibleactors[j];
+        dyad_places[dyadupdate] = index;
+        index +=1;
 
         sendersRS[index] = possibleactors[j];
         receiversRS[index] = possibleactors[k];
-        index += 1;
+        dyadupdate = possibleactors[j] + appender + possibleactors[k];
+        dyad_places[dyadupdate] = index;
+        index +=1;
       }
     }
     int ncontrols = sendersRS.size();
@@ -80,12 +88,10 @@ List timevaryingomriskset(std::vector<double> time,
     std::fill(curobserved.begin(), curobserved.end(), 0); // fill the vector with the current event time point
     std::vector<double> curseqid(ncontrols);
     std::fill(curseqid.begin(), curseqid.end(),  seqid[curevent]); // fill the vector with the current event time point
-    for(int k = 0; k < ncontrols; k++){
-      if(sendersRS[k] == cursender && receiversRS[k] == curtarget){
-        curobserved[k] = 1; //denoting the observed event here
-        break; // getting out of the inner loop here to not go through the entire dyadic list
-      }
-    }
+    dyadupdate = cursender + appender + curtarget;
+    auto here = dyad_places.find(dyadupdate);
+    curobserved[here->second] = 1; //adding the value of 1 to the observed vector
+
     processedevents[i] =  DataFrame::create(Rcpp::Named("time") = curtimevec,
                                             Rcpp::Named("seqeuence_id") = curseqid,
                                             Rcpp::Named("sender") = sendersRS,
@@ -193,7 +199,8 @@ List timevaryingtmriskset(std::vector<double> time,
   List processedevents(howmany);//each list element will be a data frame! with 1 + ncontrols rows
   int nt = actortargets.size();
   int ns = actorsenders.size();
-
+  std::string dyadupdate;
+  std::string appender = "_OllieBug_";
 
   for(int i = 0; i < howmany; i++){ // for all sampled events
 
@@ -222,7 +229,7 @@ List timevaryingtmriskset(std::vector<double> time,
 
     int outer = possiblesenders.size();
     int innner = possibletargets.size();
-
+    std::unordered_map<std::string, int> dyad_places;
     std::vector<std::string> sendersRS(outer*(innner));
     std::vector<std::string> receiversRS(outer*(innner));
     int index = 0;
@@ -231,7 +238,9 @@ List timevaryingtmriskset(std::vector<double> time,
       for(int j = 0; j < innner; j++){
         sendersRS[index] = possiblesenders[k];
         receiversRS[index] = possibletargets[j];
-        index += 1;
+        dyadupdate = possiblesenders[k] + appender + possibletargets[j];
+        dyad_places[dyadupdate] = index;
+        index +=1;
       }
     }
 
@@ -242,12 +251,10 @@ List timevaryingtmriskset(std::vector<double> time,
     std::fill(curobserved.begin(), curobserved.end(), 0); // fill the vector with the current event time point
     std::vector<double> curseqid(ncontrols);
     std::fill(curseqid.begin(), curseqid.end(),  seqid[curevent]); // fill the vector with the current event time point
-    for(int k = 0; k < ncontrols; k++){
-      if(sendersRS[k] == cursender && receiversRS[k] == curtarget){
-        curobserved[k] = 1; //denoting the observed event here
-        break; // getting out of the inner loop here to not go through the entire dyadic list
-      }
-    }
+    dyadupdate = cursender + appender + curtarget;
+    auto here = dyad_places.find(dyadupdate);
+    curobserved[here->second] = 1; //adding the value of 1 to the observed vector
+
     processedevents[i] =  DataFrame::create(Rcpp::Named("time") = curtimevec,
                                             Rcpp::Named("seqeuence_id") = curseqid,
                                             Rcpp::Named("sender") = sendersRS,

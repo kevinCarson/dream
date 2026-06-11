@@ -117,12 +117,13 @@ events <- data.frame(time = 1:18,
 
 # Creating the Post-Processing Event Dataset with Null Events
 post.processing <- create_res(type = "one-mode",
-                           riskset = "constant_sample",
+                           riskset = "fixed",
                       ordinal = TRUE,
                       time = events$time,
                       sender = events$sender,
                       receiver = events$target,
                       p_samplingobserved = 1.00,
+                      case_control=TRUE,
                       n_controls = 1,
                       seed = 9999)
 

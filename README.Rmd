@@ -97,11 +97,12 @@ WikiEvent2018.first100k$time <- as.numeric(WikiEvent2018.first100k$time)
 processed <- create_res(
   type = "two-mode",
   ordinal = TRUE,
-  riskset = "dynamic_sample",
+  riskset = "cumulative",
   time = WikiEvent2018.first100k$time, # The Time Variable
   sender = WikiEvent2018.first100k$user, # The Sender Variable
   receiver = WikiEvent2018.first100k$article, # The Receiver Variable
   p_samplingobserved = 0.20, # The Probability of Selection
+  case_control=TRUE,
   n_controls = 10, # The Number of Controls to Sample from the Full Risk Set
   seed = 9999) # The Seed for Replication
 ```

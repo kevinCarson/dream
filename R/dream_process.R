@@ -20,27 +20,25 @@
 #' the \code{\link{estimate_rem}} function will not add the right-censoring term to the log-likelihood. The log-likelihood thus
 #' reduces to that used in the MLE interval timing relational event model in the \code{\link[remstimate]{remstimate}} function. The default
 #' value is NULL.
-#' @param riskset The argument should be one of the following strings: "complete", "constant_sample", "dynamic_sample",
-#' "actor_varying", "actor_varying_sample". "complete" will create a post-processing relational event
+#' @param riskset The argument should be one of the following strings: "fixed", "compositional",
+#' "cumulative". "fixed" will create a post-processing relational event
 #' sequence where the set of null events for each (sampled) realized/observed event is the full
 #' set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
 #' full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-#' event sender and receiver sets). "constant_sample" will create a post-processing relational event
-#' sequence where the set of null events for each (sampled) realized/observed event is a random sample from the full
-#' set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
-#' full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-#' event sender and receiver sets), where the number of sampled events is dependent upon the `n_controls`
-#' argument. "dynamic_sample" will create a post-processing relational event
-#' sequence where the set of null events for each (sampled) realized/observed event at time t is a random sample from the full
-#' set of actors that have been active up to and including t. "actor_varying" will create a post-processing relational event
+#' event sender and receiver sets). "cumulative" will create a post-processing relational event
+#' sequence where the set of null events for each (sampled) realized/observed event at time t
+#' is the full set of actors that have been active up to and including t. "compositional" will create a post-processing relational event
 #' sequence where the set of null events for each (sampled) realized/observed event at time t is the full
 #' set of actors that are considered relationally active at time t dependent upon the `active_times`
-#' argument, whereas the "actor_varying_sample" option will create a post-processing relational event
-#' sequence where the set of null events for each (sampled) realized/observed event is a random
-#' sample from the set of relationally active actors.
+#' argument.
 #' @param p_samplingobserved The numerical value for the probability of selection for sampling
 #' from the observed event sequence. Set to 1 by default indicating that all observed
 #' events from the event sequence will be included in the post-processing event sequence.
+#' @param case_control TRUE/FALSE. TRUE indicates that case-control sampling from
+#' the riskset will be implemented (i.e., a sample from the risk set will be
+#' returned). FALSE indicates that case-control sampling will not occur and that
+#' all non-realized events based upon the `riskset` argument will be returned. Set ot
+#' FALSE by default.
 #' @param n_controls The numerical value for the number of null event controls for
 #' each (sampled) observed event. This argument should be specified when one of the
 #' following `riskset` types is provided: "constant_sample", "dynamic_sample",
@@ -84,6 +82,7 @@
 #'   \item \code{t} - Based upon the user's input.
 #'   \item \code{riskset} - Based upon the user's input.
 #'   \item \code{p} - The probability of sampling from the observed event sequence. Based upon the user's input.
+#'   \item \code{case_control} - Based upon the user's input.
 #'   \item \code{m} - The number of null event controls for each (sampled) observed event. Based upon the user's input.
 #'   \item \code{type} - Based upon the user's input. (`two-mode` and `one-mode`)
 #'   \item \code{n} - The number of observed events.
@@ -135,27 +134,22 @@
 #' sequences, or where the relevant actors can be both (in the case of one-mode
 #' sequences), and (3) how the processed support set for each event should be
 #' constructed. The third axis is based upon the `riskset` argument, which is
-#' one of the following: "complete", "constant_sample", "dynamic_sample",
-#' "actor_varying", "actor_varying_sample". "complete" will create a post-processing relational event
+#' one of the following:  "fixed", "compositional",
+#' "cumulative". "fixed" will create a post-processing relational event
 #' sequence where the set of null events for each (sampled) realized/observed event is the full
 #' set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
 #' full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-#' event sender and receiver sets). "constant_sample" will create a post-processing relational event
-#' sequence where the set of null events for each (sampled) realized/observed event is a random sample from the full
-#' set of actors that were active at anytime in the event sequence (for one-mode sequences, this is the
-#' full Cartesian plot of actors, and for two-mode sequences, this is the full cross-product of the
-#' event sender and receiver sets), where the number of sampled events is dependent upon the `n_controls`
-#' argument. "dynamic_sample" will create a post-processing relational event
-#' sequence where the set of null events for each (sampled) realized/observed event at time t is a random sample from the full
-#' set of actors that have been active up to and including t. "actor_varying" will create a post-processing relational event
+#' event sender and receiver sets). "cumulative" will create a post-processing relational event
+#' sequence where the set of null events for each (sampled) realized/observed event at time t
+#' is the full set of actors that have been active up to and including t. "compositional" will create a post-processing relational event
 #' sequence where the set of null events for each (sampled) realized/observed event at time t is the full
 #' set of actors that are considered relationally active at time t dependent upon the `active_times`
-#' argument, whereas the "actor_varying_sample" option will create a post-processing relational event
-#' sequence where the set of null events for each (sampled) realized/observed event is a random
-#' sample from the set of relationally active actors.
+#' argument. In addition, case-control sampling from the riskset can be
+#' implemented by setting the `case_control` argument to TRUE and specifying
+#' a value for `n_controls`.
 #'
 #'
-#' **Complete Risk Sets**:
+#' **Fixed Risk Sets**:
 #'
 #' Following Butts (2008) and Butts and Marcum (2017), for one-mode
 #' event sequences (`type` = "one-mode"), the risk (support) set is defined as all possible
@@ -174,7 +168,7 @@
 #' where \eqn{S} is the set of potential event senders and \eqn{R} is the set of potential event receivers. In this function,
 #' the full risk set is considered fixed across all time points.
 #'
-#' **Constant Sample Risk Sets**:
+#' **Fixed Case-Control Risk Sets**:
 #'
 #' Following Butts (2008), Vu et al. (2015), and Lerner and Lomi (2020), case-control sampling
 #' samples an arbitrary number \eqn{m} of non-events from the above risk/support set definitions \eqn{M_t}. This
@@ -183,9 +177,20 @@
 #' relational event sequences, is formally defined as:
 #' \deqn{\tilde{M}_t \subseteq \{ (s, r) \mid s \in N \times r \in N \}}
 #'
-#' **Dynamic Sample Risk Sets**:
+#' **Cumulative Risk Sets**:
 #'
-#' For dynamic risk sets, for one-mode event sequences (`type` = "one-mode"), the risk (support)
+#' For cumulative risk sets, for one-mode event sequences (`type` = "one-mode"), the risk (support)
+#' set at time \eqn{t}, that is, \eqn{M_t}, is defined as the full Cartesian product
+#' of all past actors who have been involved in a relational event at or before time \eqn{t}.
+#' Formally:
+#' \deqn{M_t  \{ (s, r) \mid s \in N_t \times r \in N_t\}}
+#' where \eqn{N_t} is the set of potential event senders and targets at and time \eqn{t}. The
+#' definition follows the same as above for two-mode event sequences, where the sets
+#' are now defined as \eqn{S_t} and \eqn{R_t}.
+#'
+#' **Cumulative Case-Control Risk Sets**:
+#'
+#' For cumulative risk sets, for one-mode event sequences (`type` = "one-mode"), the risk (support)
 #' set at time \eqn{t}, that is, \eqn{M_t}, is defined as a sample of \eqn{m} dyads from the full Cartesian product
 #' of all past actors who have been involved in a relational event at or before time \eqn{t}.
 #' Formally:
@@ -195,9 +200,9 @@
 #' are now defined as \eqn{S_t} and \eqn{R_t}.
 #'
 #'
-#' **Actor-varying Risk Sets**:
+#' **Compositional Risk Sets**:
 #'
-#' Actor-varying support sets allows for actors to enter, exit, and re-enter
+#' Compositional support sets allows for actors to enter, exit, and re-enter
 #' the relational event sequence as time progresses. For one-mode event sequences,
 #' the node set \eqn{Y_t} is defined as those actors who are considered
 #' relationally active at time \eqn{t}. For two-mode event sequences,
@@ -207,7 +212,7 @@
 #' \deqn{V_t = \{ (s, r) \mid s \in Y_t \times r \in Y_t\}}
 #'
 #'
-#' **Actor-varying Sampling Risk Sets**:
+#' **Compositional Case-Control Risk Sets**:
 #'
 #' Based upon the formal definition above, sampling from the full actor-varying
 #' risk set generates a new support set definition:
@@ -251,7 +256,7 @@
 #'# based upon the ordinal timing relational event framework
 #'full.process <- create_res(ordinal = TRUE,
 #'                       type = "one-mode",
-#'                       riskset = "complete",
+#'                       riskset = "fixed",
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
@@ -262,7 +267,8 @@
 #'# and 5 controls based upon the ordinal timing relational event framework
 #'sample.process <- create_res(ordinal = TRUE,
 #'                             type = "one-mode",
-#'                             riskset = "constant_sample",
+#'                             riskset = "fixed",
+#'                             case_control=TRUE,
 #'                             time = events$time,
 #'                             sender = events$sender,
 #'                             receiver = events$target,
@@ -271,19 +277,30 @@
 #'                             seed = 9999)
 #'
 #'# Creating a dynamic one-mode relational risk set with p = 1.00 (all true events)
-#'# and 5 controls based upon the interval timing relational event framework
+#'# based upon the interval timing relational event framework
 #'dynamic.process <- create_res(ordinal = FALSE,
 #'                       t = max(events$time) + rexp(1),
 #'                       type = "one-mode",
-#'                       riskset = "dynamic_sample",
+#'                       riskset = "cumulative",
+#'                       time = events$time,
+#'                       sender = events$sender,
+#'                       receiver = events$target,
+#'                       p_samplingobserved = 1.00,
+#'                       seed = 9999)
+#'
+#'# Creating a dynamic one-mode relational risk set with p = 1.00 (all true events)
+#'# and 5 controls based upon the interval timing relational event framework
+#'dynamic.sample.process <- create_res(ordinal = FALSE,
+#'                       t = max(events$time) + rexp(1),
+#'                       type = "one-mode",
+#'                       riskset = "cumulative",
+#'                       case_control=TRUE,
 #'                       time = events$time,
 #'                       sender = events$sender,
 #'                       receiver = events$target,
 #'                       p_samplingobserved = 1.00,
 #'                       n_controls = 5,
 #'                       seed = 9999)
-#'
-#'
 #'# Creating a actor-varying one-mode relational event sequence where actors
 #'# enter, exit, and re-enter the event sequence dependent upon the user-specified
 #'# active times. Each row contains the actor id, the time for which, in a specific relevant
@@ -298,7 +315,7 @@
 #'
 #'actor.varying.process <- create_res(ordinal = TRUE,
 #'                                    type= "one-mode",
-#'                                    riskset = "actor_varying",
+#'                                    riskset = "compositional",
 #'                                    time = events$time,
 #'                                    sender = events$sender,
 #'                                    receiver = events$target,
@@ -311,8 +328,9 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                         time, # variable (column) name that contains the time variable
                         sender, # variable (column) name that contains the sender variable
                         receiver, # variable (column) name that contains the receiver variable
-                        riskset = c("complete", "constant_sample", "dynamic_sample", "actor_varying", "actor_varying_sample"),
+                        riskset = c("fixed", "compositional", "cumulative"),
                         p_samplingobserved = 1, # probability of selection for case control sampling
+                        case_control = FALSE,
                         n_controls=NULL, # number of controls for each selected event
                         active_times = NULL,
                         seed = NULL) { # seed for replication (user can change this value)
@@ -333,22 +351,22 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
   if(!(type %in% c("two-mode", "one-mode"))){
     base::stop("Error: The type argument is not valid. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
   }
-  if(!(riskset %in% c("complete", "constant_sample", "dynamic_sample", "actor_varying", "actor_varying_sample"))){
+  if(!(riskset %in% c("fixed", "compositional", "cumulative"))){
     base::stop("Error: The `riskset` argument is not valid. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
   }
-  if(c(riskset %in% c("dynamic_sample", "constant_sample", "actor_varying_sample")) & is.null(n_controls)){
-    base::stop("Error: The `n_controls` argument was not specified and one of the case-control sampling riskset formulations was specified. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+  if(isTRUE(case_control) & is.null(n_controls)){
+    base::stop("Error: The `n_controls` argument was not specified and case-control sampling riskset was specified. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
   }
 
-  if(riskset %in% c("actor_varying", "actor_varying_sample")){
+  if(riskset %in% c("compositional")){
     if(type=="one-mode"){
       if(!inherits(active_times, "data.frame")){
-        base::stop("Error: A one-mode actor-varying riskset was requested, however, the `active_times` argument is not a data.frame. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+        base::stop("Error: A one-mode compositional riskset was requested, however, the `active_times` argument is not a data.frame. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
       }
       x <- colnames(active_times)
       need <- c("actor_id", "time_start", "time_end")
       if(!all(need %in% x)){
-        base::stop("Error: An actor-varying riskset was requested The following column names must be included: actor_id, time_start, and time_end. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+        base::stop("Error: An compositional riskset was requested The following column names must be included: actor_id, time_start, and time_end. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
       }
       actors <- active_times[,"actor_id"] #the actor ids for relevant actors
       if(!inherits(actors, "character")) base::stop("Error: The `actor_id` column in the `active_times` argument must be a vector of character values. Please see the help page and retry! Happy dreaming!")
@@ -359,22 +377,22 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
     }
     if(type=="two-mode"){
       if(!inherits(active_times, "list")){
-        base::stop("Error: A two-mode actor-varying riskset was requested, however, the `active_times` argument is not a list. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+        base::stop("Error: A two-mode compositional riskset was requested, however, the `active_times` argument is not a list. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
       }
       x1 <- active_times[["senders"]] #the senders
       x2 <- active_times[["receivers"]] #the receivers
       if(!inherits(x1, "data.frame")){
-        base::stop("Error: A two-mode actor-varying riskset was requested, however, the `senders` element in the `active_times` list is not a data.frame object. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+        base::stop("Error: A two-mode compositional riskset was requested, however, the `senders` element in the `active_times` list is not a data.frame object. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
       }
       if(!inherits(x2, "data.frame")){
-        base::stop("Error: A two-mode actor-varying riskset was requested, however, the `receivers` element in the `active_times` list is not a data.frame object. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+        base::stop("Error: A two-mode compositional riskset was requested, however, the `receivers` element in the `active_times` list is not a data.frame object. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
       }
       need <- c("actor_id", "time_start", "time_end")
       if(!all(need %in% colnames(x1))){
-        base::stop("Error:  two-mode actor-varying riskset was requested, however, the `senders` element must be a data.frame object with the following column names: actor_id, time_start, and time_end. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+        base::stop("Error:  two-mode compositional riskset was requested, however, the `senders` element must be a data.frame object with the following column names: actor_id, time_start, and time_end. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
       }
       if(!all(need %in% colnames(x2))){
-        base::stop("Error:  two-mode actor-varying riskset was requested, however, the `receivers` element must be a data.frame object with the following column names: actor_id, time_start, and time_end. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
+        base::stop("Error:  two-mode compositional riskset was requested, however, the `receivers` element must be a data.frame object with the following column names: actor_id, time_start, and time_end. Please see the help page and retry! Happy dreaming!") # stop computation and tell the user
       }
 
       sendingactors <- x1[,"actor_id"] #the actor ids for relevant actors
@@ -413,18 +431,17 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
   #   Creating the dataset in c++
   #
   #######################################################
-
-
+  risk.type <- ifelse(case_control, paste0(riskset,"_ccontrol"),riskset)
   if(type=="one-mode"){ #for one-mode relational event sequences (the cartesian)
-    bigeventlist <- switch(riskset,
-                           "complete"=fullrisksetom(time = time,
+    bigeventlist <- switch(risk.type,
+                           "fixed"=fullrisksetom(time = time,
                                                     seqid = eventID,
                                                     sender = (sender),
                                                     target = (receiver),
                                                     pobserved = p_samplingobserved,
                                                     interval = !ordinal,
                                                     t=t),
-                           "constant_sample"=processREMseqOM(time = time,
+                           "fixed_ccontrol"=processREMseqOM(time = time,
                                                              seqid = eventID,
                                                              sender = (sender),
                                                              target = (receiver),
@@ -432,7 +449,14 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                                                              ncontrols = n_controls,
                                                              interval = !ordinal,
                                                              t=t),
-                           "dynamic_sample"=processREMseqOM_varying(time = time,
+                           "cumulative"=cumulativeomriskset(time = time,
+                                                            seqid = eventID,
+                                                            sender = (sender),
+                                                            target = (receiver),
+                                                            pobserved = p_samplingobserved,
+                                                            interval = !ordinal,
+                                                            t=t),
+                           "cumulative_ccontrol"=processREMseqOM_varying(time = time,
                                                                     seqid = eventID,
                                                                     sender = (sender),
                                                                     target = (receiver),
@@ -440,7 +464,7 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                                                                     ncontrols = n_controls,
                                                                     interval = !ordinal,
                                                                     t=t),
-                           "actor_varying"=timevaryingomriskset(time=time,
+                           "compositional"=timevaryingomriskset(time=time,
                                                                 seqid=eventID,
                                                                 sender=sender,
                                                                 target=receiver,
@@ -450,7 +474,7 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                                                                 pobserved = 1,
                                                                 interval = TRUE,
                                                                 t=t),
-                           "actor_varying_sample"=timevaryingomrisksetwithsample(time=time,
+                           "compositional_ccontrol"=timevaryingomrisksetwithsample(time=time,
                                                                                  seqid=eventID,
                                                                                  sender=sender,
                                                                                  target=receiver,
@@ -463,15 +487,16 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                                                                                  t=t))
   }
   if(type=="two-mode"){#for one-mode relational event sequences (the cross-product)
-    bigeventlist <- switch(riskset,
-                           "complete"=fullrisksettm(time = time,
+
+    bigeventlist <- switch(risk.type,
+                           "fixed"=fullrisksettm(time = time,
                                                     seqid = eventID,
                                                     sender = (sender),
                                                     target = (receiver),
                                                     pobserved = p_samplingobserved,
                                                     interval = !ordinal,
                                                     t=t),
-                           "constant_sample"=processREMseqTM(time = time,
+                           "fixed_ccontrol"=processREMseqTM(time = time,
                                                              seqid = eventID,
                                                              sender = (sender),
                                                              target = (receiver),
@@ -479,7 +504,15 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                                                              ncontrols = n_controls,
                                                              interval = !ordinal,
                                                              t=t),
-                           "dynamic_sample"=processREMseqTM_varying(time = time,
+
+                           "cumulative"=cumulativetmriskset(time = time,
+                                                            seqid = eventID,
+                                                            sender = (sender),
+                                                            target = (receiver),
+                                                            pobserved = p_samplingobserved,
+                                                            interval = !ordinal,
+                                                            t=t),
+                           "cumulative_ccontrol"=processREMseqTM_varying(time = time,
                                                                     seqid = eventID,
                                                                     sender = (sender),
                                                                     target = (receiver),
@@ -487,7 +520,7 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                                                                     ncontrols = n_controls,
                                                                     interval = !ordinal,
                                                                     t=t),
-                           "actor_varying"=timevaryingtmriskset(time=time,
+                           "compositional"=timevaryingtmriskset(time=time,
                                                                 seqid=eventID,
                                                                 sender=sender,
                                                                 target=receiver,
@@ -500,7 +533,7 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                                                                 pobserved = 1,
                                                                 interval = TRUE,
                                                                 t=t),
-                           "actor_varying_sample"=timevaryingtmrisksetwithsample(time=time,
+                           "compositional_ccontrol"=timevaryingtmrisksetwithsample(time=time,
                                                                                  seqid=eventID,
                                                                                  sender=sender,
                                                                                  target=receiver,
@@ -557,6 +590,7 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
                              n=n,
                              null=n_controls,
                              riskset=riskset,
+                             case_control=case_control,
                              sampled_events=sampled_events,
                              interevent_times=interevent.times,
                              n_actors=n_actors,
@@ -645,7 +679,8 @@ create_res <-  function(type = c("two-mode", "one-mode"), #the type of risk set 
 #' #making a post-processing event sequence
 #' eventSet <- create_res(type = "one-mode",
 #'                        ordinal = TRUE,
-#'                        riskset = "constant_sample",
+#'                        riskset = "fixed",
+#'                        case_control=TRUE,
 #'                        time = events$time,
 #'                        sender = events$sender,
 #'                        receiver = events$target,
@@ -752,6 +787,7 @@ dream_sequence <- function(ordinal = TRUE,
   m <- NA
   seed <- NA
   riskset <- "user-provided"
+  case_control <- FALSE
   if(type=="one-mode"){
     n_actors <- length(unique(c(sender, receiver))) #the total number of unique actors
     n_senders <- NA
@@ -776,6 +812,7 @@ dream_sequence <- function(ordinal = TRUE,
                              n=n,
                              null=n_controls,
                              riskset=riskset,
+                             case_control=case_control,
                              sampled_events=sampled_events,
                              interevent_times=interevent.times,
                              n_actors=n_actors,
@@ -806,6 +843,7 @@ dream_sequence <- function(ordinal = TRUE,
 #' @param n_actors The number of actors in the relational event sequence.
 #' @param n_receivers The number of event receivers in the relational event sequence.
 #' @param n_senders The number of event senders in the relational event sequence.
+#' @param case_control Boolean indicating if case-control sampling has occured.
 #' @param interevent_times The numeric vector of interevent times (the timing between events).
 #' @keywords internal
 new_dream_sequence <- function(x,
@@ -822,6 +860,7 @@ new_dream_sequence <- function(x,
                                n_senders,
                                n_receivers,
                                m,
+                               case_control,
                                interevent_times
 ){
   #checking the class of the processed event sequence (x is built elsewher)
@@ -848,6 +887,7 @@ new_dream_sequence <- function(x,
             n = n, #the number of observed events
             null = null, #the number of null events
             sampled_events=sampled_events, #the number of sampled observed events
+            case_control=case_control,
             riskset = riskset, #the type of risk set employed
             interevent_times = interevent_times) #the interevent times between events
   post <- structure(x, class = "dream_sequence")
@@ -988,7 +1028,8 @@ validate_dream_sequence <- function(x){
 #' #making a post-processing event sequence
 #' processed <- create_res(type = "one-mode",
 #'                        ordinal = TRUE,
-#'                        riskset = "constant_sample",
+#'                        riskset = "fixed",
+#'                        case_control=TRUE,
 #'                        time = events$time,
 #'                        sender = events$sender,
 #'                        receiver = events$target,
@@ -1055,16 +1096,15 @@ print.dream_sequence <- function(x,digits=4,...) {
   n <- x$n
   cat(" -> Sampling from the realized event sequence?:", ifelse(x$p == 1, "no", "yes"),"\n")
   if(x$p != 1 & !is.na(x$p)){
-    cat(" -> The probabilty of sampling from the realized event sequence:",x$p,"\n")
+    cat(" -> The probability of sampling from the realized event sequence:",x$p,"\n")
     cat(" -> Number of sampled realized events:",x$sampled_events," \n")
     n <- x$sampled_events
   }
-  cat(" -> The risk/support set defintion:", x$riskset,"\n")
-  cat(" -> Case-control sampling of control events?:", ifelse(x$riskset %in% c("constant_sample", "dynamic_sample",
-                                                                               "actor_varying_sample"), "yes", "no"),"\n")
+  cat(" -> The risk set definition:", x$riskset,"\n")
+  cat(" -> Case-control sampling of control events?:", ifelse(x$case_control, "yes", "no"),"\n")
 
-  if(x$riskset %in% c("constant_sample", "dynamic_sample","actor_varying_sample"))  cat(" -> Case-control sampling m:", x$m,"\n")
-  cat(" -> Number of non-realized/control events:",x$null," \n")
+  if(x$case_control)  cat(" -> Case-control sampling m:", x$m,"\n")
+  cat(" -> Number of non-realized (i.e., control) events:",x$null," \n")
   cat(" -> The total number of processed realized and non-realized events:",x$n + x$null," \n")
   if(length(x$statistics) > 0){
     cat("\nComputed Relational Event Statistics:\n")
@@ -1111,16 +1151,14 @@ print.summary.dream_sequence<- function(x,digits=3,...) {
   n <- x$n
   cat(" -> Sampling from the realized event sequence?:", ifelse(x$p == 1, "no", "yes"),"\n")
   if(x$p != 1 & !is.na(x$p)){
-    cat(" -> The probabilty of sampling from the realized event sequence:",x$p,"\n")
+    cat(" -> The probability of sampling from the realized event sequence:",x$p,"\n")
     cat(" -> Number of sampled realized events:",x$sampled_events," \n")
     n <- x$sampled_events
   }
-  cat(" -> The risk/support set defintion:", x$riskset,"\n")
-  cat(" -> Case-control sampling of control events?:", ifelse(x$riskset %in% c("constant_sample", "dynamic_sample",
-                                                                               "actor_varying_sample"), "yes", "no"),"\n")
+  cat(" -> The risk set definition:", x$riskset,"\n")
+  cat(" -> Case-control sampling of control events?:", ifelse(x$case_control, "yes", "no"),"\n")
 
-  if(x$riskset %in% c("constant_sample", "dynamic_sample","actor_varying_sample"))  cat(" -> Case-control sampling m:", x$m,"\n")
-  cat(" -> Number of non-realized/control events:",x$null," \n")
+  if(x$case_control)  cat(" -> Case-control sampling m:", x$m,"\n")
   cat(" -> The total number of processed realized and non-realized events:",x$n + x$null," \n")
 
   if(length(x$statistics) > 0){

@@ -184,6 +184,40 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cumulativeomriskset
+List cumulativeomriskset(std::vector<double> time, NumericVector seqid, std::vector<std::string> sender, std::vector<std::string> target, double pobserved, bool interval, double t);
+RcppExport SEXP _dream_cumulativeomriskset(SEXP timeSEXP, SEXP seqidSEXP, SEXP senderSEXP, SEXP targetSEXP, SEXP pobservedSEXP, SEXP intervalSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<double> >::type time(timeSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type seqid(seqidSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type sender(senderSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type target(targetSEXP);
+    Rcpp::traits::input_parameter< double >::type pobserved(pobservedSEXP);
+    Rcpp::traits::input_parameter< bool >::type interval(intervalSEXP);
+    Rcpp::traits::input_parameter< double >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(cumulativeomriskset(time, seqid, sender, target, pobserved, interval, t));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cumulativetmriskset
+List cumulativetmriskset(std::vector<double> time, NumericVector seqid, std::vector<std::string> sender, std::vector<std::string> target, double pobserved, bool interval, double t);
+RcppExport SEXP _dream_cumulativetmriskset(SEXP timeSEXP, SEXP seqidSEXP, SEXP senderSEXP, SEXP targetSEXP, SEXP pobservedSEXP, SEXP intervalSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::vector<double> >::type time(timeSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type seqid(seqidSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type sender(senderSEXP);
+    Rcpp::traits::input_parameter< std::vector<std::string> >::type target(targetSEXP);
+    Rcpp::traits::input_parameter< double >::type pobserved(pobservedSEXP);
+    Rcpp::traits::input_parameter< bool >::type interval(intervalSEXP);
+    Rcpp::traits::input_parameter< double >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(cumulativetmriskset(time, seqid, sender, target, pobserved, interval, t));
+    return rcpp_result_gen;
+END_RCPP
+}
 // extractEventData
 std::vector<NumericMatrix> extractEventData(NumericMatrix stats, NumericVector outcome, NumericVector event_cluster, CharacterVector names);
 RcppExport SEXP _dream_extractEventData(SEXP statsSEXP, SEXP outcomeSEXP, SEXP event_clusterSEXP, SEXP namesSEXP) {
@@ -574,6 +608,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dream_computeREMweightsv1", (DL_FUNC) &_dream_computeREMweightsv1, 8},
     {"_dream_computeremweightsv2", (DL_FUNC) &_dream_computeremweightsv2, 9},
     {"_dream_computetriadsrem", (DL_FUNC) &_dream_computetriadsrem, 12},
+    {"_dream_cumulativeomriskset", (DL_FUNC) &_dream_cumulativeomriskset, 7},
+    {"_dream_cumulativetmriskset", (DL_FUNC) &_dream_cumulativetmriskset, 7},
     {"_dream_extractEventData", (DL_FUNC) &_dream_extractEventData, 4},
     {"_dream_checkVarianceData", (DL_FUNC) &_dream_checkVarianceData, 2},
     {"_dream_fullrisksetom", (DL_FUNC) &_dream_fullrisksetom, 7},

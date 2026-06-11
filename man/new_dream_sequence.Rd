@@ -19,6 +19,7 @@ new_dream_sequence(
   n_senders,
   n_receivers,
   m,
+  case_control,
   interevent_times
 )
 }
@@ -50,6 +51,8 @@ new_dream_sequence(
 \item{n_receivers}{The number of event receivers in the relational event sequence.}
 
 \item{m}{The number of controls for each event.}
+
+\item{case_control}{Boolean indicating if case-control sampling has occured.}
 
 \item{interevent_times}{The numeric vector of interevent times (the timing between events).}
 }

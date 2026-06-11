@@ -26,11 +26,12 @@ relational.seq <- simulate_rem_seq(n_actors = 8,
 
 #Creating a post-processing event sequence for the above relational sequence
 post.processing <-  create_res(type = "one-mode",
-                              riskset = "constant_sample",
+                              riskset = "fixed",
                               ordinal = TRUE,
                               time = relational.seq$eventID,
                               sender = as.character(relational.seq$sender),
                               receiver = as.character(relational.seq$target),
+                              case_control=TRUE,
                               n_controls = 5)
 
 #Computing the sender-outdegree statistic for the above post-processing
