@@ -9,7 +9,8 @@
 \arguments{
 \item{object}{An object of class "dream_rem".}
 
-\item{newdata}{If requested, a new model matrix (i.e., statistics) that the event rates will be based upon.}
+\item{newdata}{If requested, either an object of \code{data.frame} or \code{dream_sequence} that contains the transformed
+variables.}
 
 \item{se.fit}{TRUE/FALSE. If TRUE, the standard errors of the predicted event rates will be returned.}
 
@@ -74,6 +75,23 @@ summary(rem) #summary of the relational event model
 #the predicted event rates
 rates <- predict(rem)
 hist(rates)
+
+
+#adding a new model matrix specification (this is purely an example) based
+#upon a `data.frame` object
+changed.data <- data.frame(sender.outdegree = rnorm(100),
+                          repetition = sample(0:1, 100, TRUE))
+new.rates <- predict(rem, newdata = changed.data)
+hist(new.rates)
+
+#adding a new model matrix specification (this is purely an example) based
+#upon the transformed `dream_sequence` object
+new.sequence <- dreamstats_degree(formation = "sender-outdegree",
+                                 data = post.processing,
+                                 halflife = 4) #updating the halflife value
+new.rates <- predict(rem, newdata = new.sequence)
+hist(new.rates)
+
 }
 \references{
 Butts, Carter T. 2008. "A Relational Event Framework for Social Action." \emph{Sociological Methodology} 38(1): 155-200.

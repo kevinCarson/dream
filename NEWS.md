@@ -1,3 +1,16 @@
+# dream 2.1.4 (2026-06-24)
+
+## Minor Changes
+* Set a default value for the `plot()` S3 method for `dream_rem` objects, so that the
+user does not have to initially specify a value. 
+* Updated the `predict()` S3 method for `dream_rem` objects to now allow
+updated `dream_sequence` objects to based the predicted event rates on. 
+* Updated the `print()` and `summary()` S3 methods for `dream_sequence` objects to 
+relay additional information about the processed relational event sequence to the user. 
+* Fixed a small bug in the `simulate_rem_seq()` function for the three-cycles statistic when 
+parallel processing is requested. 
+
+
 # dream 2.1.3 (2026-06-10)
 
 ## Minor Changes

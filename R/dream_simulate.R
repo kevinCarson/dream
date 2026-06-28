@@ -458,7 +458,7 @@ simulate_rem_seq <- function(n_actors,
 
       if(three_cycles == TRUE){
         cycles_mat[mrevent$sender, mrevent$target] <- 1 +  cycles_mat[mrevent$sender, mrevent$target]
-        updateT <- trans_mat %*% trans_mat #getting the full product of the matrices
+        updateT <- cycles_mat %*% cycles_mat #getting the full product of the matrices
         updateT <- t(updateT) #transposing the matrix, since currently, the values are
         #j ->i and need to be i -> j
         #(note these are directed ties and should be

@@ -19,7 +19,8 @@ returned plots are for each covariates, (2) the Schoenfeld residual values (y) b
 Plot the residuals of a \code{dream_rem} relational event model fit. Currently,
 the \code{plot} function returns plots of either: (1) standardized deviance
 residual values (y) by realized event times (x) or, for each
-covariate, (2) the Schoenfeld residual values (y) by realized event times (x).
+covariate, (2) the Schoenfeld residual values (y) by realized event times (x). By default,
+the function plots the standardized deviance residual values.
 }
 \details{
 Generate plots for \code{dream_rem} relational event model fits to plot

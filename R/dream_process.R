@@ -1086,26 +1086,24 @@ as.data.frame.dream_sequence <- function(x, row.names = NULL, optional = FALSE, 
 print.dream_sequence <- function(x,digits=4,...) {
   cat("Processed Relational Event Sequence: \n")
   cat(" -> Relational event sequence type:", x$type,"\n")
+
+  if(x$type == "one-mode")   cat(" -> Number of actors:", x$n_actor,"\n")
+  if(x$type == "two-mode")   cat(" -> Number of senders:", x$n_senders,"\n -> Number of receivers:", x$n_receivers,"\n")
+
   cat(" -> Relational event sequence timing:", ifelse(x$ordinal, "ordinal", "interval"),"\n")
   if(!x$ordinal & x$t > 0){
     cat(" -> The end of the relational event sequence:", x$t,"\n")
   }
-  if(x$type == "one-mode")   cat(" -> Number of actors:", x$n_actor,"\n")
-  if(x$type == "two-mode")   cat(" -> Number of senders:", x$n_senders,"\n -> Number of receivers:", x$n_receivers,"\n")
-  cat(" -> Number of realized events:", x$n,"\n")
   n <- x$n
-  cat(" -> Sampling from the realized event sequence?:", ifelse(x$p == 1, "no", "yes"),"\n")
   if(x$p != 1 & !is.na(x$p)){
-    cat(" -> The probability of sampling from the realized event sequence:",x$p,"\n")
-    cat(" -> Number of sampled realized events:",x$sampled_events," \n")
     n <- x$sampled_events
+    cat(" -> Number of sampled realized events:", x$n,"\n")
+  }else{
+    cat(" -> Number of realized events:", x$n,"\n")
   }
   cat(" -> The risk set definition:", x$riskset,"\n")
-  cat(" -> Case-control sampling of control events?:", ifelse(x$case_control, "yes", "no"),"\n")
-
-  if(x$case_control)  cat(" -> Case-control sampling m:", x$m,"\n")
-  cat(" -> Number of non-realized (i.e., control) events:",x$null," \n")
-  cat(" -> The total number of processed realized and non-realized events:",x$n + x$null," \n")
+  cat(" -> Case-control sampling of non-realized events?:", ifelse(x$case_control, "yes", "no"),"\n")
+  cat(" -> The total number of (sampled) processed realized and non-realized events:",x$n + x$null," \n")
   if(length(x$statistics) > 0){
     cat("\nComputed Relational Event Statistics:\n")
     for(i in 1:length(x$statistics)){
@@ -1141,12 +1139,22 @@ summary.dream_sequence <- function(object,digits=4,...) {
 print.summary.dream_sequence<- function(x,digits=3,...) {
   cat("Processed Relational Event Sequence: \n")
   cat(" -> Relational event sequence type:", x$type,"\n")
+  if(x$type == "one-mode")   cat(" -> Number of actors:", x$n_actor,"\n")
+  if(x$type == "two-mode")   cat(" -> Number of senders:", x$n_senders,"\n -> Number of receivers:", x$n_receivers,"\n")
   cat(" -> Relational event sequence timing:", ifelse(x$ordinal, "ordinal", "interval"),"\n")
   if(!x$ordinal & x$t > 0){
     cat(" -> The end of the relational event sequence:", x$t,"\n")
   }
-  if(x$type == "one-mode")   cat(" -> Number of actors:", x$n_actor,"\n")
-  if(x$type == "two-mode")   cat(" -> Number of senders:", x$n_senders,"\n -> Number of receivers:", x$n_receivers,"\n")
+  if(!x$ordinal){
+    timings<-x$interevent_times
+    #dropping the time between the last observed event and the time that marks of the end of the sequence
+    if( x$t > 0) timings <- timings[-length(timings)]
+    avg.timings <- round(mean(timings),digits = digits)
+    min.timings <- round(min(timings),digits = digits)
+    max.timings <- round(max(timings),digits = digits)
+    cat(" -> The average realized interevent waiting time: ", avg.timings,
+        " (min: ",min.timings,", max: ", max.timings ,") \n",sep = "")
+  }
   cat(" -> Number of realized events:", x$n,"\n")
   n <- x$n
   cat(" -> Sampling from the realized event sequence?:", ifelse(x$p == 1, "no", "yes"),"\n")
@@ -1159,7 +1167,10 @@ print.summary.dream_sequence<- function(x,digits=3,...) {
   cat(" -> Case-control sampling of control events?:", ifelse(x$case_control, "yes", "no"),"\n")
 
   if(x$case_control)  cat(" -> Case-control sampling m:", x$m,"\n")
-  cat(" -> The total number of processed realized and non-realized events:",x$n + x$null," \n")
+  cat(" -> Number of processed non-realized events:",x$null," \n")
+  cat(" -> Total number of processed realized and non-realized events:",x$n + x$null," \n")
+
+
 
   if(length(x$statistics) > 0){
     cat("\nComputed Relational Event Statistics:\n")

@@ -248,6 +248,7 @@ estimate_rem <- function(formula,
   if(data$t < 0) tknown <- FALSE #presetting the values based upon variable inputs
   data <- as.data.frame(data, all.events = FALSE)
   event.cluster <- data$time #the sampled realized event times
+  specification <- formula
   formula = as.formula(paste("observed ~" , as.character(formula)[2]))
   data.stats <- model.frame(formula, data = data) #extracting the variables
   outcome <- model.extract(data.stats,"response") #the outcome variable (1 = event; 0 = null)
@@ -479,6 +480,7 @@ estimate_rem <- function(formula,
     AIC=AIC, #the AIC for the model
     BIC=BIC, #the BIC for the model
     call = match.call(), #the formula
+    specification = specification,
     n.events = n.events, #the number of observed events
     null.events=null.events, #the number of null events
     newton.iterations = ifelse(optim.used == TRUE, as.numeric(optim_results$counts[1]), i), #the number of newton iterations
@@ -779,7 +781,8 @@ vcov.dream_rem  <- function(object,...){
 #' Predicted event hazard rates based on `dream_rem` relational event model objects.
 #'
 #' @param object An object of class "dream_rem".
-#' @param newdata If requested, a new model matrix (i.e., statistics) that the event rates will be based upon.
+#' @param newdata If requested, either an object of `data.frame` or `dream_sequence` that contains the transformed
+#' variables.
 #' @param se.fit TRUE/FALSE. If TRUE, the standard errors of the predicted event rates will be returned.
 #' @param ... Additional arguments for other methods.
 #' @details
@@ -840,10 +843,36 @@ vcov.dream_rem  <- function(object,...){
 #'#the predicted event rates
 #'rates <- predict(rem)
 #'hist(rates)
+#'
+#'
+#'#adding a new model matrix specification (this is purely an example) based
+#'#upon a `data.frame` object
+#'changed.data <- data.frame(sender.outdegree = rnorm(100),
+#'                           repetition = sample(0:1, 100, TRUE))
+#'new.rates <- predict(rem, newdata = changed.data)
+#'hist(new.rates)
+#'
+#'#adding a new model matrix specification (this is purely an example) based
+#'#upon the transformed `dream_sequence` object
+#'new.sequence <- dreamstats_degree(formation = "sender-outdegree",
+#'                                  data = post.processing,
+#'                                  halflife = 4) #updating the halflife value
+#'new.rates <- predict(rem, newdata = new.sequence)
+#'hist(new.rates)
+#'
 #'@export
 predict.dream_rem <- function(object, newdata = NULL, se.fit=FALSE,...){
   if(is.null(newdata)) stats <- object$statistics #using the original model matrix
-  if(!is.null(newdata)) stats <- newdata #using the new model matrix
+  if(!is.null(newdata)){#making a new model matrix
+    newdata1 <- NULL #presetting to extract the correct data matrix
+    if(inherits(newdata,"data.frame")) newdata1 <- newdata
+    if(inherits(newdata,"dream_sequence")) newdata1 <- as.data.frame(newdata)
+    if(is.null(newdata1)) base::stop("The `newdata` argument must be a `data.frame` or `dream_sequence` object. Please update this argument and reuse the function!")
+    #getting only the stats for the appropriate model and checking if all variables are here
+    stats <- model.matrix(object$specification,data=newdata1) #building the model matrix with the new data
+    vars <- names(object$parameters)
+    stats<-stats[,vars]
+  }
   #the predicted hazard rate for the specific event
   lambda <- exp(stats%*%object$parameters)
   if(se.fit){ #if the standard error should be returned
@@ -948,13 +977,15 @@ residuals.dream_rem <- function(object,...){
   m1a <- lapply(m1a,function(j){j$pij <- j[,"rates"] / sum(j[,"rates"]); j})
   #adding the intervevent times
   ordinal<-object$rem.data$ordinal
-  if(!ordinal)  m1a <- lapply(1:length(m1a),function(i){m1a[[i]]$interevent <- object$rem.data$interevent_times[i]})
+  if(!ordinal){
+    for(i in 1:length(m1a)){m1a[[i]]$interevent <- object$rem.data$interevent_times[i]}
+  }
 
   if(ordinal) m1a <- lapply(m1a,function(res){ dev <- -2*log(res$pij)
                                                       dev[which(res$observed==1)]})
   if(!ordinal){
       if(object$rem.data$t>0){
-        m1a <- m1a[[-length(m1a)]] #removing the set of null events
+        m1a <- m1a[-length(m1a)] #removing the set of null events
       }
 
       m1a <- lapply(m1a,function(res){
@@ -971,7 +1002,7 @@ residuals.dream_rem <- function(object,...){
   m1a <- lapply(m1a,function(j){j$pij <- j[,"rates"] / sum(j[,"rates"]); j})
   if(!ordinal){
     if(object$rem.data$t>0){
-      m1a <- m1a[[-length(m1a)]] #removing the set of null events
+      m1a <- m1a[-length(m1a)] #removing the set of null events
     }
   }
   #estimating the schoenfeld residual for the kth covariate
@@ -989,7 +1020,8 @@ residuals.dream_rem <- function(object,...){
 
   schof.resid <- do.call(rbind, m1a)
   colnames(schof.resid) <- paste0(coefnames, ".schoenfeld")
-  resid.data <- data.frame(time=unique(m1$time),
+
+  resid.data <- data.frame(time= as.numeric(names(m1a)),
                            unit.deviance = unit.deviance,
                            residual.deviance=deviance.resid,
                            standardized.deviance=standardized.deviance,
@@ -1085,15 +1117,12 @@ gof_rem <- function(object,rseed=NULL,...){
     drop.these <- check.if.need.to.drop.no.null[,1][which(check.if.need.to.drop.no.null$x == 0)]
     edges <- subset(edges,!(edges$time %in% drop.these) )
   }
-  if(object$rem.data$t > 0) edges <- subset(edges, edges$time != object$rem.data$t )
-  correct.dyads <- edges[edges$observed==1,c("time","sender","receiver")]
-
-  #now time to pick, the dyad with the largest hazard rate should be the
-  #models best guest at who will be next (even in the ordinal case: lambdaij / sum(all events))
   rates <- data.frame(ratei = predict(object),
                       time = edges$time,
                       sender=edges$sender,
                       receiver=edges$receiver) #extracting the predicted hazard rates
+  if(object$rem.data$t > 0)  rates <- subset(rates, rates$time != object$rem.data$t )
+  correct.dyads <- edges[edges$observed==1,c("time","sender","receiver")]
   ratesj <- split(rates,f=rates$time) #splitting as a list to start our guessing
   guess <- lapply(ratesj, function(data){
     max.value <- max(data$ratei)
@@ -1136,7 +1165,8 @@ gof_rem <- function(object,rseed=NULL,...){
 #' Plot the residuals of a `dream_rem` relational event model fit. Currently,
 #' the `plot` function returns plots of either: (1) standardized deviance
 #' residual values (y) by realized event times (x) or, for each
-#' covariate, (2) the Schoenfeld residual values (y) by realized event times (x).
+#' covariate, (2) the Schoenfeld residual values (y) by realized event times (x). By default,
+#' the function plots the standardized deviance residual values.
 #'
 #' @param x An object of class "dream_rem".
 #' @param type If "std.deviance", the returned plot is the absolute value standardized deviance
@@ -1193,7 +1223,9 @@ gof_rem <- function(object,rseed=NULL,...){
 #'@export
 plot.dream_rem <- function(x,type=c("std.deviance", "schoenfeld"),...) {
   if(!inherits(x, "dream_rem")) base::stop("Error: The `x` argument must be a `dream_rem` object.")
+  type <- match.arg(type, c("std.deviance", "schoenfeld")) #this provides a baseline option of std.deviance
   if(!(type %in% c("std.deviance", "schoenfeld"))) base::stop("Error: The `type` argument must be of either `std.deviance` or `schoenfeld`.")
+
   res <- residuals(x) #the model residuals based upon the x object
   #the standarized deviance residual plot
   if(type=="std.deviance"){
