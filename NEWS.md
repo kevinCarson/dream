@@ -1,3 +1,14 @@
+# dream 2.1.5 (2026-07-17)
+
+## Minor Changes
+* The output from the `gof_rem()` function is now an `dream_gof` S3 object. The following
+methods are included for this object class: `plot()`, `summary()`, and `print()`. 
+* Added a new relational event sequence `data.frame` object to help users get started
+with one-mode relational event analysis. The new object is named `simulated.res`.
+* Happy dreaming!
+
+
+
 # dream 2.1.4 (2026-06-24)
 
 ## Minor Changes

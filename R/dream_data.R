@@ -45,3 +45,17 @@
 "southern.women"
 
 
+
+
+
+#' Simulated Ordinal Timing One-Mode Relational Event Sequence
+#'
+#'
+#' @format ## `simulated.res`
+#' A simulated one-mode ordinal timing relational event sequence with 500 realized relational events and 10
+#' actors. The simulated one-mode relational event sequence was generated with the \code{\link{simulate_rem_seq}} function the following effects specified:
+#' sender outdegree (\eqn{\theta = 0.09}), receiver indegree (\eqn{\theta = 0.05}), and
+#' transitive triplets/outgoing two-paths (\eqn{\theta = 0.09}).
+#' @usage data(simulated.res)
+#
+"simulated.res"

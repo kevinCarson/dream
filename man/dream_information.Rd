@@ -46,6 +46,11 @@ models (see \href{https://www.annualreviews.org/content/journals/10.1146/annurev
 and \href{https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9531.2008.00203.x}{Butts (2008)} for more information on
 these models). Finally, the \code{simulate_rem_seq} functions simulate one-mode relational event sequences based upon
 results of a relational event model.
+
+The dream package include two relational event sequences for users to start fitting relational event models: (1) the
+first 100,000 relational event sequences in the 2018 Wikipedia user article-edit event sequence (\code{\link{WikiEvent2018.first100k}})
+and (2) a randomly generated one-mode ordinal timing relational event sequence (\code{\link{simulated.res}}). We encourage users
+to look at these datasets to look at the structure of relational event sequences that are processed via dream.
 }
 
 \seealso{

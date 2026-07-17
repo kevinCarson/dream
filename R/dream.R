@@ -42,6 +42,12 @@
 #'results of a relational event model.
 #'
 #'
+#'The dream package include two relational event sequences for users to start fitting relational event models: (1) the
+#'first 100,000 relational event sequences in the 2018 Wikipedia user article-edit event sequence (\code{\link{WikiEvent2018.first100k}})
+#'and (2) a randomly generated one-mode ordinal timing relational event sequence (\code{\link{simulated.res}}). We encourage users
+#'to look at these datasets to look at the structure of relational event sequences that are processed via dream.
+#'
+#'
 #'
 #' @author Kevin A. Carson <kacarson@arizona.edu> and Diego F. Leal <dflc@arizona.edu>
 #' @name dream_information

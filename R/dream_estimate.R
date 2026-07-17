@@ -1042,16 +1042,23 @@ residuals.dream_rem <- function(object,...){
 #' realized event dyad.
 #'
 #' @param object An object of class "dream_rem".
+#' @param realized How should cases be handled when the largest hazard for a specific event
+#' is the same for the realized event and one or more control events? TRUE indicates that
+#' the method will default to the realized event. FALSE indicates that the function will
+#' take a sample from the set of realized and control events that have the largest event
+#' hazard.
 #' @param rseed The random seed for reproducibility of results. When more than 1 dyad has
 #' the maximum hazard rate, the predicted dyad is selected at random with equal probabilty
 #' for each dyad. For example, if three dyads have the same hazard value, then the probability
 #' of selecting each dyad will be 1/3.
 #' @param ... Additional arguments for other methods.
 #'
-#' @return A `list` object that contains the following results:
+#' @return A `dream_gof` S3 object that contains the following results:
 #' \itemize{
 #'   \item \code{props} - A `data.frame` that contains the proportion of correctly predicted dyads, senders, and targets.
 #'   \item \code{edgelist} - A `data.frame` object that contains the predicted and realized relational event sequence.
+#'   \item \code{estimated_rem} - The `dream_rem` S3 object provided to the function.
+#'   \item \code{match_realized} - The  `realized` argument provided to the function.
 #'}
 #'
 #' @details
@@ -1099,12 +1106,13 @@ residuals.dream_rem <- function(object,...){
 #'                          data=post.processing)
 #'summary(rem) #summary of the relational event model
 #'
-#'#the predicted dyadic events
+#'#the model goodness of fit
 #'gof <- gof_rem(rem,rseed=3718)
-#'gof$props #check the proportion of dyads, senders, and targets correctly predicted
+#'summary(gof) #printing the summary of the goodness of fit assessment
+#'plot(gof) #plotting the goodness of fit assessment
 #'gof$edgelist #check the predicted edgelist for the dyadic events
 #'@export
-gof_rem <- function(object,rseed=NULL,...){
+gof_rem <- function(object,realized=TRUE,rseed=NULL,...){
   #the proportion of correctly specified dyads
   #a properly fit model should be able to predict what dyadic
   #events will occur (fail), that is, replicate the original
@@ -1119,19 +1127,24 @@ gof_rem <- function(object,rseed=NULL,...){
   }
   rates <- data.frame(ratei = predict(object),
                       time = edges$time,
+                      realized = edges$observed,
                       sender=edges$sender,
                       receiver=edges$receiver) #extracting the predicted hazard rates
   if(object$rem.data$t > 0)  rates <- subset(rates, rates$time != object$rem.data$t )
   correct.dyads <- edges[edges$observed==1,c("time","sender","receiver")]
   ratesj <- split(rates,f=rates$time) #splitting as a list to start our guessing
-  guess <- lapply(ratesj, function(data){
+
+  guess <- lapply(ratesj, function(data,check=realized){
     max.value <- max(data$ratei)
     ids <- which(data$ratei == max.value) #checking the guess
+    real <- which(data$realized!=0) #the real event
+    if(check & (real %in% ids) ) ids <- real
     #if we have dyads with the same probabilty, sample 1 at random
     if(length(ids) > 1) ids <- sample(ids, 1) #with equal probability
     guess <- data.frame(obs.time=data$time[ids],rate=data$ratei[ids],
                         predicted.sender=data$sender[ids],predicted.receiver=data$receiver[ids])
   })
+
   guess <- do.call(rbind,guess) #combining the results
   rownames(guess) <- NULL #making them null
   #now to check how well the model did in terms of picking the "best" dyad
@@ -1148,13 +1161,85 @@ gof_rem <- function(object,rseed=NULL,...){
   prop.correct <- Y/N
   prop.sender <- Y_sender/N
   prop.receiver <- Y_receiver/N
-  gof <- list(props = data.frame(Type = c("dyad", "sender", "receiver"),
+  gof <- list(props = data.frame(Formation = c("Dyadic", "Sender", "Receiver"),
                                  Events = N,
-                                 N_Correct = c(Y,Y_sender,Y_receiver),
-                                 Prop_Correct=c(prop.correct,prop.sender,prop.receiver)),
-              edgelist = guess)
+                                 Correct = c(Y,Y_sender,Y_receiver),
+                                 Prop=c(prop.correct,prop.sender,prop.receiver)),
+              edgelist = guess,
+              match_realized=realized,
+              estimated_rem=object)
+  class(gof) <- "dream_gof"
   gof
 
+}
+
+
+#' Print Method for `dream_gof` Model
+#'
+#' @param x An object of class `dream_gof`.
+#' @param digits The number of digits to print after the decimal point.
+#' @param ... Additional arguments (currently unused).
+#' @return No return value. Prints out the main results of a 'dream_gof' object.
+#' @export
+print.dream_gof <- function(x,digits=5,...){
+  cat("Relational Event Model Goodness-of-Fit\n")
+  cat("\nFitted REM Call:\n")
+  print(x$estimated_rem$call)
+  cat("\n")
+  cat("Goodness-of-Fit Information: \n")
+  rownames(x$props) <- NULL
+  x$props$Prop <- round(x$props$Prop,digits)
+  print(x$props)
+  y<-ifelse(x$match_realized,"Default to realized event", "Sample from the set")
+  cat("\nMethod for handling multiple hazards that match the realized event hazard:\n")
+  cat("  -",y)
+  invisible(x)
+}
+
+
+#' Summary Method for `dream_gof` Objects
+#'
+#' Summarizes the results of a goodness-of-fit assessment for
+#' estimated relational event models.
+#'
+#' @param object An object of class `dream_gof`.
+#' @param digits The number of digits to print after the decimal point.
+#' @param ... Additional arguments (currently unused).
+#' @return A list of summary statistics for the goodness-of-fit assessment.
+#' @export
+#'
+summary.dream_gof <- function(object,digits=5,...){
+  new.table <- object$props
+  rownames(new.table) <- NULL
+  new.table$Prop <- round(new.table$Prop,digits)
+  res <- list(props = new.table,
+              call=object$estimated_rem$call,
+              nevents=object$estimated_rem$n.events,
+              nullevents=object$estimated_rem$null.events,
+              matching = object$match_realized)
+  class(res) <- "summary.dream_gof"
+  return(res)
+}
+
+#' Print Method for `summary.dream_gof` Model
+#'
+#' @param x An object of class `summary.dream_gof`
+#' @param digits The number of digits to print after the decimal point.
+#' @param ... Additional arguments (currently unused).
+#' @return No return value. Prints out the main results of a `summary.dream_gof` summary object.
+#' @export
+print.summary.dream_gof <- function(x,digits=5,...){
+  cat("Relational Event Model Goodness-of-Fit\n")
+  cat("\nFitted REM Call:\n")
+  print(x$call)
+  cat("\n")
+  cat("Relational Event Sequence Information:\n")
+  cat("The number of realized events =",x$nevents,"\nThe number of control events =", x$nullevents,"\n")
+  cat("\nGoodness-of-Fit Information Based on Predicted Event Hazards: \n")
+  print(x$props)
+  y<-ifelse(x$matching,"Default to realized event\n", "Sample from the set\n")
+  cat("\nMethod for handling multiple hazards if they match the realized event hazard:\n")
+  cat("  -",y)
 }
 
 
@@ -1263,6 +1348,82 @@ plot.dream_rem <- function(x,type=c("std.deviance", "schoenfeld"),...) {
   }
 }
 
+
+
+#' Plot method for `dream_gof` Relational Event Model Goodness-of-Fits
+#'
+#' Creates barplots of a `dream_gof` to plot the proportion of
+#' event dyads, senders, and receivers that are correctly specified.
+#'
+#' @param x An object of class `dream_gof`.
+#' @param ... Additional arguments for the barplot method.
+#' @importFrom graphics text
+#' @importFrom graphics barplot
+#' @details
+#' Generate plots for `dream_gof` relational event model goodness-of-fits.
+#' @examples
+#'#Creating a psuedo one-mode relational event sequence with ordinal timing
+#'relational.seq <- simulate_rem_seq(n_actors = 8,
+#'                                   n_events = 50,
+#'                                   inertia = TRUE,
+#'                                   inertia_p = 0.10,
+#'                                   sender_outdegree = TRUE,
+#'                                   sender_outdegree_p = 0.05)
+#'
+#'#Creating a post-processing event sequence for the above relational sequence
+#'post.processing <-  create_res(type = "one-mode",
+#'                               ordinal = TRUE,
+#'                                riskset = "fixed",
+#'                               time = relational.seq$eventID,
+#'                               sender = as.character(relational.seq$sender),
+#'                               receiver = as.character(relational.seq$target),
+#'                               case_control=TRUE,
+#'                               n_controls = 5)
+#'
+#'#Computing the sender-outdegree statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_degree(formation = "sender-outdegree",
+#'                                   data = post.processing,
+#'                                   halflife = 2)
+#'
+#'#Computing the inertia/repetition statistic for the above post-processing
+#'#one-mode relational event sequence
+#'post.processing <- dreamstats_repetition(data = post.processing,
+#'                                         halflife = 2)
+#'
+#'#Fitting an ordinal timing relational event model to the above one-mode relational
+#'#event sequence
+#'rem <- estimate_rem(~ sender.outdegree + repetition,
+#'                          data=post.processing)
+#'summary(rem) #summary of the relational event model
+#'
+#'#the model goodness of fit
+#'gof <- gof_rem(rem,rseed=3718)
+#'plot(gof) #plotting the goodness of fit assessment
+#'@export
+plot.dream_gof <- function(x,...){
+  if(!inherits(x, "dream_gof")) base::stop("Error: The `x` argument must be a `dream_gof` object.")
+  x$props <- x$props[order(x$props$Formation),] #barplot orders the formation types in the plot
+  gofplot <- barplot(Correct ~ Formation,
+                     data=x$props,
+                     ylim=c(0,max(x$props$Events)),
+                     col=c("#B22222", "#377EB8", "#4DAF4A"),
+                     border="black",
+                     xlab="Event Formation Type",
+                     ylab="Number of Predicted Realized Events",
+                     main="Goodness-of-Fit for Fitted Relational Event Model",
+                     family = "serif",
+                     cex.lab = 1,
+                     cex.main = 1.3,
+                     cex.axis = 1.0,
+                     ...)
+  text(x = gofplot,
+       y = x$props$Correct + 2,
+       labels = round(x$props$Prop, 4),
+       family = "serif",
+       font=2)
+
+}
 
 
 

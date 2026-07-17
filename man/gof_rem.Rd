@@ -4,10 +4,16 @@
 \alias{gof_rem}
 \title{Estimate the proportion of dyads predicted by \code{dream_rem} relational event model fits}
 \usage{
-gof_rem(object, rseed = NULL, ...)
+gof_rem(object, realized = TRUE, rseed = NULL, ...)
 }
 \arguments{
 \item{object}{An object of class "dream_rem".}
+
+\item{realized}{How should cases be handled when the largest hazard for a specific event
+is the same for the realized event and one or more control events? TRUE indicates that
+the method will default to the realized event. FALSE indicates that the function will
+take a sample from the set of realized and control events that have the largest event
+hazard.}
 
 \item{rseed}{The random seed for reproducibility of results. When more than 1 dyad has
 the maximum hazard rate, the predicted dyad is selected at random with equal probabilty
@@ -17,10 +23,12 @@ of selecting each dyad will be 1/3.}
 \item{...}{Additional arguments for other methods.}
 }
 \value{
-A \code{list} object that contains the following results:
+A \code{dream_gof} S3 object that contains the following results:
 \itemize{
 \item \code{props} - A \code{data.frame} that contains the proportion of correctly predicted dyads, senders, and targets.
 \item \code{edgelist} - A \code{data.frame} object that contains the predicted and realized relational event sequence.
+\item \code{estimated_rem} - The \code{dream_rem} S3 object provided to the function.
+\item \code{match_realized} - The  \code{realized} argument provided to the function.
 }
 }
 \description{
@@ -73,9 +81,10 @@ rem <- estimate_rem(~ sender.outdegree + repetition,
                          data=post.processing)
 summary(rem) #summary of the relational event model
 
-#the predicted dyadic events
+#the model goodness of fit
 gof <- gof_rem(rem,rseed=3718)
-gof$props #check the proportion of dyads, senders, and targets correctly predicted
+summary(gof) #printing the summary of the goodness of fit assessment
+plot(gof) #plotting the goodness of fit assessment
 gof$edgelist #check the predicted edgelist for the dyadic events
 }
 \references{
